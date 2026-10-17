@@ -37,24 +37,24 @@ describe("resume content normalization", () => {
 
   it("keeps imported summaries separate from self evaluations", () => {
     const normalized = resumeContentFromText("resume.txt", [
-      "张三",
-      "后端工程师",
-      "个人总结",
-      "专注后端开发。",
-      "自我评价",
-      "工程基础扎实。",
+      "張三",
+      "後端工程師",
+      "個人總結",
+      "專注後端開發。",
+      "自我評價",
+      "工程基礎紮實。",
     ].join("\n"));
 
-    expect(normalized.profile.summary).toBe("专注后端开发。");
-    expect(normalized.selfReview).toBe("工程基础扎实。");
+    expect(normalized.profile.summary).toBe("專注後端開發。");
+    expect(normalized.selfReview).toBe("工程基礎紮實。");
   });
 
   it("leaves self evaluation empty when the imported resume does not contain one", () => {
     const normalized = resumeContentFromText("resume.txt", [
-      "张三",
-      "后端工程师",
-      "教育经历",
-      "示例大学 | 本科 | 计算机科学 | 2022 - 2026",
+      "張三",
+      "後端工程師",
+      "教育經歷",
+      "示例大學 | 學士 | 電腦科學 | 2022 - 2026",
     ].join("\n"));
 
     expect(normalized.selfReview).toBe("");
@@ -64,12 +64,12 @@ describe("resume content normalization", () => {
     const normalized = coerceResumeContent({
       ...emptyResume,
       awards: [
-        { name: "全国总决赛三等奖", issuer: "中国高校计算机大赛", date: "2025" },
-        { title: "华东赛区二等奖" },
+        { name: "全國總決賽三等獎", issuer: "中國高校計算機大賽", date: "2025" },
+        { title: "華東賽區二等獎" },
       ],
     });
 
-    expect(normalized.awards).toEqual(["全国总决赛三等奖 中国高校计算机大赛 2025", "华东赛区二等奖"]);
+    expect(normalized.awards).toEqual(["全國總決賽三等獎 中國高校計算機大賽 2025", "華東賽區二等獎"]);
   });
 
   it("removes layout bullets and list numbers without dropping real years", () => {
@@ -77,31 +77,31 @@ describe("resume content normalization", () => {
       ...emptyResume,
       projects: [
         {
-          name: "医疗 AI 项目",
+          name: "醫療 AI 專案",
           role: "",
-          highlights: ["9. AIGC全栈创作者", "🟥模型落地与迭代", "华为 HCIA工程师认证 ●软著/实用新型专利"],
+          highlights: ["9. AIGC全端創作者", "🟥模型落地與迭代", "華為 HCIA工程師認證 ●軟著/實用新型專利"],
         },
       ],
-      awards: ["2025中国高校计算机大赛三等奖"],
-      customSections: [{ title: "主要优势与技能认证", content: "10. 技术驱动艺术\n■高产出与奖项验证" }],
+      awards: ["2025中國高校計算機大賽三等獎"],
+      customSections: [{ title: "主要優勢與技能認證", content: "10. 技術驅動藝術\n■高產出與獎項驗證" }],
     });
 
     expect(normalized.projects[0]?.highlights).toEqual([
-      "AIGC全栈创作者",
-      "模型落地与迭代",
-      "华为 HCIA工程师认证 软著/实用新型专利",
+      "AIGC全端創作者",
+      "模型落地與迭代",
+      "華為 HCIA工程師認證 軟著/實用新型專利",
     ]);
-    expect(normalized.awards).toEqual(["2025中国高校计算机大赛三等奖"]);
-    expect(normalized.customSections?.[0]?.content).toBe("技术驱动艺术\n高产出与奖项验证");
+    expect(normalized.awards).toEqual(["2025中國高校計算機大賽三等獎"]);
+    expect(normalized.customSections?.[0]?.content).toBe("技術驅動藝術\n高產出與獎項驗證");
   });
 
   it("does not mistake decimal values for numbered-list prefixes", () => {
     const normalized = normalizeResumeContent({
       ...emptyResume,
       education: [{
-        school: "示例大学",
-        degree: "本科",
-        major: "计算机科学",
+        school: "示例大學",
+        degree: "學士",
+        major: "電腦科學",
         start: "2022",
         end: "2026",
         highlights: ["GPA 3.8/4.0", "3.8/4.0"],
@@ -115,12 +115,12 @@ describe("resume content normalization", () => {
     const normalized = normalizeResumeContent({
       ...emptyResume,
       experiences: [
-        { company: "示例公司", role: "开发", logo: "icon:building", start: "", end: "", highlights: [] },
-        { company: "示例团队", role: "算法", logo: "icon:cpu", start: "", end: "", highlights: [] },
+        { company: "示例公司", role: "開發", logo: "icon:building", start: "", end: "", highlights: [] },
+        { company: "示例團隊", role: "演算法", logo: "icon:cpu", start: "", end: "", highlights: [] },
       ],
       projects: [
-        { name: "示例项目", role: "", logo: "data:image/png;base64,logo", highlights: [] },
-        { name: "无效图标", role: "", logo: "icon:not-allowed", highlights: [] },
+        { name: "示例專案", role: "", logo: "data:image/png;base64,logo", highlights: [] },
+        { name: "無效圖示", role: "", logo: "icon:not-allowed", highlights: [] },
       ],
     });
 
@@ -131,26 +131,26 @@ describe("resume content normalization", () => {
   });
 
   it("normalizes editor settings without dropping optimization metadata", () => {
-    const metadata = { ...emptyResume, basics: { ...emptyResume.basics, name: "原始简历" } };
+    const metadata = { ...emptyResume, basics: { ...emptyResume.basics, name: "原始履歷" } };
     const stages = {
       analysis: {
         company: "示例公司",
-        title: "示例岗位",
+        title: "示例職缺",
         deadline: null,
-        requirements: ["沟通能力"],
-        keywords: ["沟通"],
+        requirements: ["溝通能力"],
+        keywords: ["溝通"],
         bonusPoints: [],
         risks: [],
-        suggestions: ["突出协作经历"],
+        suggestions: ["突出協作經歷"],
       },
       draft: metadata,
       acceptedChangeIds: ["profile.summary"],
-      editedValues: { "profile.summary": "人工调整后的内容" },
+      editedValues: { "profile.summary": "人工調整後的內容" },
     };
     const normalized = resumeContentInputSchema.parse({
       ...emptyResume,
       editor: {
-        displayName: "测试简历",
+        displayName: "測試履歷",
         themeConfig: { fontFamily: "Inter;}</style><script>alert(1)</script>" },
       },
       _tailoringBaseResume: metadata,
@@ -161,23 +161,23 @@ describe("resume content normalization", () => {
     };
 
     expect(normalized.editor?.themeConfig?.fontFamily).toBe("Inter");
-    expect(normalized._tailoringBaseResume.basics.name).toBe("原始简历");
+    expect(normalized._tailoringBaseResume.basics.name).toBe("原始履歷");
     expect(normalized._optimizationStages).toEqual(stages);
   });
 
   it("preserves optimization stages when the editor rebuilds visible resume fields", () => {
     const source = {
       ...emptyResume,
-      _tailoringBaseResume: { ...emptyResume, basics: { ...emptyResume.basics, name: "原始简历" } },
-      _optimizationMeta: { summary: "优化说明" },
+      _tailoringBaseResume: { ...emptyResume, basics: { ...emptyResume.basics, name: "原始履歷" } },
+      _optimizationMeta: { summary: "優化說明" },
       _optimizationStages: { acceptedChangeIds: ["education.0.highlights.0"] },
     } as ResumeContent;
-    const rebuilt = { ...emptyResume, basics: { ...emptyResume.basics, name: "编辑后的简历" } };
+    const rebuilt = { ...emptyResume, basics: { ...emptyResume.basics, name: "編輯後的履歷" } };
 
     const result = preserveResumeInternalMetadata(rebuilt, source) as ResumeContent & Record<string, unknown>;
     const sourceRecord = source as ResumeContent & Record<string, unknown>;
 
-    expect(result.basics.name).toBe("编辑后的简历");
+    expect(result.basics.name).toBe("編輯後的履歷");
     expect(result._tailoringBaseResume).toEqual(sourceRecord._tailoringBaseResume);
     expect(result._optimizationMeta).toEqual(sourceRecord._optimizationMeta);
     expect(result._optimizationStages).toEqual(sourceRecord._optimizationStages);

@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       resumeContent: input.resumeContent,
     });
   } catch (error) {
-    if (error instanceof Error && error.message === "找不到所选简历版本。") {
+    if (error instanceof Error && error.message === "找不到所選履歷版本。") {
       return Response.json({ message: error.message }, { status: 404 });
     }
     throw error;
@@ -80,10 +80,10 @@ export async function POST(request: Request) {
       optimizationMeta: meta,
     });
   } catch (error) {
-    if (error instanceof Error && error.message === "投递记录不属于该岗位。") {
+    if (error instanceof Error && error.message === "投遞記錄不屬於該職缺。") {
       return Response.json({ message: error.message }, { status: 400 });
     }
-    if (error instanceof Error && error.message === "找不到目标岗位。") {
+    if (error instanceof Error && error.message === "找不到目標職缺。") {
       return Response.json({ message: error.message }, { status: 404 });
     }
     throw error;
@@ -117,6 +117,6 @@ function mergeAnalysisMeta(analysis: JobAnalysis, meta: ResumeOptimizationMeta):
 function cleanMetaText(value?: string | null) {
   const text = value?.trim() ?? "";
   if (!text) return "";
-  if (/待|未知|未识别|目标公司|目标岗位/.test(text)) return "";
+  if (/待|未知|未識別|目標公司|目標職缺/.test(text)) return "";
   return text.length > 100 ? "" : text;
 }

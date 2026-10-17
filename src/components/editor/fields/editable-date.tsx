@@ -57,7 +57,7 @@ export function EditableDate({ label, value, onChange }: EditableDateProps) {
             <Button
               variant="outline"
               className="h-8 w-full cursor-pointer justify-start text-sm font-normal"
-              title={`选择${label}`}
+              title={`選擇${label}`}
             >
               <CalendarDays className="mr-2 h-3.5 w-3.5 text-zinc-400" />
               {displayText ? (

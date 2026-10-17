@@ -106,7 +106,7 @@ function SortableSidebarItem({
     >
       <GripVertical
         className="h-3 w-3 shrink-0 cursor-grab text-zinc-300 active:cursor-grabbing"
-        aria-label={`${section.title} 拖拽排序`}
+        aria-label={`${section.title} 拖曳排序`}
         {...attributes}
         {...listeners}
       />
@@ -136,7 +136,7 @@ function SortableSidebarItem({
       {isRenamable && !isRenaming && (
         <button
           type="button"
-          aria-label={`重命名 ${section.title}`}
+          aria-label={`重新命名 ${section.title}`}
           className="shrink-0 cursor-pointer rounded p-0.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
           onClick={(e) => { e.stopPropagation(); setRenameValue(section.title); setIsRenaming(true); }}
         >

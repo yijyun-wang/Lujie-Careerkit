@@ -389,8 +389,8 @@ export function InterviewWorkspace({
             : null,
           mode,
           context: {
-            company: locale === "en" ? "Target company" : "目标公司",
-            title: locale === "en" ? "Target role" : "目标岗位",
+            company: locale === "en" ? "Target company" : "目標公司",
+            title: locale === "en" ? "Target role" : "目標職缺",
             jd: jdDraft.trim(),
             resumeName: selectedResumeName,
             resume: selectedResume,
@@ -425,7 +425,7 @@ export function InterviewWorkspace({
             : null,
           resume: selectedResume,
           focus: mode,
-          locale: locale === "en" ? "en" : "zh-CN",
+          locale: locale === "en" ? "en" : "zh-TW",
         },
       );
       setActivePreparation(result.record);
@@ -1440,7 +1440,7 @@ async function requestJson<T>(url: string, body?: unknown, method = body === und
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const payload = (await response.json().catch(() => null)) as (T & { message?: string }) | null;
-  if (!response.ok) throw new Error(payload?.message || `请求失败（${response.status}）`);
-  if (!payload) throw new Error("服务未返回有效结果。");
+  if (!response.ok) throw new Error(payload?.message || `請求失敗（${response.status}）`);
+  if (!payload) throw new Error("服務未回傳有效結果。");
   return payload;
 }

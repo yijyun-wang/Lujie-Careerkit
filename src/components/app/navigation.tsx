@@ -1,5 +1,4 @@
 import {
-  Building2,
   ClipboardList,
   FileText,
   FolderArchive,
@@ -16,7 +15,6 @@ export type NavItem = { key: NavKey; labelKey: NavKey; icon: LucideIcon };
 
 export const navItems: NavItem[] = [
   { key: "dashboard", labelKey: "dashboard", icon: LayoutDashboard },
-  { key: "campus", labelKey: "campus", icon: Building2 },
   { key: "resume", labelKey: "resume", icon: FileText },
   { key: "match", labelKey: "match", icon: Target },
   { key: "interview", labelKey: "interview", icon: Mic },

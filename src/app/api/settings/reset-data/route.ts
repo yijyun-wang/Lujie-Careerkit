@@ -7,7 +7,7 @@ export async function POST() {
     return Response.json({ data: await resetAppDataToSample() });
   } catch (error) {
     return Response.json(
-      { message: error instanceof Error ? error.message : "本地数据重置失败。" },
+      { message: error instanceof Error ? error.message : "本地資料重置失敗。" },
       { status: 500 },
     );
   }

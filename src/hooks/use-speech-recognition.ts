@@ -80,11 +80,11 @@ export function useSpeechRecognition(onFinalTranscript: (transcript: string) => 
 
     const Constructor = getSpeechRecognitionConstructor();
     if (!Constructor) {
-      setError("当前浏览器不支持语音输入，请使用最新版 Chrome 或 Edge。");
+      setError("當前瀏覽器不支援語音輸入，請使用最新版 Chrome 或 Edge。");
       return;
     }
     if (!canRequestMicrophone()) {
-      setError("当前浏览器无法访问麦克风，请使用最新版 Chrome 或 Edge 并确认页面为 localhost 或 HTTPS。");
+      setError("當前瀏覽器無法訪問麥克風，請使用最新版 Chrome 或 Edge 並確認頁面為 localhost 或 HTTPS。");
       return;
     }
 
@@ -95,7 +95,7 @@ export function useSpeechRecognition(onFinalTranscript: (transcript: string) => 
       failedRef.current = false;
       setError("");
       setInterimText("");
-      setStatusMessage("正在连接麦克风...");
+      setStatusMessage("正在連線麥克風...");
       setIsPreparing(true);
 
       try {
@@ -115,11 +115,11 @@ export function useSpeechRecognition(onFinalTranscript: (transcript: string) => 
       const recognition = new Constructor();
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = "zh-CN";
+      recognition.lang = "zh-TW";
       recognition.onstart = () => {
         setIsPreparing(false);
         setIsListening(true);
-        setStatusMessage("正在聆听，完成后点击停止。");
+        setStatusMessage("正在聆聽，完成後點選停止。");
       };
       recognition.onresult = (event) => {
         let finalTranscript = "";
@@ -155,20 +155,20 @@ export function useSpeechRecognition(onFinalTranscript: (transcript: string) => 
         setInterimText("");
         setStatusMessage("");
         if (!manuallyStoppedRef.current && !heardSpeechRef.current && !failedRef.current) {
-          setError("没有识别到语音，请靠近麦克风后重试。");
+          setError("沒有識別到語音，請靠近麥克風後重試。");
         }
       };
 
       try {
         recognitionRef.current = recognition;
-        setStatusMessage("麦克风已连接，正在启动语音识别...");
+        setStatusMessage("麥克風已連線，正在啟動語音識別...");
         recognition.start();
       } catch {
         recognitionRef.current = null;
         setIsPreparing(false);
         setIsListening(false);
         setStatusMessage("");
-        setError("语音输入启动失败，请刷新页面或检查浏览器麦克风权限。");
+        setError("語音輸入啟動失敗，請重新整理頁面或檢查瀏覽器麥克風許可權。");
       }
     })();
   }, [isListening, isPreparing]);
@@ -214,17 +214,17 @@ async function checkMicrophoneAccess() {
 function microphoneAccessErrorMessage(reason: unknown) {
   if (reason instanceof DOMException) {
     if (reason.name === "NotAllowedError" || reason.name === "PermissionDeniedError") {
-      return "无法使用麦克风权限，请在浏览器设置中允许后重试。";
+      return "無法使用麥克風許可權，請在瀏覽器設定中允許後重試。";
     }
     if (reason.name === "NotFoundError" || reason.name === "DevicesNotFoundError") {
-      return "没有检测到可用麦克风，请确认系统已接入麦克风并允许浏览器使用。";
+      return "沒有檢測到可用麥克風，請確認系統已接入麥克風並允許瀏覽器使用。";
     }
     if (reason.name === "NotReadableError" || reason.name === "TrackStartError") {
-      return "麦克风可能正被其他应用占用，请关闭占用麦克风的软件后重试。";
+      return "麥克風可能正被其他應用佔用，請關閉佔用麥克風的軟體後重試。";
     }
     if (reason.name === "SecurityError") {
-      return "当前页面无法访问麦克风，请确认使用 localhost 或 HTTPS。";
+      return "當前頁面無法訪問麥克風，請確認使用 localhost 或 HTTPS。";
     }
   }
-  return reason instanceof Error ? reason.message : "麦克风启动失败，请稍后重试。";
+  return reason instanceof Error ? reason.message : "麥克風啟動失敗，請稍後重試。";
 }

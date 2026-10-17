@@ -61,12 +61,12 @@ export const statusMeta: Record<
   ApplicationStatus,
   { label: string; icon: ComponentType<{ className?: string }>; className: string }
 > = {
-  APPLIED: { label: "已投递", icon: FileCheck2, className: "text-primary" },
-  ASSESSMENT: { label: "笔试 / 测评", icon: ListChecks, className: "text-amber-700" },
-  INTERVIEW: { label: "面试中", icon: Mic, className: "text-blue-700" },
+  APPLIED: { label: "已投遞", icon: FileCheck2, className: "text-primary" },
+  ASSESSMENT: { label: "筆試 / 線上測驗", icon: ListChecks, className: "text-amber-700" },
+  INTERVIEW: { label: "面試中", icon: Mic, className: "text-blue-700" },
   OFFER: { label: "Offer", icon: Trophy, className: "text-emerald-700" },
-  REJECTED: { label: "拒绝", icon: XCircle, className: "text-red-700" },
-  ARCHIVED: { label: "归档", icon: Archive, className: "text-zinc-500" },
+  REJECTED: { label: "拒絕", icon: XCircle, className: "text-red-700" },
+  ARCHIVED: { label: "歸檔", icon: Archive, className: "text-zinc-500" },
 };
 
 const pipelineStatuses = visiblePipelineStatuses;
@@ -492,7 +492,7 @@ function AddApplicationForm({
       </div>
       <div className="grid grid-cols-2 gap-3">
         <FormField label={t("fields.source")} required>
-          <SourceSelect name="source" defaultValue="企业官网" required />
+          <SourceSelect name="source" defaultValue="企業官網" required />
         </FormField>
         <FormField label={t("fields.status")} required>
           <PipelineStageSelect
@@ -1041,14 +1041,15 @@ function sourceLabel(source: string, t: PipelineT) {
 function sourceKey(source: string) {
   return (
     {
-      实习僧: "shixiseng",
-      BOSS直聘: "boss",
-      猎聘: "liepin",
-      智联招聘: "zhaopin",
-      前程无忧: "51job",
-      企业官网: "official",
-      内推: "referral",
-      邮件: "email",
+      "104人力銀行": "104",
+      "1111人力銀行": "1111",
+      CakeResume: "cakeresume",
+      Yourator: "yourator",
+      LinkedIn: "linkedin",
+      獵頭: "headhunter",
+      企業官網: "official",
+      內部推薦: "referral",
+      電子郵件: "email",
       其他: "other",
     }[source] ?? "other"
   );

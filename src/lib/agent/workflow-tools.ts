@@ -68,7 +68,7 @@ export const createJdTailoredResumeSchema = z.object({
 }).superRefine((input, context) => {
   if (input.jobId) return;
   for (const key of ["company", "title", "jd"] as const) {
-    if (!input[key]) context.addIssue({ code: "custom", path: [key], message: "创建新岗位定制简历时需要公司、岗位和完整 JD。" });
+    if (!input[key]) context.addIssue({ code: "custom", path: [key], message: "建立新職缺客製履歷時需要公司、職缺和完整 JD。" });
   }
 });
 
@@ -92,13 +92,13 @@ export const updateResumePresentationSchema = z.object({
 export async function createResumeFromExperience(
   input: z.infer<typeof createResumeFromExperienceSchema>,
   settings: EffectiveAiSettings,
-  locale: "zh-CN" | "en",
+  locale: "zh-TW" | "en",
 ) {
   const draft = await generateResumeDraftWithAI({ settings, locale, ...input });
   if (draft.source !== "ai") throw new Error(draft.message);
   const version = await createResumeVersion({
     name: input.resumeName,
-    summary: input.targetRole ? `根据口述经历整理，目标岗位：${input.targetRole}` : "根据口述经历整理的独立简历。",
+    summary: input.targetRole ? `根據口述經歷整理，目標職缺：${input.targetRole}` : "根據口述經歷整理的獨立履歷。",
     content: draft.data,
   });
   return {
@@ -114,12 +114,12 @@ export async function createJdTailoredResume(
 ) {
   const data = await getAppData();
   const existingJob = input.jobId ? data.jobs.find((job) => job.id === input.jobId) : undefined;
-  if (input.jobId && !existingJob) throw new Error("找不到指定岗位，请重新搜索后再试。");
+  if (input.jobId && !existingJob) throw new Error("找不到指定職缺，請重新搜尋後再試。");
   const jd = existingJob?.jd.trim() ? existingJob.jd : input.jd ?? "";
-  if (!jd.trim()) throw new Error("目标岗位没有可用于匹配的完整 JD。");
+  if (!jd.trim()) throw new Error("目標職缺沒有可用於比對的完整 JD。");
   const company = existingJob?.company ?? input.company?.trim() ?? "";
   const title = existingJob?.title ?? input.title?.trim() ?? "";
-  if (!company || !title) throw new Error("创建岗位前需要明确公司和岗位名称。");
+  if (!company || !title) throw new Error("建立職缺前需要明確公司和職缺名稱。");
 
   const baseResume = await getTailoringBaseResume({ resumeVersionId: input.resumeVersionId });
   const analysis = withConfirmedJobIdentity(analyzeJobInput(`${company} - ${title}\n${jd}`), company, title);
@@ -134,7 +134,7 @@ export async function createJdTailoredResume(
   if (tailored.source !== "ai") throw new Error(tailored.message);
   const effectiveAnalysis = mergeTailoringAnalysis(analysis, tailored.meta);
 
-  const job = existingJob ?? await createJob({ company, title, jd, source: "录阶 Agent" });
+  const job = existingJob ?? await createJob({ company, title, jd, source: "錄階 Agent" });
   const version = await createTailoredVersionForJob({
     jobId: job.id,
     resumeVersionId: input.resumeVersionId,
@@ -143,7 +143,7 @@ export async function createJdTailoredResume(
     optimizationMeta: tailored.meta,
   });
   const savedJob = (await getAppData()).jobs.find((item) => item.id === job.id);
-  if (!savedJob) throw new Error("定制简历已生成，但岗位回读失败。");
+  if (!savedJob) throw new Error("客製履歷已生成，但職缺回讀失敗。");
   return {
     operation: "created" as const,
     job: savedJob,
@@ -156,13 +156,13 @@ export async function createJdTailoredResume(
 export async function createInterviewPreparation(
   input: z.infer<typeof createInterviewPreparationSchema>,
   settings: EffectiveAiSettings,
-  locale: "zh-CN" | "en",
+  locale: "zh-TW" | "en",
 ) {
   const data = await getAppData();
   const job = data.jobs.find((item) => item.id === input.jobId);
-  if (!job) throw new Error("找不到指定岗位，请重新搜索后再试。");
+  if (!job) throw new Error("找不到指定職缺，請重新搜尋後再試。");
   const resume = [data.resume, ...data.versions].find((item) => item?.id === input.resumeVersionId);
-  if (!resume) throw new Error("找不到指定简历，请重新搜索后再试。");
+  if (!resume) throw new Error("找不到指定履歷，請重新搜尋後再試。");
 
   const context = createInterviewPreparationInputSchema.parse({
     jobId: job.id,
@@ -186,10 +186,10 @@ export async function createInterviewPreparation(
 export async function createMockInterview(input: z.infer<typeof createMockInterviewSchema>) {
   const data = await getAppData();
   const job = data.jobs.find((item) => item.id === input.jobId);
-  if (!job) throw new Error("找不到指定岗位，请重新搜索后再试。");
+  if (!job) throw new Error("找不到指定職缺，請重新搜尋後再試。");
   const resume = [data.resume, ...data.versions].find((item) => item?.id === input.resumeVersionId);
-  if (!resume) throw new Error("找不到指定简历，请重新搜索后再试。");
-  if (!job.jd.trim()) throw new Error("目标岗位没有可用于模拟面试的完整 JD。");
+  if (!resume) throw new Error("找不到指定履歷，請重新搜尋後再試。");
+  if (!job.jd.trim()) throw new Error("目標職缺沒有可用於模擬面試的完整 JD。");
 
   const session = await interviewService.createSession(createInterviewSessionInputSchema.parse({
     jobId: job.id,
@@ -213,7 +213,7 @@ export async function createMockInterview(input: z.infer<typeof createMockInterv
 export async function updateResumePresentation(input: z.infer<typeof updateResumePresentationSchema>) {
   const data = await getAppData();
   const resume = [data.resume, ...data.versions].find((item) => item?.id === input.resumeVersionId);
-  if (!resume) throw new Error("找不到指定简历，请重新搜索后再试。");
+  if (!resume) throw new Error("找不到指定履歷，請重新搜尋後再試。");
 
   const version = await updateResumeVersion({
     versionId: resume.id,

@@ -91,7 +91,7 @@ function MedicalSectionContent({ section, resume }: { section: any; resume: Resu
             </div>
             {item.description && <p className="mt-1 text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="mt-0.5 text-xs text-gray-400">{resume.language === 'zh' ? '技术栈' : 'Tech'}: {item.technologies.join(', ')}</p>
+              <p className="mt-0.5 text-xs text-gray-400">{resume.language === 'zh' ? '使用技術' : 'Tech'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-1.5 list-disc pl-4">
@@ -158,7 +158,7 @@ function MedicalSectionContent({ section, resume }: { section: any; resume: Resu
             </div>
             {item.description && <p className="mt-1 text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="mt-0.5 text-xs text-gray-400">{resume.language === 'zh' ? '技术栈' : 'Tech'}: {item.technologies.join(', ')}</p>
+              <p className="mt-0.5 text-xs text-gray-400">{resume.language === 'zh' ? '使用技術' : 'Tech'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-1.5 list-disc pl-4">

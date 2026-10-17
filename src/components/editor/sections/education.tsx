@@ -55,8 +55,8 @@ export function EducationSection({ section, onUpdate }: Props) {
                 variant="ghost"
                 size="sm"
                 className="h-7 cursor-pointer p-1 text-zinc-400 hover:text-red-500"
-                aria-label={`删除教育经历第${index + 1}项`}
-                title={`删除教育经历第${index + 1}项`}
+                aria-label={`刪除教育經歷第${index + 1}項`}
+                title={`刪除教育經歷第${index + 1}項`}
                 onClick={() => removeItem(index)}
               >
                 <X className="h-3.5 w-3.5" />

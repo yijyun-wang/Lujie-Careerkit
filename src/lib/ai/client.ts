@@ -11,10 +11,6 @@ export function createAiModel(config: EffectiveAiSettings) {
     name: config.providerId,
     apiKey: config.apiKey || undefined,
     baseURL: config.baseUrl,
-    // Keep reasoning separate from the JSON/text consumed by application tasks.
-    transformRequestBody: config.providerId === "minimax"
-      ? (body) => ({ ...body, reasoning_split: true })
-      : undefined,
   });
 
   return provider(config.model);

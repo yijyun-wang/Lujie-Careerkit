@@ -1,0 +1,1460 @@
+{
+  "app": {
+    "brandName": "錄階",
+    "language": {
+      "label": "語言",
+      "zh-TW": "繁體中文",
+      "en": "English"
+    },
+    "nav": {
+      "campus": "校園徵才資訊庫",
+      "dashboard": "控制中心",
+      "resume": "履歷編輯器",
+      "match": "JD比對優化",
+      "interview": "面試助手",
+      "pipeline": "投遞職缺追蹤",
+      "library": "求職資料庫",
+      "settings": "設定"
+    },
+    "campus": {
+      "any": "不限",
+      "popularCities": "熱門城市",
+      "pageNumber": "輸入頁碼，按 Enter 跳頁",
+      "closeDetails": "關閉招募詳情",
+      "sortLabel": "更改排列方式",
+      "sort": {
+        "updated_desc": "更新時間：從新到舊",
+        "updated_asc": "更新時間：從舊到新",
+        "deadline_asc": "截止時間：從近到遠",
+        "deadline_desc": "截止時間：從遠到近",
+        "company_asc": "公司名稱：依筆畫"
+      },
+      "title": "校園徵才資訊庫",
+      "subtitle": "找公司、看招募方向，快速找到值得進一步了解的機會。",
+      "catalogCount": "{count, number} 筆招募資訊",
+      "searchPlaceholder": "搜尋公司、職缺或專業，多個關鍵字用空格分隔",
+      "clearSearch": "清空搜尋",
+      "locationPlaceholder": "工作地點，如台北",
+      "moreFilters": "更多篩選",
+      "resetAdvanced": "重設這些條件",
+      "clearFilters": "清空篩選",
+      "removeFilter": "移除{filter}：{value}",
+      "filters": {
+        "q": "搜尋招募資訊",
+        "recruitmentType": "招募類型",
+        "target": "畢業屆別",
+        "location": "工作地點",
+        "companyType": "企業性質不限",
+        "industry": "所屬行業不限",
+        "exam": "筆試情況不限"
+      },
+      "fields": {
+        "q": "關鍵字",
+        "company": "公司 / 招募類型",
+        "recruitmentType": "招募類型",
+        "target": "招募對象",
+        "location": "工作地點",
+        "companyType": "企業性質",
+        "industry": "所屬行業",
+        "exam": "筆試情況",
+        "positions": "職缺與專業",
+        "deadline": "截止時間",
+        "updatedAt": "資訊源更新時間"
+      },
+      "deadline": {
+        "dated": "按日期未截止",
+        "expired": "按日期已截止",
+        "unspecified": "無明確日期",
+        "invalid": "日期待查核",
+        "byDate": "以招募公告為準"
+      },
+      "loading": "正在載入招募資訊…",
+      "loadFailed": "暫時無法讀取招募資訊",
+      "loadFailedHint": "招募資訊讀取失敗，請稍後重試。",
+      "retry": "重新載入",
+      "resultCount": "找到 {count, number} 筆資訊",
+      "sortUpdated": "按原表更新時間排列",
+      "details": "詳情",
+      "viewCompany": "檢視{company}的招募詳情",
+      "notProvided": "未提供",
+      "updated": "更新於 {date}",
+      "pagination": "招募資訊分頁",
+      "page": "第 {page} / {pages} 頁",
+      "previous": "上一頁",
+      "next": "下一頁",
+      "noResults": "沒有找到符合條件的資訊",
+      "noResultsHint": "試試更短的關鍵字，或減少篩選條件。",
+      "noDataset": "暫無校園徵才資料",
+      "noDatasetHint": "目前安裝還沒有可用的招募資訊資料。",
+      "recordNotFound": "這筆招募記錄已不存在或暫不可用，可以在校園徵才資訊庫中重新搜尋。",
+      "source": "資料來源於公開網路資訊，經收集、清理與整理。",
+      "referenceNote": "資訊僅供求職參考，可能存在錯漏或更新延遲；",
+      "officialNote": "招募要求、截止時間和投遞方式請以招募方官方公告為準。",
+      "freshnessNote": "資訊僅供求職參考，可能存在錯漏或更新延遲；招募要求、截止時間和投遞方式請以招募方官方公告為準。",
+      "rightsNote": "如發現資訊錯誤，或認為相關內容涉及侵權，請<contact>聯絡專案維護者</contact>，我們將核實並更正或刪除。",
+      "originalDeadline": "原文：{value}",
+      "reviewNote": "資訊待查核：{note}",
+      "openApplication": "開啟投遞入口",
+      "openNotice": "檢視相關公告",
+      "noLinks": "暫無可用的投遞或公告連結。"
+    },
+    "navGroups": {
+      "workflow": "求職流程",
+      "system": "系統"
+    },
+    "sidebar": {
+      "localMode": "本機模式",
+      "encrypted": "API Key 本機加密儲存"
+    },
+    "topbar": {
+      "notifications": "追蹤提醒",
+      "guide": "新手引導",
+      "profile": "本機帳戶"
+    },
+    "header": {
+      "processing": "正在處理...",
+      "addApplication": "新增投遞職缺",
+      "optimizedVersions": "已優化版本 · {count}",
+      "optimizedVersionsHint": "選擇一個歷史優化結果繼續檢視",
+      "clearOptimizedVersions": "清空全部優化版本",
+      "interviewSessions": "已模擬面試 · {count}",
+      "interviewSessionsHint": "繼續未完成練習，或檢視已儲存的回顧報告",
+      "clearInterviewSessions": "清空全部模擬面試",
+      "interviewRecords": "已生成資料 · {count}",
+      "interviewRecordsHint": "按履歷檢視已生成的複習資料、模擬面試與回顧",
+      "clearInterviewRecords": "清空全部面試資料",
+      "preparationRecord": "複習資料",
+      "interviewRecord": "模擬面試",
+      "completed": "已回顧",
+      "inProgress": "進行中",
+      "deleteOptimizedVersion": "刪除優化版本",
+      "deleteInterview": "刪除模擬面試",
+      "deleteInterviewPreparation": "刪除複習資料"
+    },
+    "menu": {
+      "notifications": "追蹤提醒",
+      "profile": "本機帳戶",
+      "close": "關閉選單",
+      "unknownCompany": "未知公司",
+      "unknownTitle": "未知職缺",
+      "followUpDate": "追蹤日期：{date}",
+      "noReminders": "暫無到期追蹤職缺。",
+      "openPipeline": "檢視投遞追蹤",
+      "followUpsDue": "追蹤職缺",
+      "resumeVersions": "履歷版本",
+      "mode": "模式：本機單使用者",
+      "provider": "Provider：{provider}",
+      "backDashboard": "回到控制中心"
+    },
+    "pages": {
+      "resumeOptimizationTitle": "AI履歷優化",
+      "resumeOptimizationSubtitle": "根據目前履歷優化表達清晰度、資訊密度和成果呈現，生成可繼續編輯的專屬版本。",
+      "matchSubtitle": "根據目標 JD 重新梳理履歷重點，強化真實經歷中的比對證據，生成可繼續編輯的專屬版本。",
+      "pipelineSubtitle": "記錄投遞管道、目前階段、面試輪次和追蹤日期，把每個職缺從投遞到 Offer 的進展集中管理。",
+      "interviewSubtitle": "結合所選履歷與目標職缺生成模擬問題，完成逐題練習後獲得結構化回饋與回顧建議。",
+      "defaultSubtitle": "從履歷到 Offer 的台灣求職工作台"
+    },
+    "dashboard": {
+      "metrics": {
+        "submitted": "投遞職缺",
+        "active": "活躍流程",
+        "followUpsDue": "到期追蹤",
+        "offers": "Offer"
+      },
+      "sections": {
+        "actions": "近期處理",
+        "quickStart": "快速開始",
+        "stages": "求職階段"
+      },
+      "emptyActions": "為投遞職缺設定階段日期後，這裡會顯示最近需要處理的三項任務。",
+      "overdueSuffix": "（已到期）",
+      "quickActions": {
+        "resume": "編輯履歷",
+        "match": "JD 比對",
+        "pipeline": "新增投遞",
+        "interview": "模擬面試"
+      },
+      "stages": {
+        "APPLIED": "已投遞",
+        "ASSESSMENT": "筆試 / 線上測驗",
+        "INTERVIEW": "面試中",
+        "OFFER": "Offer",
+        "REJECTED": "拒絕",
+        "ARCHIVED": "歸檔"
+      },
+      "actions": {
+        "READY": "完成 {company} · {title} 的職缺比對",
+        "ASSESSMENT": "準備 {company} · {title} 的筆試 / 線上測驗",
+        "INTERVIEW": "準備 {company} · {title} 面試",
+        "DEFAULT": "追蹤 {company} · {title}"
+      },
+      "schedule": {
+        "stageDate": "階段日期",
+        "deadline": "職缺截止日期",
+        "nextFollowUp": "下次追蹤日期",
+        "suggestedFollowUp": "建議追蹤日期",
+        "appliedAt": "投遞日期",
+        "updatedAt": "最近更新"
+      }
+    },
+    "resumeLibrary": {
+      "title": "我的履歷",
+      "count": "共 {count} 份履歷 · {jobOptimizedCount} 份職缺優化版本 · {generalOptimizedCount} 份通用優化版本",
+      "importing": "解析中...",
+      "import": "匯入履歷",
+      "create": "新建履歷",
+      "search": "搜尋履歷...",
+      "sortRecent": "最近編輯",
+      "sortRecentOptimized": "最近優化",
+      "gridView": "網格檢視",
+      "listView": "列表檢視",
+      "empty": "沒有比對的履歷",
+      "copy": "建立副本",
+      "copySuffix": "副本",
+      "deleteOriginal": "刪除原履歷",
+      "deleteResume": "刪除履歷",
+      "kind": {
+        "original": "原履歷",
+        "optimized": "優化後履歷",
+        "jobOptimized": "職缺優化履歷",
+        "generalOptimized": "通用優化履歷"
+      },
+      "template": {
+        "label": "範本",
+        "main": "主履歷",
+        "version": "版本履歷"
+      },
+      "status": {
+        "saved": "已儲存到本機 SQLite",
+        "importReview": "履歷解析已完成，部分內容由 AI 自動歸類，建議仔細確認後再使用。"
+      },
+      "updatedAt": {
+        "edited": "最近編輯於 {date}",
+        "created": "建立於 {date}",
+        "editedUnknown": "最近編輯時間未知",
+        "createdUnknown": "建立時間未知"
+      },
+      "templates": {
+        "classic": "經典",
+        "modern": "現代",
+        "minimal": "極簡",
+        "professional": "專業",
+        "two-column": "雙欄",
+        "creative": "創意",
+        "ats": "ATS",
+        "academic": "學術",
+        "elegant": "優雅",
+        "executive": "高階主管",
+        "developer": "開發者",
+        "designer": "設計師",
+        "startup": "創業",
+        "formal": "正式",
+        "infographic": "資訊圖",
+        "compact": "緊湊",
+        "euro": "歐式",
+        "clean": "清爽",
+        "bold": "醒目",
+        "timeline": "時間軸",
+        "nordic": "北歐",
+        "corporate": "企業",
+        "consultant": "諮詢",
+        "finance": "金融",
+        "medical": "醫療",
+        "gradient": "漸層",
+        "metro": "都市",
+        "material": "材料",
+        "coder": "程式碼",
+        "blocks": "塊面",
+        "magazine": "雜誌",
+        "artistic": "藝術",
+        "retro": "復古",
+        "neon": "霓虹",
+        "watercolor": "水彩",
+        "swiss": "瑞士",
+        "japanese": "日式",
+        "berlin": "柏林",
+        "luxe": "奢雅",
+        "rose": "玫瑰",
+        "architect": "建築",
+        "legal": "法律",
+        "teacher": "教師",
+        "scientist": "科研",
+        "engineer": "工程師",
+        "sidebar": "側欄",
+        "card": "卡片",
+        "zigzag": "折線",
+        "ribbon": "絲帶",
+        "mosaic": "馬賽克"
+      }
+    }
+  },
+  "resumeSourcePicker": {
+    "title": "選擇履歷",
+    "library": "履歷庫",
+    "upload": "上傳檔案",
+    "doubleClickEdit": "雙擊進入編輯",
+    "empty": "暫無可用履歷，先在履歷編輯器中新建並儲存一份。",
+    "parsing": "正在解析履歷...",
+    "import": "匯入履歷",
+    "waiting": "可能需要一些時間，請保持頁面開啟",
+    "drag": "拖曳或點選上傳",
+    "supported": "支援 PDF / DOC / DOCX / 圖片 / TXT / MD / JSON",
+    "selected": "已選擇 {fileName} · {count} 字",
+    "snapshotOnly": "檔案僅作為本次操作的履歷快照，不會覆寫履歷庫中的內容。"
+  },
+  "jdPreparation": {
+    "uploadJd": "上傳 JD",
+    "uploadUnsupported": "JD 上傳目前支援 txt 或 md 檔案。",
+    "uploadEmpty": "上傳的 JD 檔案內容為空。",
+    "uploadImported": "已從 {fileName} 匯入 {count} 字職位描述。",
+    "aiDialog": {
+      "title": "需要先設定 AI",
+      "message": "請先在設定頁設定 AI，並完成連線測試後再繼續。",
+      "later": "稍後再說",
+      "settings": "前往設定"
+    }
+  },
+  "match": {
+    "steps": {
+      "select": "選擇履歷與 JD",
+      "optimize": "AI 比對優化",
+      "current": "目前履歷",
+      "generalOptimize": "AI 履歷優化",
+      "preview": "預覽並編輯"
+    },
+    "resume": {
+      "original": "原履歷",
+      "mainDetail": "原履歷 · {skills} 項技能 · {projects} 個專案",
+      "originalDetail": "原履歷 · {date}",
+      "optimizedDetail": "優化後履歷 · {date}"
+    },
+    "upload": {
+      "waitingFile": "等待上傳檔案",
+      "selectResume": "請選擇履歷"
+    },
+    "status": {
+      "localParsing": "正在使用本機解析，效果可能不佳...",
+      "parsing": "正在解析履歷，可能需要一些時間...",
+      "imported": "履歷解析已完成，已匯入 {fileName}。",
+      "fallbackImported": "已透過本機規則匯入 {fileName}，請重點檢查欄位歸類和內容完整性。",
+      "fileReadFailed": "檔案讀取失敗。",
+      "localVersionOpened": "已開啟本機優化版本。",
+      "needResume": "請先選擇或上傳一份履歷。",
+      "needJd": "請先貼上職位描述。",
+      "generating": "正在分析 JD 並生成優化履歷...",
+      "generated": "優化結果已生成，右側高亮區域可繼續修改。",
+      "failed": "比對優化失敗，請稍後再試。"
+    },
+    "result": {
+      "generalComplete": "AI優化履歷完成",
+      "jdComplete": "JD比對優化完成",
+      "jdPrefix": "JD比對優化",
+      "back": "返回修改 JD",
+      "track": "加入投遞職缺追蹤"
+    },
+    "resumePickerDescription": "選擇一份作為優化基準 · 共 {count} 份",
+    "form": {
+      "title": "填寫目標 JD",
+      "description": "貼上完整的公司、職缺名稱、工作內容、應徵條件與加分項，錄階會結合所選履歷提煉重點並生成比對版本。",
+      "jdLabel": "公司 / 職缺 / 職位描述 / 應徵條件 / 加分項 *",
+      "jdPlaceholder": "請貼上完整 JD，建議包含公司名稱、完整職缺名稱、工作內容、應徵條件、加分項與業務方向...",
+      "settingsTitle": "優化設定",
+      "settingsDescription": "選擇本次改寫側重點；所有內容都以原履歷事實為邊界，不新增不存在的經歷或資料。"
+    },
+    "preferences": {
+      "impact": "強調專案成果",
+      "impactDescription": "優先突出專案職責與結果證據",
+      "quantify": "補充量化表達",
+      "quantifyDescription": "只重寫已有結果，不編造數字",
+      "ats": "ATS 友好",
+      "atsDescription": "優化關鍵字與格式，通過初篩",
+      "skills": "突出比對技能",
+      "skillsDescription": "優先展示與 JD 對齊的技能"
+    },
+    "currentBase": "目前基準：{name}",
+    "edit": "修改",
+    "generatingButton": "正在生成...",
+    "startButton": "開始 JD比對優化",
+    "aiSetup": {
+      "title": "需要設定 AI",
+      "later": "稍後再說"
+    }
+  },
+  "interview": {
+    "steps": {
+      "setup": "選擇面試素材",
+      "preparation": "生成面試資料",
+      "session": "模擬提問與回答",
+      "report": "AI 回饋回顧"
+    },
+    "resume": {
+      "mainDetail": "原履歷 · {skills} 項技能 · {projects} 個專案",
+      "originalDetail": "原履歷 · {date}",
+      "optimizedDetail": "優化後履歷 · {date}",
+      "uploaded": "上傳履歷",
+      "historySnapshot": "{name}（歷史快照）"
+    },
+    "modes": {
+      "comprehensive": {
+        "label": "綜合模擬",
+        "description": "8 題，涵蓋完整面試流程"
+      },
+      "project": {
+        "label": "專案深挖",
+        "description": "6 題，驗證專案真實性與取捨"
+      },
+      "behavioral": {
+        "label": "行為面試",
+        "description": "6 題，集中練習 STAR 表達"
+      },
+      "hr": {
+        "label": "人資面談",
+        "description": "6 題，練習動機、規劃與反問"
+      }
+    },
+    "categories": {
+      "general": "歷史題目",
+      "selfIntroduction": "自我介紹",
+      "motivation": "職缺動機",
+      "project": "專案深挖",
+      "professional": "專業能力",
+      "behavioral": "行為面試",
+      "failure": "失敗回顧",
+      "reverseQuestion": "反問",
+      "hr": "人資面談"
+    },
+    "setup": {
+      "resumePickerDescription": "選擇本輪回答所依據的履歷 · 共 {count} 份",
+      "title": "填寫目標 JD",
+      "description": "貼上完整的公司、職缺名稱、工作內容與應徵條件，錄階會結合所選履歷生成面試準備資料或模擬問題。",
+      "jdLabel": "公司 / 職缺 / 職位描述 / 應徵條件 / 加分項 *",
+      "jdPlaceholder": "請貼上完整 JD，建議包含公司名稱、完整職缺名稱、工作內容、應徵條件、加分項與業務場景...",
+      "settingsTitle": "面試設定",
+      "settingsDescription": "選擇本輪面試側重點；問題生成後保持固定，不會在作答過程中改變。",
+      "hint": "AI 將結合所選履歷與這段職缺描述生成本輪問題。",
+      "needResume": "請先選擇一份包含有效內容的履歷。",
+      "needJd": "請先填寫職缺 JD。",
+      "generating": "正在生成問題",
+      "start": "生成題目並開始",
+      "generatingPreparation": "正在生成資料",
+      "prepare": "生成面試準備資料"
+    },
+    "preparation": {
+      "badge": "面試準備資料",
+      "edit": { "action": "修改資料", "save": "儲存修改", "cancel": "取消", "saved": "修改已儲存", "failed": "儲存失敗" },
+      "basedOn": "根據目標 JD 與 {resumeName} 生成",
+      "tocTitle": "資料目錄",
+      "capabilityTitle": "職缺能力輪廓",
+      "capabilityDescription": "把 JD 的重點要求與履歷中已有證據放在同一張圖中，先看優先順序，再決定準備順序。",
+      "jdRequirement": "JD 要求",
+      "resumeEvidenceLevel": "履歷證據",
+      "capabilityNote": "雷達圖中的「履歷證據」只表示目前履歷能支援到什麼程度，不代表對你真實能力的評分。",
+      "nextStep": "下一步",
+      "sections": {
+        "overview": "資料概覽",
+        "capability": "能力輪廓",
+        "evidence": "證據與差距",
+        "knowledge": "核心知識",
+        "deepDives": "經歷深挖",
+        "questions": "針對性問題",
+        "plan": "準備計畫"
+      },
+      "evidenceTitle": "職缺條件與履歷證據",
+      "evidenceDescription": "履歷未體現不等於能力缺失；需要確認的資訊會單獨標出。",
+      "resumeEvidence": "履歷依據",
+      "action": "準備動作",
+      "knowledgeTitle": "職缺核心知識",
+      "explanation": "知識講解",
+      "currentEvidence": "你的現有基礎",
+      "targetLevel": "面試前目標",
+      "selfCheck": "自測問題",
+      "deepDiveTitle": "履歷與專案深挖",
+      "contribution": "需要講清的個人貢獻",
+      "followUps": "可能追問",
+      "factsToConfirm": "需要確認",
+      "questionsTitle": "針對性面試問題",
+      "planTitle": "準備計畫",
+      "introductionTitle": "客製自我介紹",
+      "reverseQuestionsTitle": "反問建議",
+      "footerHint": "準備完成後可直接生成本輪題目；模擬階段不會展示答案評分點。",
+      "back": "調整素材",
+      "start": "生成題目並開始",
+      "export": {
+        "button": "匯出資料",
+        "docx": "Word 文件",
+        "docxHint": "可繼續編輯的完整資料",
+        "pdf": "列印 / 儲存為 PDF",
+        "pdfHint": "使用瀏覽器列印並另存為 PDF",
+        "downloaded": "Word 文件已下載。",
+        "printOpened": "列印視窗已開啟，可選擇「另存為 PDF」。",
+        "popupBlocked": "瀏覽器攔截了列印視窗，請允許彈出視窗後重試。",
+        "failed": "匯出失敗，請稍後重試。",
+        "roleFamily": "職缺方向",
+        "assumptions": "資料假設",
+        "requirementLevel": "要求級別",
+        "evidenceLevel": "證據水平",
+        "category": "問題類別",
+        "preparationDirection": "準備方向"
+      },
+      "states": {
+        "direct": "直接證據",
+        "transferable": "可遷移經歷",
+        "notShown": "履歷未體現",
+        "gap": "目前缺口",
+        "confirm": "待確認"
+      },
+      "priorities": {
+        "must": "必須準備",
+        "should": "建議準備",
+        "optional": "有餘力再準備"
+      },
+      "requirementLevels": {
+        "core": "JD 核心要求",
+        "important": "重要要求",
+        "bonus": "加分項"
+      },
+      "evidenceLevels": {
+        "strong": "證據充分",
+        "partial": "部分證據",
+        "limited": "證據有限",
+        "unknown": "尚未體現"
+      }
+    },
+    "session": {
+      "noQuestions": "這次練習沒有可用題目。",
+      "questionList": "面試問題列表",
+      "skipped": "跳過",
+      "questionProgress": "問題 {current} / {total}",
+      "focus": "面試官關注：{focus}",
+      "answer": "你的回答",
+      "answerPlaceholder": "輸入你的回答。本階段不展示 AI 評分，避免打斷模擬節奏。",
+      "previous": "上一題",
+      "saveExit": "儲存並退出",
+      "answerLater": "稍後回答",
+      "saveNext": "儲存並下一題",
+      "finish": "結束本輪並生成回顧"
+    },
+    "report": {
+      "legacyTitle": "歷史面試回饋",
+      "adjust": "調整素材",
+      "dimensions": {
+        "jobFit": "職缺比對",
+        "structure": "表達結構",
+        "evidence": "事實證據",
+        "star": "STAR 完整"
+      },
+      "saved": "報告已自動儲存",
+      "title": "{company} · {title} 模擬面試回顧",
+      "basedOn": "根據職缺 JD、{resumeName} 和本輪回答生成",
+      "strengths": "本輪優勢",
+      "improvements": "優先改進",
+      "questionReview": "逐題回顧",
+      "questionNumber": "面試問題 {number}",
+      "yourAnswer": "你的回答",
+      "unanswered": "未回答 / 跳過",
+      "diagnosis": "問題診斷",
+      "suggestion": "改進建議",
+      "reference": "參考表達",
+      "nextActions": "下一輪建議",
+      "separator": "；",
+      "generating": "正在生成",
+      "practiceAgain": "再練一輪"
+    },
+    "saveState": {
+      "idle": "回答將在輸入後自動儲存",
+      "saving": "正在儲存...",
+      "saved": "已自動儲存",
+      "error": "儲存失敗，請重試"
+    },
+    "status": {
+      "restoring": "正在恢復面試記錄...",
+      "restoreFailed": "面試記錄恢復失敗。",
+      "restoringPreparation": "正在開啟已生成的面試複習資料...",
+      "restorePreparationFailed": "面試複習資料開啟失敗。",
+      "answerSaveFailed": "回答儲存失敗，請重試。",
+      "localParsing": "正在使用本機解析，效果可能不佳...",
+      "parsing": "正在解析履歷，可能需要一些時間...",
+      "imported": "履歷解析已完成，已匯入 {fileName}。",
+      "fallbackImported": "已透過本機規則匯入 {fileName}，請重點檢查欄位歸類和內容完整性。",
+      "fileReadFailed": "檔案讀取失敗。",
+      "questionsGenerated": "模擬面試題已生成，回答會自動儲存。",
+      "questionFailed": "問題生成失敗，請稍後重試。",
+      "generatingQuestions": "正在結合 JD 和履歷生成本輪問題...",
+      "generatingPreparation": "AI 正在結合 JD 和履歷生成面試準備資料...",
+      "preparationGenerated": "面試準備資料已生成。",
+      "preparationFailed": "面試準備資料生成失敗，請稍後重試。",
+      "savingLastAnswer": "正在儲存最後一個回答...",
+      "generatingReport": "AI 正在綜合本輪回答生成回顧報告...",
+      "reportSaved": "面試回顧報告已生成並儲存。",
+      "reportFailed": "報告生成失敗，回答已保留，可以重試。",
+      "answerSavedExit": "本題回答已儲存，可以稍後繼續。",
+      "retrying": "正在沿用本輪素材生成一組新問題..."
+    },
+    "aiSetup": {
+      "title": "需要設定 AI",
+      "later": "稍後再說"
+    }
+  },
+  "pipeline": {
+    "status": {
+      "READY": "準備投遞",
+      "APPLIED": "已投遞",
+      "ASSESSMENT": "筆試 / 線上測驗",
+      "INTERVIEW": "面試中",
+      "OFFER": "Offer",
+      "REJECTED": "拒絕",
+      "ARCHIVED": "歸檔"
+    },
+    "round": {
+      "FIRST": "第一輪面試",
+      "SECOND": "第二輪面試",
+      "THIRD": "第三輪面試",
+      "HR": "人資面談"
+    },
+    "source": {
+      "104": "104人力銀行",
+      "1111": "1111人力銀行",
+      "cakeresume": "CakeResume",
+      "yourator": "Yourator",
+      "linkedin": "LinkedIn",
+      "headhunter": "獵頭",
+      "official": "企業官網",
+      "referral": "內部推薦",
+      "email": "電子郵件",
+      "other": "其他"
+    },
+    "statusDate": {
+      "READY": "職缺截止日期",
+      "APPLIED": "投遞日期",
+      "ASSESSMENT": "筆試 / 線上測驗日期",
+      "INTERVIEW": "面試日期",
+      "OFFER": "Offer 日期",
+      "REJECTED": "拒絕日期",
+      "ARCHIVED": "歸檔日期"
+    },
+    "statusShortDate": {
+      "READY": "截止",
+      "APPLIED": "投遞",
+      "ASSESSMENT": "線上測驗",
+      "INTERVIEW": "面試",
+      "OFFER": "Offer",
+      "REJECTED": "拒絕",
+      "ARCHIVED": "歸檔"
+    },
+    "overview": {
+      "title": "資料總覽",
+      "metrics": {
+        "total": "追蹤職缺",
+        "active": "活躍流程",
+        "interviewRate": "面試轉換率",
+        "offerRate": "Offer 轉換率"
+      },
+      "statusChart": "階段分佈",
+      "sourceChart": "來源組成",
+      "jobCount": "職缺數",
+      "count": "{count}個",
+      "sourceCount": "{count}個 · {percent}%",
+      "noSourceData": "暫無來源資料"
+    },
+    "board": {
+      "dropInto": "鬆開後移入{status}",
+      "empty": "暫無職缺"
+    },
+    "add": {
+      "title": "新增投遞職缺",
+      "description": "記錄職缺、管道和追蹤日期，儲存後會進入下方投遞看板。",
+      "close": "關閉新增投遞視窗",
+      "submit": "新增到追蹤"
+    },
+    "edit": {
+      "title": "編輯投遞資訊",
+      "description": "修改職缺資料、追蹤日期和目前階段；需要徹底移除時可在底部刪除。",
+      "close": "關閉編輯視窗",
+      "deleteConfirm": "刪除「{company} · {title}」這筆投遞記錄？",
+      "delete": "刪除投遞職缺",
+      "cancel": "取消",
+      "save": "儲存修改"
+    },
+    "fields": {
+      "company": "公司",
+      "title": "職缺名稱",
+      "source": "投遞管道",
+      "status": "目前狀態",
+      "stage": "目前階段",
+      "nextFollowUp": "下次追蹤日期",
+      "link": "招募連結",
+      "notes": "投遞備註",
+      "jd": "職缺描述 / JD",
+      "optional": "（可選）"
+    },
+    "placeholders": {
+      "company": "輸入投遞的公司",
+      "title": "例：韌體工程師",
+      "link": "例：官網職缺連結、104 職缺連結",
+      "notes": "例：內部推薦人、目前進度、材料狀態",
+      "jd": "例：工作內容、應徵條件、加分項；可後續補完整 JD",
+      "jdShort": "例：工作內容、應徵條件、加分項"
+    },
+    "card": {
+      "unknownCompany": "未知公司",
+      "unknownTitle": "未知職缺",
+      "application": "職缺",
+      "editAria": "編輯{company}投遞資訊",
+      "editTitle": "編輯投遞資訊",
+      "edit": "編輯",
+      "noNotes": "暫無備註",
+      "source": "管道：{source}",
+      "stageDate": "{label}：{date}",
+      "notRecorded": "未記錄",
+      "followUp": "追蹤：{date}",
+      "notSet": "未設定",
+      "resume": "履歷：{resume}",
+      "unbound": "未繫結",
+      "progress": "投遞進度",
+      "interviewRound": "面試中（{round}）",
+      "dragHint": "整張卡片可拖曳切換階段"
+    },
+    "timeline": {
+      "future": "未到",
+      "current": "目前",
+      "win": "達成",
+      "terminal": "結束",
+      "done": "已過"
+    }
+  },
+  "resumeWorkbench": {
+    "untitled": "未命名履歷",
+    "loading": "正在載入履歷編輯器...",
+    "status": {
+      "saved": "已儲存到本機 SQLite",
+      "importReview": "履歷解析已完成，部分內容由 AI 自動歸類，建議仔細確認後再使用。",
+      "versionNotFound": "未找到該履歷版本，已開啟原履歷",
+      "autoSaving": "正在自動儲存...",
+      "saving": "正在儲存...",
+      "autoSaved": "已自動儲存到本機 SQLite",
+      "mainSaved": "原履歷已儲存到本機 SQLite",
+      "resumeSaved": "履歷已儲存到本機 SQLite",
+      "autoSaveFailed": "自動儲存失敗，請點選儲存重試",
+      "saveFailed": "儲存失敗，請稍後重試",
+      "localParsing": "正在使用本機備援解析，效果可能不佳...",
+      "fallbackImported": "已使用本機規則匯入，請重點檢查欄位歸類和內容完整性。",
+      "importing": "正在解析並匯入履歷，可能需要一些時間，請勿離開此頁面...",
+      "importFailed": "匯入失敗：{message}",
+      "retryLater": "請稍後重試",
+      "optimizing": "正在 AI 優化履歷，可能需要一些時間...",
+      "optimizeDone": "AI 優化已完成，已生成新版本，請仔細複核後使用。",
+      "optimizeFailed": "AI 優化失敗：{message}",
+      "exporting": "正在匯出...",
+      "exported": {
+        "pdf": "PDF 已匯出",
+        "word": "Word 已匯出",
+        "image": "圖片已匯出"
+      },
+      "exportFailed": "匯出失敗，請稍後重試",
+      "parsed": "解析完成",
+      "unsaved": "未儲存"
+    },
+    "aiSetup": {
+      "title": "需要設定 AI",
+      "later": "稍後再說",
+      "optimizeMessage": "請先在設定頁設定並測試可用的模型服務。AI 優化履歷暫不支援本機備援。",
+      "applicationMessage": "生成求職信和簡短訊息需要可用的 AI 模型服務。請先在設定頁完成設定並測試連線。"
+    },
+    "toolbar": {
+      "back": "返回我的履歷",
+      "resumeName": "履歷名稱",
+      "rename": "修改履歷名稱",
+      "meta": "範本 {template} · {kind}",
+      "mainResume": "主履歷",
+      "versionResume": "版本履歷",
+      "undo": "復原",
+      "redo": "重做",
+      "optimizing": "優化中...",
+      "optimize": "AI分析履歷",
+      "applicationMessage": "求職信",
+      "export": "匯出",
+      "closeTheme": "關閉主題",
+      "theme": "主題",
+      "hidePreview": "隱藏預覽",
+      "showPreview": "顯示預覽",
+      "save": "儲存"
+    },
+    "templateBar": {
+      "label": "範本"
+    },
+    "exportDialog": {
+      "title": "匯出履歷",
+      "description": "選擇匯出格式下載目前履歷。",
+      "close": "關閉匯出視窗",
+      "exporting": "正在匯出...",
+      "cancel": "取消",
+      "formats": {
+        "pdf": {
+          "title": "PDF",
+          "subtitle": "按分頁匯出"
+        },
+        "word": {
+          "title": "Word",
+          "subtitle": "可編輯，版式近似"
+        },
+        "image": {
+          "title": "PNG 圖片",
+          "subtitle": "分頁高解析長圖"
+        }
+      }
+    },
+    "diagnosisDialog": {
+      "title": "AI 履歷診斷",
+      "description": "先分析目前履歷，再由你選擇要處理的問題和優化方向。診斷不會修改原履歷。",
+      "analyzing": "正在分析履歷...",
+      "analyzingHint": "檢查行動與結果、事實證據、表達清晰度和結構，不使用機械的 STAR 打分。",
+      "startHint": "分析只會讀取去識別化後的目前履歷，不會修改或覆寫任何內容。",
+      "analysisDone": "履歷診斷完成。",
+      "analysisFailed": "履歷診斷失敗，請稍後重試。",
+      "summary": "診斷概覽",
+      "issuesTitle": "診斷問題",
+      "issuesHint": "可由 AI 安全改寫的問題會預設選擇；缺少的真實資訊需要先補充，GPA、日期等硬事實矛盾需要先核實。",
+      "selectedCount": "已選擇 {count} 項",
+      "noIssues": "目前沒有發現需要優先處理的明顯問題。你可以關閉視窗繼續使用原履歷。",
+      "severity": {
+        "high": "優先處理",
+        "medium": "建議處理",
+        "low": "可選改進"
+      },
+      "groupCount": "共 {count} 項，已選擇 {selected} 項",
+      "evidence": "履歷原文：{evidence}",
+      "suggestion": "建議：{suggestion}",
+      "userSupplement": "需在編輯器補充",
+      "userConfirmation": "需在編輯器核實",
+      "preferencesTitle": "如何優化",
+      "preferencesHint": "優化只會處理你勾選的問題，並始終保留原履歷事實。",
+      "preferences": {
+        "clarity": {
+          "title": "表達更清楚",
+          "description": "明確個人行動和貢獻，減少模糊職責。"
+        },
+        "impact": {
+          "title": "突出行動與結果",
+          "description": "使用已有證據強化「行動 + 方法 + 結果」。"
+        },
+        "concise": {
+          "title": "更加精簡",
+          "description": "壓縮重複和冗長句子，保留重要資訊。"
+        },
+        "ats": {
+          "title": "ATS 友好",
+          "description": "使用一般表達和已有事實支援的技能關鍵字。"
+        }
+      },
+        "additionalDirection": {
+          "label": "告訴 AI 怎麼改",
+          "optional": "可選",
+          "placeholder": "例如：保留有效建議，但不要調整 GPA；把專案經歷寫得更具體，把「協助」改成明確的個人行動，整體語氣保持克制。",
+          "hint": "可以直接說明要改哪些內容、如何表達，以及哪些建議不要採納。AI 只處理你勾選的問題，並繼續遵守不編造事實的邊界。"
+        },
+      "optimizing": "正在按你的選擇生成優化版本...",
+      "optimizationFailed": "優化失敗，請稍後重試。",
+      "close": "暫不優化",
+      "startAnalysis": "開始分析",
+      "reanalyze": "重新分析",
+      "optimizeSelected": "優化已選 {count} 項",
+      "optimizingButton": "正在優化..."
+    },
+    "applicationMessageDialog": {
+      "title": "求職信與簡短訊息",
+      "description": "根據目前履歷和職位描述生成可直接使用的申請文字。AI 只會使用你提供的真實資訊。",
+      "kinds": {
+        "coverLetter": {
+          "title": "求職信",
+          "description": "適合 104 / CakeResume 應徵信、電子郵件和正式投遞，完整、禮貌並突出職缺比對。",
+          "extraPlaceholder": "例如：可於一個月內到職；關注該團隊的產品方向。只填寫真實情況。"
+        },
+        "greeting": {
+          "title": "簡短訊息",
+          "description": "適合 LinkedIn 私訊、104 主動應徵等簡短訊息，先講到職條件和核心比對點。",
+          "extraPlaceholder": "例如：可於一個月內到職，期望工作地點為新竹或台北，具 5 年韌體開發經驗。"
+        }
+      },
+      "jdLabel": "職位描述 / JD",
+      "jdPlaceholder": "貼上 104 / LinkedIn 等平台的完整職缺描述，包括工作內容、應徵條件和加分項。",
+      "extraLabel": "補充資訊",
+      "extraHint": "選填，不會擅自推測",
+      "resultLabel": "生成結果",
+      "editableHint": "可以直接修改後複製",
+      "jdRequired": "請先貼上職位描述 / JD。",
+      "generating": "正在結合履歷和職位要求生成...",
+      "done": "生成完成，請核對事實後使用。",
+      "failed": "生成失敗，請稍後重試。",
+      "copied": "已複製",
+      "copyFailed": "複製失敗，請手動選擇文字複製。",
+      "close": "關閉",
+      "copy": "複製文字",
+      "generate": "生成",
+      "regenerate": "重新生成",
+      "generatingButton": "生成中..."
+    },
+    "themePanel": {
+      "title": "主題編輯",
+      "description": "顏色、字型和頁面密度會即時作用到右側預覽。",
+      "close": "關閉主題面板",
+      "recommendedColors": "推薦配色",
+      "presets": {
+        "deep": "深藍灰",
+        "gray": "冷靜灰",
+        "blue": "經典藍",
+        "gold": "穩重金"
+      },
+      "primaryColor": "主色",
+      "accentColor": "強調色",
+      "font": "字型",
+      "fontHint": "使用本機已安裝的字型；未安裝所選字型時，預覽和 PDF、圖片匯出均使用系統替代字型。",
+      "fontSize": "字級",
+      "fontSizes": {
+        "small": "小",
+        "medium": "中",
+        "large": "大"
+      },
+      "logoSize": "Logo / 圖示大小",
+      "logoSizes": {
+        "small": "小",
+        "medium": "中",
+        "large": "大"
+      },
+      "lineSpacing": "行距",
+      "sectionSpacing": "模組間距",
+      "margins": "邊界",
+      "margin": {
+        "top": "上",
+        "right": "右",
+        "bottom": "下",
+        "left": "左"
+      },
+      "avatarStyle": "頭像樣式",
+      "avatar": {
+        "oneInch": "大頭照",
+        "circle": "圓形"
+      },
+      "reset": "重設主題"
+    }
+  },
+  "optimizationResult": {
+    "summaryTitle": "優化結果總結",
+    "openEditor": "進入編輯器修改",
+    "openEditorAria": "進入編輯器修改優化後履歷",
+    "before": "原履歷",
+    "after": "優化後",
+    "afterSubtitle": "已生成優化後履歷，可進入編輯器繼續微調。",
+    "untitled": "未命名履歷",
+    "review": {
+      "draftReady": "AI 修改草稿已生成，請逐項審閱後儲存。",
+      "saved": "已按你的選擇儲存為新的履歷版本。",
+      "workflowAnalyze": "AI履歷分析",
+      "workflowReview": "逐項審閱確認編輯",
+      "workflowSave": "儲存AI優化履歷",
+      "pageTitle": "逐項審閱 AI 修改",
+      "pageDescription": "你可以逐項採納、取消或直接修改 AI 建議；儲存後只更新這份通用優化版本，原履歷不會改變。",
+      "title": "修改項審閱",
+      "description": "修改按履歷模組摺疊分組。取消採納後，右側預覽會立即恢復該項原文。",
+      "acceptedCount": "已採納 {accepted} / {total} 項",
+      "groupCount": "已採納 {accepted} / {total} 項",
+      "acceptAll": "全部採納",
+      "rejectAll": "全部取消",
+      "accepted": "採納",
+      "rejected": "不採納",
+      "original": "履歷原文",
+      "suggestion": "AI 建議（可直接修改）",
+      "restore": "恢復 AI 建議",
+      "reason": "修改依據：",
+      "genericReason": "根據你選擇的優化方向，提升表達清晰度和資訊有效性。",
+      "itemField": "{field} · 第 {index} 項修改",
+      "cancel": "返回原履歷",
+      "save": "儲存AI優化履歷",
+      "saving": "正在儲存",
+      "versionSummary": "經逐項審閱後儲存的 AI 優化履歷版本。",
+      "saveFailed": "儲存審閱結果失敗，請稍後重試。",
+      "selectAtLeastOne": "請至少採納一項修改；如果不需要這些修改，可以返回原履歷。",
+      "noChanges": "AI 沒有產生可見的文字修改，無需建立新版本。",
+      "sections": {
+        "summary": "個人總結與自我評價",
+        "education": "教育背景",
+        "experiences": "工作經歷",
+        "internships": "實習經歷",
+        "projects": "專案經歷",
+        "skills": "技能特長",
+        "awards": "證照",
+        "customSections": "自訂模組"
+      },
+      "fields": {
+        "summary": "個人總結",
+        "selfReview": "自我評價",
+        "highlight": "經歷要點",
+        "skills": "技能順序與表述",
+        "awards": "證書與獎項",
+        "customContent": "模組正文"
+      }
+    }
+  },
+  "settings": {
+    "languageTitle": "語言",
+    "languageDescription": "切換應用介面語言。履歷正文、職缺 JD 和本機資料不會被自動翻譯。",
+    "localDataTitle": "本機資料",
+    "localDataDescription": "可以只移除內建範例，或清空全部本機業務資料和 AI 設定後重新恢復範例。",
+    "clearSampleConfirm": "一鍵清空全部內建範例職缺、範例履歷及其生成資料？你自己建立的資料和 AI 設定不會被刪除。",
+    "clearingSample": "正在清空範例資料",
+    "clearSample": "一鍵清空範例資料",
+    "clearSampleSuccess": "範例資料已清空，你自己建立的資料均已保留。",
+    "clearSampleFailed": "範例資料清理失敗。",
+    "resetConfirm": "清空本機 SQLite 中的履歷、投遞進度、面試記錄和 AI 設定，並恢復專案內建範例資料？",
+    "resetting": "正在恢復範例資料",
+    "reset": "重設並恢復範例資料",
+    "resetFailed": "本機資料重設失敗。",
+    "ai": {
+      "title": "AI 模型設定",
+      "model": "模型",
+      "providerPlaceholder": "選擇 Provider",
+      "modelPlaceholder": "選擇模型",
+      "customModel": "手動輸入模型 ID",
+      "customModelPlaceholder": "例如 gpt-5.5 / gemini-3.8-flash / openai/gpt-5.5",
+      "apiKey": "API Key",
+      "apiKeyOptional": "API Key（可選）",
+      "apiKeySavedPlaceholder": "已儲存，留空表示沿用",
+      "apiKeyPlaceholder": "貼上你的 API Key",
+      "showAgent": "顯示 Agent 小助手",
+      "savedKey": "已儲存 API Key",
+      "missingKey": "未儲存 API Key",
+      "runtime": "執行模式",
+      "runtimeLocal": "本機模式",
+      "dataLocation": "資料位置",
+      "keyStorage": "金鑰儲存",
+      "testStatus": "測試狀態",
+      "deleteKey": "刪除 Key",
+      "testing": "測試中...",
+      "test": "測試連線",
+      "saving": "儲存中...",
+      "save": "儲存設定",
+      "selected": "{provider} 已選中，儲存後生效。",
+      "deletingKey": "正在刪除已儲存的 API Key...",
+      "savingSettings": "正在儲存 AI 設定...",
+      "saveFailed": "AI 設定儲存失敗。",
+      "keyDeleted": "AI Key 已刪除。",
+      "settingsSaved": "AI 設定已儲存。",
+      "keyDeletedStatus": "已刪除 API Key，並關閉 AI 功能。",
+      "settingsSavedStatus": "AI 設定已儲存，建議立即測試連線。",
+      "testingConnection": "正在測試連線...",
+      "testFailed": "連線測試失敗。",
+      "testComplete": "連線測試完成。",
+      "status": {
+        "success": "已通過",
+        "failed": "失敗",
+        "untested": "未測試"
+      }
+    }
+  },
+  "editor": {
+    "sections": {
+      "personalInfo": "個人資訊",
+      "summary": "個人簡介",
+      "workExperience": "工作經歷",
+      "internshipExperience": "實習經歷",
+      "education": "教育背景",
+      "skills": "技能特長",
+      "projects": "專案經歷",
+      "certifications": "證照",
+      "selfEvaluation": "自我評價",
+      "languages": "語言能力",
+      "github": "GitHub 專案",
+      "qrCodes": "QR Code",
+      "custom": "自訂模組"
+    },
+    "sidebar": {
+      "sections": "履歷模組",
+      "addSection": "新增模組"
+    },
+    "invalidSectionContent": "模組內容格式異常",
+    "aiPolish": "AI 優化",
+    "toolbar": {
+      "preview": "預覽",
+      "smartOnePage": "智慧一頁",
+      "zoomOut": "縮小預覽",
+      "zoomIn": "放大預覽"
+    },
+    "mobile": {
+      "edit": "編輯",
+      "preview": "預覽"
+    },
+    "fields": {
+      "fullName": "姓名",
+      "jobTitle": "目標職缺",
+      "email": "電子郵件",
+      "phone": "電話",
+      "location": "所在地",
+      "website": "個人網站",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "wechat": "LINE ID",
+      "age": "年齡",
+      "gender": "性別",
+      "politicalStatus": "兵役狀況",
+      "ethnicity": "國籍",
+      "hometown": "戶籍地",
+      "maritalStatus": "婚姻狀況",
+      "yearsOfExperience": "工作年限",
+      "educationLevel": "最高學歷",
+      "description": "描述",
+      "company": "公司",
+      "position": "職位",
+      "logo": "Logo / 常用圖示",
+      "uploadLogo": "上傳 Logo",
+      "replaceLogo": "替換 Logo",
+      "removeLogo": "移除",
+      "commonIcons": "常用圖示",
+      "chooseIcon": "選擇圖示",
+      "changeIcon": "更換圖示",
+      "iconNames": {
+        "building": "公司",
+        "briefcase": "工作",
+        "code": "程式碼",
+        "cpu": "AI / 技術",
+        "chart": "資料分析",
+        "palette": "設計創意",
+        "rocket": "創業專案",
+        "users": "團隊協作",
+        "landmark": "機構",
+        "graduation-cap": "教育",
+        "book-open": "研究學習",
+        "trophy": "獎項",
+        "shield-check": "安全認證",
+        "globe": "全球 / 網路",
+        "mail": "電子郵件",
+        "phone": "電話"
+      },
+      "logoUploadFailed": "請上傳 4MB 以內的 PNG、JPG 或 WebP 圖片",
+      "startDate": "開始時間",
+      "endDate": "結束時間",
+      "highlights": "亮點",
+      "technologies": "技術/關鍵字",
+      "institution": "學校",
+      "degree": "學歷",
+      "field": "科系",
+      "gpa": "GPA",
+      "skillCategory": "技能分類",
+      "projectName": "專案名稱",
+      "certName": "證書名稱",
+      "issuer": "頒發機構",
+      "certDate": "日期",
+      "language": "語言",
+      "proficiency": "熟練程度",
+      "repoUrl": "Repository 網址",
+      "repoName": "Repository 名稱",
+      "stars": "Stars",
+      "qrAutoGenerate": "自動識別連結",
+      "qrLabel": "標籤",
+      "qrUrl": "連結",
+      "qrUrlInvalid": "連結格式不正確",
+      "qrAdd": "新增 QR Code",
+      "addItem": "新增一項",
+      "clear": "清空",
+      "dateDisplay": "{year}-{month}",
+      "months": {
+        "01": "01",
+        "02": "02",
+        "03": "03",
+        "04": "04",
+        "05": "05",
+        "06": "06",
+        "07": "07",
+        "08": "08",
+        "09": "09",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      }
+    }
+  },
+  "firstUseTour": {
+    "progress": "第 {current} / {total} 步",
+    "start": "開始了解",
+    "previous": "上一步",
+    "next": "下一步",
+    "finish": "開啟求職之旅",
+    "skip": "跳過引導",
+    "celebrationAnnouncement": "求職之旅正式開啟，祝你順利拿到心動的 Offer！",
+    "steps": {
+      "welcome": {
+        "title": "第一次使用錄階？\n先看教學",
+        "description": "錄階會陪你完成從基礎履歷、職缺比對、面試準備、投遞追蹤到收到 Offer 的完整流程。"
+      },
+      "dashboard": {
+        "title": "控制中心是你的求職總覽",
+        "description": "投遞進度、近期任務、面試安排和 Offer 都會集中顯示在這裡。剛開始沒有資料是正常的，完成後面的流程後這裡會自動更新。"
+      },
+      "settings": {
+        "title": "開始前，先連線 AI",
+        "description": "在設定中選擇 AI 服務，填寫 API Key，儲存後測試連線。你的 Key 會加密儲存在本機，不會寫入專案程式碼。"
+      },
+      "agent": {
+        "title": "用錄階 Agent 直接說出你要做的事",
+        "description": "點選右下角的錄階 Agent，可以搜尋職缺、投遞和去識別化履歷，也能在你選擇參數並確認後建立履歷、生成職缺客製版本、面試資料與模擬面試、切換範本或更新投遞卡片。它仍是實驗功能，不會刪除業務資料。"
+      },
+      "resume": {
+        "title": "先準備一份基礎履歷",
+        "description": "可以匯入已有履歷，也可以從頭新建。原履歷會一直保留，AI 分析和職缺優化會生成獨立版本，不會直接覆寫原稿。"
+      },
+      "campus": {
+        "title": "在校園徵才資訊庫尋找機會",
+        "description": "按公司、職缺關鍵字、畢業屆別和工作地點篩選招募資訊，開啟詳情檢視要求與投遞入口。資訊請以招募方官方公告為準；目前安裝未配置招募資料時，這裡會顯示空狀態。"
+      },
+      "match": {
+        "title": "再針對具體職缺做 JD 比對",
+        "description": "選擇一份履歷並貼上完整 JD，錄階會生成職缺客製履歷，同時保留優化前後內容並建立對應職缺檔案。"
+      },
+      "interview": {
+        "title": "圍繞同一個職缺準備面試",
+        "description": "先生成結構化面試準備資料，再進行模擬問答，最後檢視 AI 回顧。選擇職缺客製履歷時，資料會優先關聯到對應職缺。"
+      },
+      "pipeline": {
+        "title": "用投遞追蹤記錄求職進展",
+        "description": "把職缺更新為待投遞、已投遞、筆試、面試或 Offer，並記錄階段日期和下次追蹤時間。控制中心會據此提醒你。"
+      },
+      "library": {
+        "title": "所有成果會整理到求職資料庫",
+        "description": "按職缺可以檢視一套完整檔案，按分類可以集中查詢履歷、原始 JD 和面試資料。以後不需要再去各頁面翻找歷史成果。"
+      }
+    }
+  },
+  "careerLibrary": {
+    "title": "求職資料庫",
+    "sampleJob": "範例職缺",
+    "summary": "共 {jobs} 個職缺檔案 · {artifacts} 份系統生成成果",
+    "groups": { "job": "按職缺", "type": "按分類" },
+    "searchJobs": "搜尋公司、職缺或城市...",
+    "searchArtifacts": "搜尋資料名稱、公司或職缺...",
+    "sortLabel": "資料排序",
+    "sortRecent": "最近更新",
+    "sortOldest": "最早更新",
+    "emptyTitle": "還沒有可歸檔的成果",
+    "emptyDescription": "完成 JD 比對、履歷優化或面試準備後，系統生成的成果會自動出現在這裡。",
+    "emptySearch": "沒有找到符合目前搜尋的資料。",
+    "count": "{count} 份",
+    "jobCount": "{count} 個職缺",
+    "categoryCount": "{count} 份",
+    "updatedAt": "最近更新於 {date}",
+    "delete": "刪除資料",
+    "deleteArtifactConfirm": "刪除「{name}」？只會刪除目前這份資料，其他職缺資料不會受影響。此操作無法復原。",
+    "editArtifactName": "修改資料標題",
+    "doubleClickToRename": "{name}（雙擊修改標題）",
+    "unknownCompany": "該公司",
+    "unknownJob": "該職缺",
+    "deleteArchiveConfirm": "刪除「{name}」職缺檔案？\n\n將永久刪除：\n• 原始 JD 與職缺分析\n• {resumes} 份職缺優化履歷\n• {preparations} 份面試準備資料\n• {interviews} 次模擬面試與回顧\n• {applications} 筆投遞追蹤記錄\n\n你的原始履歷不會被刪除。此操作無法復原。",
+    "deleteAnalysisConfirm": "刪除「{name}」的原始 JD 與職缺分析？其他履歷、面試資料和投遞追蹤記錄不會受影響。此操作無法復原。",
+    "deleteQuestionsConfirm": "刪除這次模擬面試的全部問題與回答？AI 回顧會保留。此操作無法復原。",
+    "deleteFeedbackConfirm": "刪除這次模擬面試的 AI 回顧？問題與回答會保留。此操作無法復原。",
+    "regenerateFeedbackConfirm": "根據目前回答重新生成 AI 回顧？現有回顧結果將被永久覆寫。",
+    "archiveDeleted": "職缺檔案及其關聯資料、投遞追蹤記錄已刪除，原始履歷已保留。",
+    "analysisDeleted": "原始 JD 與職缺分析已刪除。",
+    "questionsDeleted": "問題與回答已刪除。",
+    "feedbackDeleted": "AI 回顧已刪除。",
+    "feedbackRegenerated": "AI 回顧已重新生成。",
+    "deleteFailed": "刪除失敗：{error}",
+    "editJob": { "action": "修改職缺名稱", "title": "修改職缺檔案名稱", "description": "修改後，關聯的履歷和面試資料仍保留在目前職缺檔案中，並會按照新的公司名稱重新歸類。", "company": "公司名稱", "role": "職缺名稱", "save": "儲存修改", "saving": "正在儲存", "cancel": "取消", "saved": "職缺名稱已更新，資料已重新歸類。", "failed": "修改職缺名稱失敗：{error}" },
+    "edit": { "action": "修改內容", "save": "儲存修改", "cancel": "取消", "saved": "修改已儲存。", "failed": "儲存失敗，請稍後重試。", "mockInterviewTitle": "修改模擬面試與回顧", "answersTitle": "編輯面試回答", "question": "問題 {number}", "questionText": "題目", "questionFocus": "考察重點", "overallScore": "綜合評分", "review": "第 {number} 題回顧", "diagnosis": "回答診斷", "suggestion": "改進建議", "referenceAnswer": "參考表達", "dimensions": { "jobFit": "職缺比對", "structure": "表達結構", "evidence": "事實證據", "star": "STAR 完整度" } },
+    "editAnswers": "編輯回答",
+    "regenerateFeedback": "重新生成 AI 回顧",
+    "regeneratingFeedback": "正在重新生成",
+    "regenerateFeedbackHint": "修改回答後可重新生成回顧；重新生成會覆寫目前 AI 回顧結果。",
+    "preparationEditor": { "overview": "職缺概覽", "company": "公司", "role": "職缺", "roleFamily": "職缺類別", "roleSummary": "職缺概述", "assumptions": "需要確認的資訊", "capability": "能力輪廓", "capabilityOverview": "能力概覽", "capabilityItem": "能力 {number}", "name": "名稱", "currentEvidence": "目前證據", "nextStep": "下一步", "evidence": "職缺條件與證據", "requirementItem": "要求 {number}", "requirement": "職缺條件", "resumeEvidence": "履歷證據", "assessment": "判斷", "action": "行動建議", "knowledge": "核心知識", "knowledgeItem": "知識主題 {number}", "topic": "主題", "relevance": "與職缺的關係", "explanation": "知識說明", "targetLevel": "目標水平", "selfCheck": "自測問題", "deepDives": "經歷深挖", "deepDiveItem": "經歷 {number}", "resumeItem": "履歷經歷", "contribution": "個人貢獻重點", "followUps": "可能追問", "facts": "待確認事實", "questions": "針對性問題", "questionItem": "問題 {number}", "question": "問題", "category": "分類", "direction": "準備方向", "plan": "準備計畫", "must": "必須準備", "should": "建議準備", "optional": "可選準備", "selfIntro": "自我介紹", "reverseQuestions": "反問問題", "perLine": "（每行一項）" },
+    "generalResumeSubtitle": "不關聯特定職缺的通用履歷優化成果",
+    "categories": { "resume": "履歷成果", "analysis": "職缺分析", "interview": "面試資料" },
+    "kinds": { "general-resume": "通用優化", "tailored-resume": "職缺客製", "job-analysis": "原始 JD", "interview-preparation": "面試準備", "interview-session": "模擬面試" },
+    "kindShort": { "general-resume": "優化履歷", "tailored-resume": "客製履歷", "job-analysis": "原始 JD", "interview-preparation": "準備資料", "interview-session": "模擬與回顧" },
+    "kindDescriptions": { "general-resume": "通用履歷診斷、優化結果與修改記錄。", "tailored-resume": "針對目標 JD 生成的職缺客製履歷。", "job-analysis": "進行 JD 比對優化時使用的原始職位描述。", "interview-preparation": "圍繞目標職缺整理的結構化面試準備資料。", "interview-session": "模擬面試問題、回答與 AI 回顧。" },
+    "metrics": { "jobAnalysis": "原始 JD {count}", "originalJd": "原始 JD {count}", "tailoredResume": "客製履歷 {count}", "preparation": "準備資料 {count}", "interview": "模擬面試 {count}", "issues": "問題 {count}", "sections": "調整模組 {count}", "changes": "採納修改 {count}", "requirements": "要求 {count}", "keywords": "關鍵字 {count}", "risks": "風險 {count}", "topics": "知識主題 {count}", "questions": "問題 {count}", "deepDives": "經歷深挖 {count}", "answers": "已回答 {count}", "hasFeedback": "已回顧", "noFeedback": "待回顧" },
+    "status": { "READY": "待投遞", "APPLIED": "已投遞", "ASSESSMENT": "筆試 / 線上測驗", "INTERVIEW": "面試中", "OFFER": "Offer", "REJECTED": "未通過", "ARCHIVED": "已歸檔" },
+    "notFoundTitle": "沒有找到這份資料",
+    "notFoundDescription": "資料可能已被刪除，或目前連結已經失效。",
+    "backToLibrary": "返回資料庫",
+    "backToOverview": "返回職缺檔案概覽",
+    "openResumeEditor": "進入履歷編輯器",
+    "outline": "資料目錄",
+    "questionOutline": "問題目錄",
+    "overviewSummary": "共 {count} 份職缺資料 · 最近更新於 {date}",
+    "overviewPathTitle": "求職準備路徑",
+    "overviewPathDescription": "從職缺資訊到履歷與面試，直接進入已經生成的資料。",
+    "overviewPath": { "analysis": "檢視原始 JD 與職缺條件", "resume": "檢視針對職缺生成的履歷版本", "interview": "查看準備資料、模擬面試與回顧", "empty": "暫無資料" },
+    "overviewCompositionTitle": "資料構成",
+    "overviewCompositionDescription": "按職缺分析、履歷成果和面試資料統計目前檔案中的真實內容。",
+    "jobFilesTitle": "檔案內的生成成果",
+    "jobFilesDescription": "按最近更新時間排列，點選即可檢視完整內容。",
+    "emptyCategories": { "analysis": "暫無職缺分析，完成 JD 比對後會自動歸入這裡。", "resume": "暫無職缺客製履歷。", "interview": "暫無面試準備、模擬面試或回顧資料。" },
+    "tree": { "job-overview": "職缺檔案概覽", "overview": "優化概覽", "job-relation": "目標職缺與比對依據", "diagnosis": "履歷診斷", "diagnosis-summary": "診斷概覽", "strengths": "已有優勢", "issues": "待處理問題", "original-resume": "優化前履歷", "optimized-resume": "優化後履歷", "changes": "修改對比", "original-jd": "原始 JD", "requirements": "職缺條件", "keywords": "關鍵字與加分項", "risks": "風險與建議", "capability-profile": "能力輪廓", "evidence-gaps": "證據與差距", "core-knowledge": "核心知識", "experience-deep-dives": "經歷深挖", "targeted-questions": "針對性問題", "preparation-plan": "準備計畫", "questions": "問題與回答", "feedback": "AI 回顧" },
+    "overviewMetrics": { "analysis": "原始 JD", "tailoredResume": "客製履歷", "preparation": "準備資料", "interview": "模擬面試", "issues": "診斷問題", "sections": "調整模組", "changes": "修改記錄", "requirements": "職缺條件", "keywords": "關鍵字", "risks": "風險提示", "questions": "面試問題", "answers": "已回答", "feedback": "回顧報告" },
+    "resumeSections": { "profile": "個人簡介", "education": "教育經歷", "experiences": "工作經歷", "internships": "實習經歷", "projects": "專案經歷", "skills": "專業技能", "awards": "獎項證書", "customSections": "其他內容" },
+    "labels": { "company": "目標公司", "role": "目標職缺", "keywords": "比對關鍵字", "suggestion": "建議", "nextStep": "下一步", "action": "準備行動" },
+    "severity": { "high": "優先處理", "medium": "建議處理", "low": "可選改進" },
+    "evidence": { "strong": "證據充分", "partial": "部分證據", "limited": "證據有限", "unknown": "待確認" },
+    "plan": { "must": "必須準備", "should": "建議準備", "optional": "可選準備" },
+    "interviewStatus": { "IN_PROGRESS": "模擬面試進行中", "COMPLETED": "模擬面試已完成" },
+    "unknown": "未識別",
+    "notRecorded": "該歷史資料沒有記錄此項內容。",
+    "issuesDescription": "僅展示生成時實際儲存的診斷問題。",
+    "beforeAfterDescription": "對照優化前後的真實內容，不補造缺失資訊。",
+    "originalResumeDescription": "生成該版本時實際使用的基礎履歷。",
+    "before": "優化前",
+    "after": "優化後",
+    "optimizationSummary": "優化說明",
+    "keywordDescription": "從 JD 中提取的關鍵要求與加分資訊。",
+    "bonusPoints": "加分項",
+    "riskDescription": "需要在投遞和面試前確認的風險與改進方向。",
+    "risks": "風險提示",
+    "suggestions": "改進建議",
+    "evidenceDescription": "職缺條件與目前履歷證據的對應關係。",
+    "planDescription": "按優先順序整理面試前需要完成的準備。",
+    "selfIntroduction": "自我介紹參考",
+    "reverseQuestions": "反問問題",
+    "answer": "我的回答",
+    "unanswered": "這道題尚未作答。",
+    "feedbackScore": "綜合表現 {score} 分",
+    "strengths": "表現優勢",
+    "improvements": "改進方向",
+    "nextActions": "下一步行動",
+    "questionNumber": "問題 {number}"
+  },
+  "agent": {
+    "title": "錄階 Agent",
+    "panelLabel": "錄階 Agent 對話面板",
+    "open": "開啟錄階 Agent",
+    "close": "關閉錄階 Agent",
+    "maximize": "全螢幕顯示",
+    "restore": "退出全螢幕",
+    "petHint": "今天我們從哪裡開始呢？",
+    "hide": "隱藏 Agent 小助手，可在設定中重新顯示",
+    "newConversation": "新對話",
+    "conversationHistory": "對話記錄",
+    "deleteConversation": "刪除對話",
+    "loading": "正在讀取對話…",
+    "thinking": "正在思考…",
+    "inputPlaceholder": "說說你想處理的求職事項…",
+    "send": "傳送",
+    "stop": "停止生成",
+    "approvalHint": "寫入任何業務資料前都會先讓你確認",
+    "setup": {
+      "title": "先設定 AI 服務",
+      "description": "Agent 會沿用錄階現有的 Provider 與模型設定，不需要額外的 Agent Key。",
+      "action": "前往設定"
+    },
+    "welcome": {
+      "title": "我能幫你處理錄階裡的求職資訊",
+      "description": "可以搜尋履歷與職缺、記錄投遞進度，並在你選擇參數和確認後生成客製履歷、面試準備資料或更新投遞卡片。",
+      "prompt1": "幫我針對這個職缺客製一份履歷",
+      "prompt2": "我今天投了一個職缺，幫我記錄",
+      "prompt3": "我現在有哪些履歷版本？"
+    },
+    "campus": {
+      "searching": "正在搜尋校園徵才資訊",
+      "results": "找到 {total} 筆招募記錄 · 第 {page}/{pages} 頁",
+      "more": "還有更多結果，可以繼續下一頁或縮小篩選範圍。",
+      "detailHint": "點選公司名稱檢視完整招募記錄和相關連結。",
+      "error": "校園徵才資訊暫時無法讀取，請稍後重試；這不代表沒有比對記錄。"
+    },
+    "tools": {
+      "searchingPipeline": "正在核對職缺與投遞記錄",
+      "readingResume": "正在搜尋去識別化後的履歷資訊",
+      "resumeWorking": "正在準備履歷建立操作",
+      "tailoredResumeWorking": "正在準備 JD 客製履歷",
+      "interviewPreparationWorking": "正在準備面試資料",
+      "mockInterviewWorking": "正在準備模擬面試",
+      "resumePresentationWorking": "正在準備履歷範本調整"
+    },
+    "configuration": {
+      "preparing": "正在整理可選設定",
+      "jdTitle": "選擇這次 JD 優化方式",
+      "preparationTitle": "選擇面試準備重點",
+      "simulationTitle": "選擇模擬面試方式",
+      "recommended": "（推薦）",
+      "expired": "這張設定卡已被後續對話替代，請重新發起對應操作。",
+      "confirm": "按這些設定繼續",
+      "jdSelected": "已採用你選擇的 JD 優化設定",
+      "interviewSelected": "已採用你選擇的面試設定",
+      "jdOptions": {
+        "emphasizeImpact": "突出行動與結果",
+        "quantifyResults": "優先量化成果",
+        "atsFriendly": "增強 ATS 可讀性",
+        "highlightMatchedSkills": "突出 JD 比對技能"
+      },
+      "jdOptionDescriptions": {
+        "emphasizeImpact": "把職責整理為行動、方法與結果，讓經歷更有說服力。",
+        "quantifyResults": "優先呈現已有的可驗證資料，不新增未提供的數字。",
+        "atsFriendly": "優化結構和關鍵字表達，提升機器篩選的識別效果。",
+        "highlightMatchedSkills": "將職缺條件與真實經歷對齊，突出已有比對證據。"
+      },
+      "interviewModeDescriptions": {
+        "comprehensive": "兼顧技術基礎、專案深挖、場景題與行為問題，適合完整演練。",
+        "project": "圍繞專案背景、個人貢獻、技術決策和實際結果連續追問。",
+        "behavioral": "重點練習 STAR 表達、協作衝突、回顧與成長經歷。",
+        "hr": "聚焦求職動機、職缺認知、穩定性、薪資與到職安排。"
+      }
+    },
+    "approval": {
+      "title": "確認這次投遞卡片變更",
+      "preparing": "正在整理可確認的變更",
+      "operation": "操作",
+      "create": "新建卡片",
+      "update": "更新卡片",
+      "target": "職缺",
+      "status": "階段",
+      "stageDate": "階段日期",
+      "followUpDate": "追蹤日期",
+      "note": "新增備註",
+      "resumeTitle": "確認建立一份獨立履歷",
+      "tailoredResumeTitle": "確認生成並儲存職缺客製履歷",
+      "interviewPreparationTitle": "確認生成並儲存面試準備資料",
+      "mockInterviewTitle": "確認生成模擬面試題目",
+      "resumePresentationTitle": "確認切換履歷範本",
+      "resumeName": "履歷名稱",
+      "targetRole": "目標職缺",
+      "sourceFacts": "口述事實",
+      "sourceResume": "來源履歷",
+      "selectedJob": "已選擇的職缺",
+      "selectedResume": "已選擇的履歷",
+      "jd": "職缺 JD",
+      "savedJd": "使用職缺中已儲存的完整 JD",
+      "focus": "準備重點",
+      "template": "履歷範本",
+      "focuses": { "comprehensive": "綜合準備", "project": "專案深挖", "behavioral": "行為面試", "hr": "人資面試" },
+      "cancel": "取消",
+      "confirm": "確認執行",
+      "executing": "已確認，正在寫入…",
+      "cancelled": "已取消這次變更",
+      "deniedReason": "使用者取消了這次變更。",
+      "created": "已新建投遞卡片：",
+      "updated": "已更新投遞卡片：",
+      "resumeCreated": "獨立履歷已經建立。",
+      "tailoredResumeCreated": "職缺客製履歷已經生成並儲存。",
+      "interviewPreparationCreated": "面試準備資料已經生成並儲存。",
+      "mockInterviewCreated": "模擬面試題目已經生成。",
+      "resumePresentationCreated": "履歷範本已經更新。",
+      "openResult": "點選開啟結果"
+    },
+    "status": {
+      "applied": "已投遞",
+      "assessment": "筆試 / 線上測驗",
+      "interview": "面試中",
+      "offer": "Offer",
+      "rejected": "已拒絕",
+      "archived": "已歸檔"
+    },
+    "errors": {
+      "load": "對話讀取失敗。",
+      "create": "對話建立失敗。",
+      "delete": "對話刪除失敗。",
+      "request": "Agent 暫時無法完成這次請求，請檢查 AI 設定後重試。",
+      "afterWrite": "內容已經成功儲存，但 Agent 沒能繼續生成後續說明；已儲存的結果不受影響。"
+    }
+  },
+  "themeEditor": {
+    "avatar": {
+      "circle": "圓形",
+      "oneInch": "大頭照"
+    }
+  }
+}

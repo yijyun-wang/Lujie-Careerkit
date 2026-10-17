@@ -12,93 +12,93 @@ import type { InterviewPreparation } from "@/lib/interview-preparation";
 const preparation: InterviewPreparation = {
   meta: {
     company: "A/B <公司>",
-    title: "AI 工程师",
-    roleFamily: "技术",
-    roleSummary: "负责 <Agent> 开发",
-    assumptions: ["岗位信息待确认"],
+    title: "AI 工程師",
+    roleFamily: "技術",
+    roleSummary: "負責 <Agent> 開發",
+    assumptions: ["職缺資訊待確認"],
   },
   capabilityProfile: {
-    overview: "能力概览",
+    overview: "能力概覽",
     dimensions: [{
       label: "工程能力",
       requirementLevel: "core",
       evidenceLevel: "partial",
-      evidenceSummary: "有项目证据",
-      nextStep: "准备项目细节",
+      evidenceSummary: "有專案證據",
+      nextStep: "準備專案細節",
     }],
   },
   evidenceMatrix: [{
-    requirement: "Agent 开发",
-    resumeEvidence: ["项目 A"],
+    requirement: "Agent 開發",
+    resumeEvidence: ["專案 A"],
     state: "direct",
-    assessment: "已有证据",
-    action: "准备复盘",
+    assessment: "已有證據",
+    action: "準備回顧",
   }],
   knowledgeTopics: [{
     topic: "RAG",
     priority: "must",
-    whyRelevant: "岗位要求",
-    explanation: "检索增强生成",
-    currentEvidence: "项目 A",
-    targetLevel: "能够说明取舍",
-    selfCheckQuestions: ["为何使用 RAG？", "如何评估？"],
+    whyRelevant: "職缺條件",
+    explanation: "檢索增強生成",
+    currentEvidence: "專案 A",
+    targetLevel: "能夠說明取捨",
+    selfCheckQuestions: ["為何使用 RAG？", "如何評估？"],
   }],
   deepDives: [{
-    resumeItem: "项目 A",
-    whyRelevant: "对应岗位要求",
-    personalContributionFocus: "说明个人贡献",
-    likelyFollowUps: ["遇到什么问题？", "如何解决？"],
-    factsToConfirm: ["指标口径"],
+    resumeItem: "專案 A",
+    whyRelevant: "對應職缺條件",
+    personalContributionFocus: "說明個人貢獻",
+    likelyFollowUps: ["遇到什麼問題？", "如何解決？"],
+    factsToConfirm: ["指標口徑"],
   }],
   targetedQuestions: [{
-    question: "请介绍项目 A",
-    category: "项目",
-    preparationDirection: "按背景、行动、结果回答",
+    question: "請介紹專案 A",
+    category: "專案",
+    preparationDirection: "按背景、行動、結果回答",
     priority: "must",
   }],
   preparationPlan: {
-    mustPrepare: ["项目 A"],
+    mustPrepare: ["專案 A"],
     shouldPrepare: ["RAG"],
     optional: [],
   },
-  selfIntroduction: "这是一段足够长的面试自我介绍内容，用于导出测试。",
-  reverseQuestions: ["团队当前的重点是什么？", "岗位如何衡量成功？", "后续流程是什么？"],
+  selfIntroduction: "這是一段足夠長的面試自我介紹內容，用於匯出測試。",
+  reverseQuestions: ["團隊當前的重點是什麼？", "職缺如何衡量成功？", "後續流程是什麼？"],
 };
 
 const labels: InterviewPreparationExportLabels = {
-  documentTitle: "面试准备资料",
-  basedOn: "基于目标 JD 与测试简历生成",
-  roleFamily: "岗位方向",
-  assumptions: "资料假设",
+  documentTitle: "面試準備資料",
+  basedOn: "基於目標 JD 與測試履歷生成",
+  roleFamily: "職缺方向",
+  assumptions: "資料假設",
   sections: {
-    overview: "资料概览",
-    capability: "能力画像",
-    evidence: "证据与差距",
-    knowledge: "核心知识",
-    deepDives: "经历深挖",
-    questions: "针对性问题",
-    plan: "准备计划",
+    overview: "資料概覽",
+    capability: "能力輪廓",
+    evidence: "證據與差距",
+    knowledge: "核心知識",
+    deepDives: "經歷深挖",
+    questions: "針對性問題",
+    plan: "準備計畫",
   },
-  requirementLevel: "要求级别",
-  evidenceLevel: "证据水平",
+  requirementLevel: "要求級別",
+  evidenceLevel: "證據水平",
   nextStep: "下一步",
-  resumeEvidence: "简历依据",
-  action: "准备动作",
-  explanation: "知识讲解",
-  currentEvidence: "现有基础",
-  targetLevel: "面试前目标",
-  selfCheck: "自测问题",
-  contribution: "个人贡献",
-  followUps: "可能追问",
-  factsToConfirm: "需要确认",
-  category: "问题类别",
-  preparationDirection: "准备方向",
-  introduction: "定制自我介绍",
-  reverseQuestions: "反问建议",
-  stateLabels: { direct: "直接证据", transferable: "可迁移经历", "not-shown": "简历未体现", gap: "当前缺口", confirm: "待确认" },
-  priorityLabels: { must: "必须准备", should: "建议准备", optional: "有余力再准备" },
-  requirementLabels: { core: "核心要求", important: "重要要求", bonus: "加分项" },
-  evidenceLabels: { strong: "证据充分", partial: "部分证据", limited: "证据有限", unknown: "尚未体现" },
+  resumeEvidence: "履歷依據",
+  action: "準備動作",
+  explanation: "知識講解",
+  currentEvidence: "現有基礎",
+  targetLevel: "面試前目標",
+  selfCheck: "自測問題",
+  contribution: "個人貢獻",
+  followUps: "可能追問",
+  factsToConfirm: "需要確認",
+  category: "問題類別",
+  preparationDirection: "準備方向",
+  introduction: "客製自我介紹",
+  reverseQuestions: "反問建議",
+  stateLabels: { direct: "直接證據", transferable: "可遷移經歷", "not-shown": "履歷未體現", gap: "當前缺口", confirm: "待確認" },
+  priorityLabels: { must: "必須準備", should: "建議準備", optional: "有餘力再準備" },
+  requirementLabels: { core: "核心要求", important: "重要要求", bonus: "加分項" },
+  evidenceLabels: { strong: "證據充分", partial: "部分證據", limited: "證據有限", unknown: "尚未體現" },
 };
 
 describe("interview preparation export", () => {
@@ -109,7 +109,7 @@ describe("interview preparation export", () => {
     const printWindow = { focus: vi.fn(), print: vi.fn(), addEventListener: (event: string, fn: () => void) => printEvents.set(event, fn) };
     const frame = { style: {}, setAttribute: vi.fn(), remove: vi.fn(), contentWindow: printWindow, srcdoc: "", addEventListener: (event: string, fn: () => void) => frameEvents.set(event, fn) };
     const append = vi.fn(() => {
-      expect(frame.srcdoc).toContain("负责 &lt;Agent&gt; 开发");
+      expect(frame.srcdoc).toContain("負責 &lt;Agent&gt; 開發");
       expect(frameEvents.has("load")).toBe(true);
     });
     vi.stubGlobal("document", { getElementById: () => oldFrame, createElement: () => frame, body: { appendChild: append } });
@@ -127,16 +127,16 @@ describe("interview preparation export", () => {
   });
 
   it("builds a filesystem-safe export name", () => {
-    expect(buildInterviewPreparationFileName(preparation)).toBe("A-B-公司-AI 工程师-面试准备资料");
+    expect(buildInterviewPreparationFileName(preparation)).toBe("A-B-公司-AI 工程師-面試準備資料");
   });
 
   it("includes every section and escapes user-controlled HTML", () => {
     const html = buildInterviewPreparationPrintHtml(preparation, labels);
 
-    expect(html).toContain("资料概览");
-    expect(html).toContain("反问建议");
-    expect(html).toContain("负责 &lt;Agent&gt; 开发");
-    expect(html).not.toContain("负责 <Agent> 开发");
+    expect(html).toContain("資料概覽");
+    expect(html).toContain("反問建議");
+    expect(html).toContain("負責 &lt;Agent&gt; 開發");
+    expect(html).not.toContain("負責 <Agent> 開發");
   });
 
   it("generates a non-empty editable Word document", async () => {

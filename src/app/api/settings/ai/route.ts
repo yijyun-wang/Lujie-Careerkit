@@ -12,7 +12,7 @@ export async function PATCH(request: Request) {
     return Response.json(await updateAiSettings(input));
   } catch (error) {
     return Response.json(
-      { message: error instanceof Error ? error.message : "AI 设置保存失败。" },
+      { message: error instanceof Error ? error.message : "AI 設定儲存失敗。" },
       { status: 400 },
     );
   }

@@ -46,15 +46,15 @@ export function CustomSection({ section, onUpdate }: Props) {
                 variant="ghost"
                 size="sm"
                 className="h-7 cursor-pointer p-1 text-zinc-400 hover:text-red-500"
-                aria-label={`删除自定义内容第${index + 1}项`}
-                title={`删除自定义内容第${index + 1}项`}
+                aria-label={`刪除自訂內容第${index + 1}項`}
+                title={`刪除自訂內容第${index + 1}項`}
                 onClick={() => removeItem(index)}
               >
                 <X className="h-3.5 w-3.5" />
               </Button>
             </div>
             <FieldWrapper>
-              <EditableText label="标题" value={item.title} onChange={(v) => updateItem(index, { title: v })} />
+              <EditableText label="標題" value={item.title} onChange={(v) => updateItem(index, { title: v })} />
               <EditableText label="日期" value={item.date || ''} onChange={(v) => updateItem(index, { date: v })} />
             </FieldWrapper>
             <EditableRichText label={t('description')} value={item.description} onChange={(v) => updateItem(index, { description: v })} />

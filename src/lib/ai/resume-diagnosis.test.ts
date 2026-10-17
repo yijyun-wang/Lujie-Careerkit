@@ -7,9 +7,9 @@ const resume: ResumeContent = {
   basics: { name: "姜禾", email: "", phone: "", city: "", links: [] },
   profile: { title: "", summary: "" },
   education: [{
-    school: "北京邮电大学",
-    degree: "本科",
-    major: "人工智能",
+    school: "北京郵電大學",
+    degree: "學士",
+    major: "人工智慧",
     start: "2023",
     end: "2027",
     highlights: ["GPA 8/4.0"],
@@ -19,13 +19,13 @@ const resume: ResumeContent = {
   projects: [],
   skills: [],
   awards: [],
-  selfReview: "熟悉 Python、机器学习基础和推荐系统实验流程。",
+  selfReview: "熟悉 Python、機器學習基礎和推薦系統實驗流程。",
 };
 
 describe("resume diagnosis normalization", () => {
   it("drops a false missing-summary issue when self-review already provides it", () => {
     const diagnosis = normalizeResumeDiagnosis({
-      summary: "结构清晰。",
+      summary: "結構清晰。",
       strengths: [],
       issues: [{
         id: "issue-1",
@@ -33,10 +33,10 @@ describe("resume diagnosis normalization", () => {
         location: "profile.summary",
         severity: "medium",
         category: "structure",
-        title: "简历未提供个人总结",
+        title: "履歷未提供個人總結",
         evidence: "",
         explanation: "缺少 profile summary。",
-        suggestion: "增加个人总结。",
+        suggestion: "增加個人總結。",
       }],
     }, resume);
 
@@ -45,18 +45,18 @@ describe("resume diagnosis normalization", () => {
 
   it("drops alternate wording that falsely requires a second summary module", () => {
     const diagnosis = normalizeResumeDiagnosis({
-      summary: "结构清晰。",
+      summary: "結構清晰。",
       strengths: [],
       issues: [{
         id: "issue-1",
         section: "summary",
-        location: "开篇",
+        location: "開篇",
         severity: "medium",
         category: "structure",
-        title: "缺少清晰的开篇个人简介",
+        title: "缺少清晰的開篇個人簡介",
         evidence: "",
-        explanation: "建议增加个人简介。",
-        suggestion: "补充开篇总结。",
+        explanation: "建議增加個人簡介。",
+        suggestion: "補充開篇總結。",
       }],
     }, resume);
 
@@ -65,7 +65,7 @@ describe("resume diagnosis normalization", () => {
 
   it("marks an impossible GPA as requiring the candidate's confirmation", () => {
     const diagnosis = normalizeResumeDiagnosis({
-      summary: "GPA 写法需要核实。",
+      summary: "GPA 寫法需要核實。",
       strengths: [],
       issues: [{
         id: "issue-1",
@@ -73,10 +73,10 @@ describe("resume diagnosis normalization", () => {
         location: "教育背景",
         severity: "high",
         category: "clarity",
-        title: "GPA 格式有误",
+        title: "GPA 格式有誤",
         evidence: "GPA 8/4.0",
-        explanation: "分子大于满分。",
-        suggestion: "请确认实际 GPA 和满分制式。",
+        explanation: "分子大於滿分。",
+        suggestion: "請確認實際 GPA 和滿分制式。",
       }],
     }, resume);
 
@@ -85,19 +85,19 @@ describe("resume diagnosis normalization", () => {
 
   it("keeps vague experience bullets AI-editable even if the model overclassifies them", () => {
     const diagnosis = normalizeResumeDiagnosis({
-      summary: "实习描述需要加强。",
+      summary: "實習描述需要加強。",
       strengths: [],
       issues: [{
         id: "issue-1",
         section: "internships",
-        location: "百度实习经历",
+        location: "百度實習經歷",
         severity: "medium",
         action: "user-confirm",
         category: "action-result",
-        title: "实习描述偏重职责，个人贡献不突出",
-        evidence: "参与真实业务项目，负责资料整理、功能验证和日报复盘",
-        explanation: "没有明确个人承担的技术角色、工具或方法。",
-        suggestion: "补充具体技术细节和实际用途；没有更多信息时先用现有事实明确行动。",
+        title: "實習描述偏重職責，個人貢獻不突出",
+        evidence: "參與真實業務專案，負責資料整理、功能驗證和日報回顧",
+        explanation: "沒有明確個人承擔的技術角色、工具或方法。",
+        suggestion: "補充具體技術細節和實際用途；沒有更多資訊時先用現有事實明確行動。",
       }],
     }, resume);
 
@@ -106,19 +106,19 @@ describe("resume diagnosis normalization", () => {
 
   it("keeps issues with quoted resume evidence AI-editable instead of requesting new facts", () => {
     const diagnosis = normalizeResumeDiagnosis({
-      summary: "项目表达可以加强。",
+      summary: "專案表達可以加強。",
       strengths: [],
       issues: [{
         id: "issue-1",
         section: "projects",
-        location: "课程推荐系统",
+        location: "課程推薦系統",
         severity: "medium",
         action: "user-input",
         category: "action-result",
-        title: "缺少具体结果",
-        evidence: "完成需求分析和方案设计",
-        explanation: "现有文字没有突出个人行动。",
-        suggestion: "使用现有信息明确个人贡献。",
+        title: "缺少具體結果",
+        evidence: "完成需求分析和方案設計",
+        explanation: "現有文字沒有突出個人行動。",
+        suggestion: "使用現有資訊明確個人貢獻。",
       }],
     }, resume);
 
@@ -128,18 +128,18 @@ describe("resume diagnosis normalization", () => {
 
   it("routes absent factual content to the editor instead of automatic rewriting", () => {
     const diagnosis = normalizeResumeDiagnosis({
-      summary: "需要补充事实。",
+      summary: "需要補充事實。",
       strengths: [],
       issues: [{
         id: "issue-1",
         section: "skills",
-        location: "技能模块",
+        location: "技能模組",
         severity: "medium",
         category: "evidence",
-        title: "技能模块未填写",
+        title: "技能模組未填寫",
         evidence: "",
-        explanation: "缺少真实技能信息。",
-        suggestion: "请补充实际掌握的技能。",
+        explanation: "缺少真實技能資訊。",
+        suggestion: "請補充實際掌握的技能。",
       }],
     }, resume);
 

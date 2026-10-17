@@ -16,7 +16,7 @@ describe("AI task runner", () => {
   it("parses plain and fenced JSON from compatible chat models", () => {
     expect(parseAiJsonResponse('{"value":"plain"}')).toEqual({ value: "plain" });
     expect(parseAiJsonResponse('```json\n{"value":"fenced"}\n```')).toEqual({ value: "fenced" });
-    expect(parseAiJsonResponse('结果如下：\n{"value":"wrapped"}\n请查收。')).toEqual({ value: "wrapped" });
+    expect(parseAiJsonResponse('結果如下：\n{"value":"wrapped"}\n請查收。')).toEqual({ value: "wrapped" });
   });
 
   it("returns AI output when settings are enabled and executor succeeds", async () => {
@@ -27,7 +27,7 @@ describe("AI task runner", () => {
         system: "Return JSON.",
         prompt: "Say hi.",
         fallback: { value: "fallback" },
-        taskLabel: "测试任务",
+        taskLabel: "測試任務",
       },
       {
         generateObject: successfulExecutor,
@@ -37,7 +37,7 @@ describe("AI task runner", () => {
     expect(result).toEqual({
       data: { value: "ai" },
       source: "ai",
-      message: "测试任务已由 Ollama / LM Studio / vLLM · qwen3:8b 完成。",
+      message: "測試任務已由 Ollama / LM Studio / vLLM · gpt-oss:20b 完成。",
     });
   });
 
@@ -49,7 +49,7 @@ describe("AI task runner", () => {
         system: "Return JSON.",
         prompt: "Say hi.",
         fallback: { value: "fallback" },
-        taskLabel: "测试任务",
+        taskLabel: "測試任務",
       },
       {
         generateObject: successfulExecutor,
@@ -68,7 +68,7 @@ describe("AI task runner", () => {
         system: "Return JSON.",
         prompt: "Say hi.",
         fallback: { value: "fallback" },
-        taskLabel: "测试任务",
+        taskLabel: "測試任務",
       },
       {
         generateObject: async () => {
@@ -90,7 +90,7 @@ describe("AI task runner", () => {
         system: "Return JSON.",
         prompt: "Say hi.",
         fallback: { value: "fallback" },
-        taskLabel: "测试任务",
+        taskLabel: "測試任務",
       },
       {
         generateObject: async () => {
@@ -101,7 +101,7 @@ describe("AI task runner", () => {
 
     expect(result.source).toBe("fallback");
     expect(result.message).toContain("模型返回格式不符合要求");
-    expect(result.message).not.toContain("已保留本地规则结果");
+    expect(result.message).not.toContain("已保留本地規則結果");
   });
 });
 

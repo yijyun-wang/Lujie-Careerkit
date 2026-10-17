@@ -52,8 +52,8 @@ export type CampusQuery = z.infer<typeof campusQuerySchema>;
 export type CampusResult = ReturnType<typeof queryCampus>;
 export const CAMPUS_PAGE_SIZE = 20;
 
-export function chinaDate(now = new Date()) {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
+export function taipeiDate(now = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Taipei", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
 }
 
 export function campusDeadline(record: Pick<CampusRecord, "deadlineDate" | "deadlineRaw">, today: string) {
@@ -61,9 +61,9 @@ export function campusDeadline(record: Pick<CampusRecord, "deadlineDate" | "dead
   return /^\d{4}[-/年]/.test(record.deadlineRaw) ? "invalid" : "unspecified";
 }
 
-export function queryCampus(dataset: CampusDataset | null, query: CampusQuery, today = chinaDate(), pageSize = CAMPUS_PAGE_SIZE) {
+export function queryCampus(dataset: CampusDataset | null, query: CampusQuery, today = taipeiDate(), pageSize = CAMPUS_PAGE_SIZE) {
   const records = dataset?.records ?? [];
-  const unique = (values: string[]) => [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh-CN"));
+  const unique = (values: string[]) => [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh-TW"));
   const keywords = query.q.toLocaleLowerCase().split(/\s+/).filter(Boolean);
   // ponytail: linear scans suit this small read-only catalog; use indexed storage if measured query cost grows.
   const matches = records.filter((record) => {
@@ -78,7 +78,7 @@ export function queryCampus(dataset: CampusDataset | null, query: CampusQuery, t
     return keywords.every((keyword) => searchable.includes(keyword));
   }).sort((a, b) => {
     let order = 0;
-    if (query.sort === "company_asc") order = a.company.localeCompare(b.company, "zh-CN");
+    if (query.sort === "company_asc") order = a.company.localeCompare(b.company, "zh-TW");
     else {
       const byDeadline = query.sort.startsWith("deadline_");
       const left = byDeadline ? a.deadlineDate : a.updatedAt;

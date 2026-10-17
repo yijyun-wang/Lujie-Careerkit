@@ -10,7 +10,7 @@ vi.mock("@/lib/repository", () => ({
 
 const update = vi.mocked(updateResume);
 const resumeContent = {
-  basics: { name: "张三", email: "", phone: "", city: "", links: [] },
+  basics: { name: "張三", email: "", phone: "", city: "", links: [] },
   profile: { title: "", summary: "" },
   education: [],
   experiences: [],
@@ -38,11 +38,11 @@ describe("/api/resume", () => {
     update.mockImplementation(async (_versionId, content) => ({
       id: "version-1",
       resumeId: "resume-1",
-      name: "主简历",
+      name: "主履歷",
       summary: "",
       jobId: null,
       content,
-      resume: { id: "resume-1", name: "主简历", createdAt: new Date("2026-07-15T00:00:00.000Z"), updatedAt: new Date("2026-07-15T00:00:00.000Z") },
+      resume: { id: "resume-1", name: "主履歷", createdAt: new Date("2026-07-15T00:00:00.000Z"), updatedAt: new Date("2026-07-15T00:00:00.000Z") },
       createdAt: new Date("2026-07-15T00:00:00.000Z"),
       updatedAt: new Date("2026-07-15T00:00:00.000Z"),
     }));

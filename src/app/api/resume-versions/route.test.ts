@@ -13,13 +13,13 @@ vi.mock("@/lib/repository", () => ({
 import { POST } from "./route";
 
 const resume = {
-  basics: { name: "陈同学", email: "", phone: "", city: "", links: [] },
-  profile: { title: "产品经理", summary: "关注 AI 产品。" },
+  basics: { name: "陳同學", email: "", phone: "", city: "", links: [] },
+  profile: { title: "產品經理", summary: "關注 AI 產品。" },
   education: [],
   experiences: [],
   internships: [],
   projects: [],
-  skills: ["AI 产品"],
+  skills: ["AI 產品"],
   awards: [],
   selfReview: "",
 };
@@ -31,10 +31,10 @@ describe("resume versions route", () => {
     const optimizationMeta = {
       company: "",
       title: "",
-      keywords: ["AI 产品"],
-      summary: "优化成果表达。",
-      changes: ["自我评价"],
-      versionName: "AI优化-陈同学",
+      keywords: ["AI 產品"],
+      summary: "優化成果表達。",
+      changes: ["自我評價"],
+      versionName: "AI優化-陳同學",
     };
     mocks.createResumeVersion.mockResolvedValue({
       id: "version-1",

@@ -91,7 +91,7 @@ export function createInterviewService(dependencies: {
 
     async saveProgress(id: string, input: SaveProgressInput) {
       const session = await requireSession(dependencies.repository, id);
-      if (session.status === "COMPLETED") throw new Error("已完成的面试记录不能继续修改。");
+      if (session.status === "COMPLETED") throw new Error("已完成的面試記錄不能繼續修改。");
       const lastIndex = Math.max(0, session.questions.length - 1);
       const currentQuestionIndex = input.currentQuestionIndex === undefined
         ? undefined
@@ -108,7 +108,7 @@ export function createInterviewService(dependencies: {
       const hasAnswer = Object.values(session.answers).some(
         (answer) => !answer.skipped && Boolean(answer.content.trim()),
       );
-      if (!hasAnswer) throw new Error("请至少完成一道题后再生成复盘报告。");
+      if (!hasAnswer) throw new Error("請至少完成一道題後再生成回顧報告。");
       const feedback = interviewReportSchema.parse(await dependencies.generateReport(session));
       return dependencies.repository.complete(id, feedback);
     },
@@ -126,6 +126,6 @@ export function createInterviewService(dependencies: {
 
 async function requireSession(repository: InterviewRepository, id: string) {
   const session = await repository.findById(id);
-  if (!session) throw new Error("未找到这次面试练习。");
+  if (!session) throw new Error("未找到這次面試練習。");
   return session;
 }

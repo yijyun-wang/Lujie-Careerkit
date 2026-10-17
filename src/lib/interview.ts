@@ -54,7 +54,7 @@ export const saveInterviewProgressInputSchema = z.object({
   answer: interviewAnswerSchema.optional(),
   currentQuestionIndex: z.number().int().min(0).optional(),
 }).refine((input) => input.answer || input.currentQuestionIndex !== undefined, {
-  message: "回答或题目位置至少需要提供一项。",
+  message: "回答或題目位置至少需要提供一項。",
 });
 
 export const interviewReportSchema = z.object({
@@ -95,12 +95,12 @@ export function parseInterviewQuestionPack(mode: InterviewMode, input: unknown) 
   const { questions } = z.object({ questions: z.array(interviewQuestionSchema) }).parse(input);
   const expectedCount = questionCountForMode(mode);
   if (questions.length !== expectedCount) {
-    throw new Error(`${mode === "comprehensive" ? "综合模拟" : "专项模拟"}需要生成 ${expectedCount} 道题。`);
+    throw new Error(`${mode === "comprehensive" ? "綜合模擬" : "專項模擬"}需要生成 ${expectedCount} 道題。`);
   }
   const hasInvalidIdentity = questions.some(
     (question, index) => question.id !== `q-${index + 1}` || question.order !== index,
   );
-  if (hasInvalidIdentity) throw new Error("题目编号或顺序无效，请重新生成。");
+  if (hasInvalidIdentity) throw new Error("題目編號或順序無效，請重新生成。");
   assertModeCategoryCoverage(mode, questions);
   return questions;
 }
@@ -111,13 +111,13 @@ function assertModeCategoryCoverage(mode: InterviewMode, questions: InterviewQue
     questions.filter((question) => question.category === category).length;
 
   if (mode === "project" && count("project") < 4) {
-    throw new Error("项目深挖至少需要 4 道项目题，请重新生成。");
+    throw new Error("專案深挖至少需要 4 道專案題，請重新生成。");
   }
   if (mode === "behavioral" && count("behavioral") < 3) {
-    throw new Error("行为面试至少需要 3 道行为题，请重新生成。");
+    throw new Error("行為面試至少需要 3 道行為題，請重新生成。");
   }
   if (mode === "hr" && count("hr") + count("motivation") < 3) {
-    throw new Error("HR 面至少需要 3 道 HR 或动机题，请重新生成。");
+    throw new Error("人資面談至少需要 3 道人資或動機題，請重新生成。");
   }
 }
 
@@ -149,7 +149,7 @@ export function normalizeInterviewQuestions(input: unknown): InterviewQuestion[]
           id: `legacy-${index + 1}`,
           category: "general" as const,
           prompt: item.trim(),
-          focus: "历史面试题",
+          focus: "歷史面試題",
           order: index,
         },
       ];
@@ -196,30 +196,30 @@ export function screenForInterviewSession(session: { status: string; feedback: u
 export function interviewQuestionNavTitle(question: { prompt: string; category: string }) {
   const prompt = question.prompt;
   const rules: Array<[RegExp, string]> = [
-    [/介绍自己|自我介绍/, "自我介绍"],
-    [/承担.*角色|负责.*部分|个人贡献/, "项目职责"],
-    [/关键词|最有把握|专业能力/, "核心能力"],
-    [/困难|压力|时间限制/, "困难处理"],
-    [/反问|还有什么问题/, "面试反问"],
-    [/为什么选择|求职动机|岗位动机/, "岗位动机"],
-    [/失败|没有达到预期/, "失败复盘"],
-    [/意见不一致|协作|团队合作/, "团队协作"],
-    [/职业规划|未来.*年/, "职业规划"],
-    [/如何看待|应用前景|发展趋势|技术动态|前沿技术|大模型|AI数据.*进展|模型效率/i, "技术趋势"],
+    [/介紹自己|自我介紹/, "自我介紹"],
+    [/承擔.*角色|負責.*部分|個人貢獻/, "專案職責"],
+    [/關鍵字|最有把握|專業能力/, "核心能力"],
+    [/困難|壓力|時間限制/, "困難處理"],
+    [/反問|還有什麼問題/, "面試反問"],
+    [/為什麼選擇|求職動機|職缺動機/, "職缺動機"],
+    [/失敗|沒有達到預期/, "失敗回顧"],
+    [/意見不一致|協作|團隊合作/, "團隊協作"],
+    [/職業規劃|未來.*年/, "職業規劃"],
+    [/如何看待|應用前景|發展趨勢|技術動態|前沿技術|大型語言模型|AI資料.*進展|模型效率/i, "技術趨勢"],
   ];
   const matched = rules.find(([pattern]) => pattern.test(prompt));
   if (matched) return matched[1];
 
   const categoryTitle: Record<string, string> = {
-    "self-introduction": "自我介绍",
-    motivation: "岗位动机",
-    project: "项目深挖",
-    professional: "专业能力",
-    behavioral: "行为面试",
-    failure: "失败复盘",
-    "reverse-question": "面试反问",
-    hr: "HR 面试",
+    "self-introduction": "自我介紹",
+    motivation: "職缺動機",
+    project: "專案深挖",
+    professional: "專業能力",
+    behavioral: "行為面試",
+    failure: "失敗回顧",
+    "reverse-question": "面試反問",
+    hr: "人資面談",
   };
   if (categoryTitle[question.category]) return categoryTitle[question.category];
-  return prompt.replace(/[，。？！：；、“”‘’「」【】\s]/g, "").slice(0, 10) || "面试问题";
+  return prompt.replace(/[，。？！：；、“”‘’「」【】\s]/g, "").slice(0, 10) || "面試問題";
 }

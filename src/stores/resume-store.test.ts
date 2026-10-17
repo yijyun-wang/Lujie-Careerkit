@@ -11,7 +11,7 @@ function createResume(): Resume {
   return {
     id: "resume-1",
     userId: "local",
-    title: "测试简历",
+    title: "測試履歷",
     template: "modern",
     themeConfig: {
       primaryColor: "#111827",
@@ -24,7 +24,7 @@ function createResume(): Resume {
       avatarStyle: "oneInch",
     },
     isDefault: true,
-    language: "zh-CN",
+    language: "zh-TW",
     createdAt: now,
     updatedAt: now,
     sections: [
@@ -32,14 +32,14 @@ function createResume(): Resume {
         id: "personal",
         resumeId: "resume-1",
         type: "personal_info",
-        title: "个人信息",
+        title: "個人資訊",
         sortOrder: 0,
         visible: true,
         createdAt: now,
         updatedAt: now,
         content: {
-          fullName: "林泽宇",
-          jobTitle: "后端开发实习生",
+          fullName: "林澤宇",
+          jobTitle: "後端開發實習生",
           email: "linzeyu@example.com",
           phone: "13900000000",
           location: "杭州",
@@ -77,7 +77,7 @@ describe("resume editor store persistence", () => {
     });
 
     useResumeStore.getState().setResume(createResume());
-    useResumeStore.getState().updateSection("personal", { fullName: "林泽宇-已修改" });
+    useResumeStore.getState().updateSection("personal", { fullName: "林澤宇-已修改" });
 
     expect(useResumeStore.getState().isDirty).toBe(true);
     expect(persisted).toHaveLength(0);
@@ -85,7 +85,7 @@ describe("resume editor store persistence", () => {
     await runAutosaveTimer();
 
     expect(persisted).toHaveLength(1);
-    expect((persisted[0].sections[0].content as PersonalInfoContent).fullName).toBe("林泽宇-已修改");
+    expect((persisted[0].sections[0].content as PersonalInfoContent).fullName).toBe("林澤宇-已修改");
     expect(useResumeStore.getState().isDirty).toBe(false);
   });
 
@@ -95,17 +95,17 @@ describe("resume editor store persistence", () => {
     };
 
     store.setPersistence(async () => {
-      throw new Error("SQLite 写入失败");
+      throw new Error("SQLite 寫入失敗");
     });
 
     useResumeStore.getState().setResume(createResume());
-    useResumeStore.getState().updateSection("personal", { fullName: "保存失败的修改" });
+    useResumeStore.getState().updateSection("personal", { fullName: "儲存失敗的修改" });
 
     await runAutosaveTimer();
 
     const state = useResumeStore.getState() as unknown as { isDirty: boolean; saveError: string | null };
     expect(state.isDirty).toBe(true);
-    expect(state.saveError).toBe("SQLite 写入失败");
+    expect(state.saveError).toBe("SQLite 寫入失敗");
   });
 
   it("serializes writes and waits until edits made during a save are persisted", async () => {

@@ -4,22 +4,22 @@ import { buildApplicationMessagePrompt } from "./application-message";
 
 const resume = {
   basics: {
-    name: "陈同学",
+    name: "陳同學",
     email: "private@example.com",
     phone: "13800000000",
     city: "北京",
     links: ["https://example.com/private"],
   },
-  profile: { title: "AI 产品实习生", summary: "关注 Agent 产品落地。" },
+  profile: { title: "AI 產品實習生", summary: "關注 Agent 產品落地。" },
   education: [],
   experiences: [],
   internships: [],
   projects: [
     {
-      name: "Agent 求职助手",
-      role: "产品与开发",
+      name: "Agent 求職助手",
+      role: "產品與開發",
       period: "2026",
-      highlights: ["完成 RAG 知识库与评测流程设计"],
+      highlights: ["完成 RAG 知識庫與評測流程設計"],
     },
   ],
   skills: ["RAG", "Prompt 工程"],
@@ -31,17 +31,18 @@ describe("application message AI task", () => {
   it("puts explicit availability first in greeting prompts without leaking contact details", () => {
     const prompt = buildApplicationMessagePrompt({
       kind: "greeting",
-      jd: "招聘 AI 产品实习生，要求每周到岗五天。",
+      jd: "招募 AI 產品實習生，要求每週到職五天。",
       resume,
-      extraContext: "可立即到岗，连续实习 6 个月，每周 5 天。",
-      locale: "zh-CN",
+      extraContext: "可立即到職，連續實習 6 個月，每週 5 天。",
+      locale: "zh-TW",
     });
 
-    expect(prompt).toContain("第一句话先给招聘方最关心的硬匹配信息");
-    expect(prompt).toContain("可立即到岗，连续实习 6 个月，每周 5 天");
-    expect(prompt).toContain("Agent 求职助手");
-    expect(prompt).toContain("不能改写为“主导、独立、全权负责”");
-    expect(prompt).toContain("不能扩写为全职");
+    expect(prompt).toContain("第一句話先給招募方最關心的硬比對資訊");
+    expect(prompt).toContain("104、CakeResume、LinkedIn");
+    expect(prompt).toContain("可立即到職，連續實習 6 個月，每週 5 天");
+    expect(prompt).toContain("Agent 求職助手");
+    expect(prompt).toContain("不能改寫為“主導、獨立、全權負責”");
+    expect(prompt).toContain("不能擴寫為全職");
     expect(prompt).not.toContain("private@example.com");
     expect(prompt).not.toContain("13800000000");
     expect(prompt).not.toContain("example.com/private");
@@ -50,13 +51,13 @@ describe("application message AI task", () => {
   it("keeps cover letters formal and evidence-based", () => {
     const prompt = buildApplicationMessagePrompt({
       kind: "cover-letter",
-      jd: "招聘 AI 产品实习生，负责 RAG 产品设计。",
+      jd: "招募 AI 產品實習生，負責 RAG 產品設計。",
       resume,
-      locale: "zh-CN",
+      locale: "zh-TW",
     });
 
-    expect(prompt).toContain("招聘笔记私信、邮件或正式投递");
-    expect(prompt).toContain("2-3 个最有说服力的真实经历或能力证据");
-    expect(prompt).toContain("严禁编造");
+    expect(prompt).toContain("電子郵件、LinkedIn 私訊或 104 應徵信等正式投遞");
+    expect(prompt).toContain("2-3 個最有說服力的真實經歷或能力證據");
+    expect(prompt).toContain("嚴禁編造");
   });
 });

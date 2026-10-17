@@ -101,7 +101,7 @@ function LuxeSectionContent({ section, lang }: { section: any; lang?: string }) 
             {item.company && <p className="text-sm" style={{ color: GOLD }}>{item.company}{item.location ? `, ${item.location}` : ''}</p>}
             {item.description && <p className="mt-1 text-sm" style={{ color: '#44403c' }} dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="mt-0.5 text-xs italic" style={{ color: '#a8a29e' }}>{lang === 'zh' ? '技术栈' : 'Tech'}: {item.technologies.join(', ')}</p>
+              <p className="mt-0.5 text-xs italic" style={{ color: '#a8a29e' }}>{lang === 'zh' ? '使用技術' : 'Tech'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-1.5 list-none space-y-0.5">
@@ -172,7 +172,7 @@ function LuxeSectionContent({ section, lang }: { section: any; lang?: string }) 
             </div>
             {item.description && <p className="mt-0.5 text-sm" style={{ color: '#44403c' }} dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="mt-0.5 text-xs italic" style={{ color: '#a8a29e' }}>{lang === 'zh' ? '技术栈' : 'Tech'}: {item.technologies.join(', ')}</p>
+              <p className="mt-0.5 text-xs italic" style={{ color: '#a8a29e' }}>{lang === 'zh' ? '使用技術' : 'Tech'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-1 list-none space-y-0.5">

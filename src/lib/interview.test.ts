@@ -26,25 +26,25 @@ describe("interview domain", () => {
     const questions = Array.from({ length: 8 }, (_, index) => ({
       id: `q-${index + 1}`,
       category: index === 0 ? "self-introduction" : "project",
-      prompt: `问题 ${index + 1}`,
-      focus: "验证岗位匹配与真实经历",
+      prompt: `問題 ${index + 1}`,
+      focus: "驗證職缺比對與真實經歷",
       order: index,
     }));
 
     expect(parseInterviewQuestionPack("comprehensive", { questions })).toHaveLength(8);
-    expect(() => parseInterviewQuestionPack("project", { questions })).toThrow("需要生成 6 道题");
+    expect(() => parseInterviewQuestionPack("project", { questions })).toThrow("需要生成 6 道題");
   });
 
   it("rejects duplicate question ids and discontinuous ordering", () => {
     const questions = Array.from({ length: 8 }, (_, index) => ({
       id: index === 7 ? "q-1" : `q-${index + 1}`,
       category: index === 0 ? "self-introduction" : "project",
-      prompt: `问题 ${index + 1}`,
-      focus: "验证岗位匹配与真实经历",
+      prompt: `問題 ${index + 1}`,
+      focus: "驗證職缺比對與真實經歷",
       order: index === 6 ? 9 : index,
     }));
 
-    expect(() => parseInterviewQuestionPack("comprehensive", { questions })).toThrow("题目编号或顺序无效");
+    expect(() => parseInterviewQuestionPack("comprehensive", { questions })).toThrow("題目編號或順序無效");
   });
 
   it("requires focused modes to contain enough questions from their selected category", () => {
@@ -52,21 +52,21 @@ describe("interview domain", () => {
       questions: categories.map((category, index) => ({
         id: `q-${index + 1}`,
         category,
-        prompt: `专项问题 ${index + 1}`,
-        focus: "验证专项面试能力与事实证据",
+        prompt: `專項問題 ${index + 1}`,
+        focus: "驗證專項面試能力與事實證據",
         order: index,
       })),
     });
 
     expect(() => parseInterviewQuestionPack("project", pack([
       "project", "project", "project", "professional", "self-introduction", "failure",
-    ]))).toThrow("项目深挖至少需要 4 道项目题");
+    ]))).toThrow("專案深挖至少需要 4 道專案題");
     expect(() => parseInterviewQuestionPack("behavioral", pack([
       "behavioral", "behavioral", "motivation", "professional", "self-introduction", "failure",
-    ]))).toThrow("行为面试至少需要 3 道行为题");
+    ]))).toThrow("行為面試至少需要 3 道行為題");
     expect(() => parseInterviewQuestionPack("hr", pack([
       "hr", "motivation", "behavioral", "professional", "self-introduction", "failure",
-    ]))).toThrow("HR 面至少需要 3 道 HR 或动机题");
+    ]))).toThrow("人資面談至少需要 3 道人資或動機題");
   });
 
   it("merges one answer without dropping answers for other questions", () => {
@@ -74,7 +74,7 @@ describe("interview domain", () => {
       {
         "q-1": {
           questionId: "q-1",
-          content: "旧回答",
+          content: "舊回答",
           skipped: false,
           updatedAt: "2026-06-22T10:00:00.000Z",
         },
@@ -92,27 +92,27 @@ describe("interview domain", () => {
   });
 
   it("normalizes legacy string questions into stable question objects", () => {
-    const questions = normalizeInterviewQuestions(["请介绍一下自己", "为什么选择这个岗位？"]);
+    const questions = normalizeInterviewQuestions(["請介紹一下自己", "為什麼選擇這個職缺？"]);
     expect(questions).toEqual([
       {
         id: "legacy-1",
         category: "general",
-        prompt: "请介绍一下自己",
-        focus: "历史面试题",
+        prompt: "請介紹一下自己",
+        focus: "歷史面試題",
         order: 0,
       },
       {
         id: "legacy-2",
         category: "general",
-        prompt: "为什么选择这个岗位？",
-        focus: "历史面试题",
+        prompt: "為什麼選擇這個職缺？",
+        focus: "歷史面試題",
         order: 1,
       },
     ]);
-    expect(normalizeInterviewAnswers({ "请介绍一下自己": "我是产品方向的学生。" }, questions)).toMatchObject({
+    expect(normalizeInterviewAnswers({ "請介紹一下自己": "我是產品方向的學生。" }, questions)).toMatchObject({
       "legacy-1": {
         questionId: "legacy-1",
-        content: "我是产品方向的学生。",
+        content: "我是產品方向的學生。",
         skipped: false,
       },
     });
@@ -122,17 +122,17 @@ describe("interview domain", () => {
     const report = {
       overallScore: 76,
       dimensions: { jobFit: 82, structure: 78, evidence: 65, star: 73 },
-      strengths: ["岗位动机清晰"],
-      improvements: ["补充个人动作和指标口径"],
+      strengths: ["職缺動機清晰"],
+      improvements: ["補充個人動作和指標口徑"],
       questionReviews: [
         {
           questionId: "q-1",
-          diagnosis: "背景和结果清楚，但个人贡献不足。",
-          suggestion: "补充关键判断与具体动作。",
-          improvedAnswer: "我负责用户访谈与方案验证，并根据数据调整流程。",
+          diagnosis: "背景和結果清楚，但個人貢獻不足。",
+          suggestion: "補充關鍵判斷與具體動作。",
+          improvedAnswer: "我負責使用者訪談與方案驗證，並根據資料調整流程。",
         },
       ],
-      nextActions: ["重新练习项目深挖"],
+      nextActions: ["重新練習專案深挖"],
     };
 
     expect(interviewReportSchema.parse(report)).toEqual(report);
@@ -145,11 +145,11 @@ describe("interview domain", () => {
       resumeVersionId: null,
       mode: "comprehensive",
       context: {
-        company: "腾讯",
-        title: "产品运营实习生",
-        jd: "负责用户研究与数据分析",
-        resumeName: "主简历",
-        resume: { basics: { name: "陈同学" } },
+        company: "騰訊",
+        title: "產品營運實習生",
+        jd: "負責使用者研究與資料分析",
+        resumeName: "主履歷",
+        resume: { basics: { name: "陳同學" } },
       },
     };
     expect(createInterviewSessionInputSchema.parse(createInput)).toEqual(createInput);
@@ -179,11 +179,11 @@ describe("interview domain", () => {
       resumeVersionId: "resume-1",
       mode: "project",
       context: {
-        company: "美团",
-        title: "后端开发实习生",
-        jd: "负责 Java 服务开发与 SQL 优化",
-        resumeName: "后端岗位定制版",
-        resume: { basics: { name: "陈同学" }, projects: [{ name: "校园交易平台" }] },
+        company: "美團",
+        title: "後端開發實習生",
+        jd: "負責 Java 服務開發與 SQL 優化",
+        resumeName: "後端職缺客製版",
+        resume: { basics: { name: "陳同學" }, projects: [{ name: "校園交易平台" }] },
       },
     });
 
@@ -191,7 +191,7 @@ describe("interview domain", () => {
       jobId: "job-1",
       resumeVersionId: "resume-1",
       mode: "project",
-      context: expect.objectContaining({ company: "美团", title: "后端开发实习生" }),
+      context: expect.objectContaining({ company: "美團", title: "後端開發實習生" }),
     });
     expect(input.context).not.toBeUndefined();
   });
@@ -203,15 +203,15 @@ describe("interview domain", () => {
 
   it("builds concise question navigation titles", () => {
     const prompts = [
-      ["请用 1 分钟介绍自己，并说明为什么适合这个岗位。", "自我介绍"],
-      ["你在项目里承担了什么角色？", "项目职责"],
-      ["这份 JD 里提到的关键词，你最有把握的是哪一个？", "核心能力"],
-      ["讲一个你遇到过的困难。", "困难处理"],
-      ["如果面试官让你反问，你会问什么？", "面试反问"],
-      ["你如何看待端侧 AI 和多模态模型的应用前景？", "技术趋势"],
+      ["請用 1 分鐘介紹自己，並說明為什麼適合這個職缺。", "自我介紹"],
+      ["你在專案裡承擔了什麼角色？", "專案職責"],
+      ["這份 JD 裡提到的關鍵字，你最有把握的是哪一個？", "核心能力"],
+      ["講一個你遇到過的困難。", "困難處理"],
+      ["如果面試官讓你反問，你會問什麼？", "面試反問"],
+      ["你如何看待端側 AI 和多模態模型的應用前景？", "技術趨勢"],
       [
-        "你提到自己熟练使用AI工具并关注前沿技术动态，请以最近的一个大模型或AI数据相关进展为例，说明它可能带来什么影响。",
-        "技术趋势",
+        "你提到自己熟練使用AI工具並關注前沿技術動態，請以最近的一個大型語言模型或AI資料相關進展為例，說明它可能帶來什麼影響。",
+        "技術趨勢",
       ],
     ] as const;
     for (const [prompt, expected] of prompts) {

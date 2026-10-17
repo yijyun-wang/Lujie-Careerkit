@@ -8,7 +8,7 @@ describe("AI error normalization", () => {
   });
 
   it("explains unauthorized provider responses", () => {
-    expect(normalizeAiError(new Error("401 unauthorized")).message).toContain("密钥");
+    expect(normalizeAiError(new Error("401 unauthorized")).message).toContain("金鑰");
   });
 
   it("explains rate limits and quota issues", () => {
@@ -24,7 +24,7 @@ describe("AI error normalization", () => {
   it("keeps unknown errors safe and user-facing", () => {
     const result = normalizeAiError(new Error("socket hang up with secret sk-123"));
 
-    expect(result.message).toContain("AI 请求失败");
+    expect(result.message).toContain("AI 請求失敗");
     expect(result.message).not.toContain("sk-123");
   });
 });

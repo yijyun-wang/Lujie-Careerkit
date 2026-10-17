@@ -13,7 +13,7 @@ const resume: Resume = {
   template: "classic",
   themeConfig: DEFAULT_RESUME_THEME,
   isDefault: true,
-  language: "zh-CN",
+  language: "zh-TW",
   sections: [],
   createdAt: new Date(0),
   updatedAt: new Date(0),

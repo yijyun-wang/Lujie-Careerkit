@@ -3,7 +3,7 @@
     "brandName": "LuJie",
     "language": {
       "label": "Language",
-      "zh-CN": "中文",
+      "zh-TW": "Traditional Chinese",
       "en": "English"
     },
     "nav": {
@@ -34,7 +34,7 @@
       "catalogCount": "{count, number} listings",
       "searchPlaceholder": "Search companies, roles or majors; separate keywords with spaces",
       "clearSearch": "Clear search",
-      "locationPlaceholder": "Location, e.g. 北京",
+      "locationPlaceholder": "Location, e.g. Taipei",
       "moreFilters": "More filters",
       "resetAdvanced": "Reset these filters",
       "clearFilters": "Clear filters",
@@ -152,7 +152,7 @@
       "matchSubtitle": "Reframe resume emphasis around the target JD, strengthen evidence from real experience, and generate an editable tailored version.",
       "pipelineSubtitle": "Track sources, stages, interview rounds, and follow-up dates so every application stays manageable from submission to offer.",
       "interviewSubtitle": "Generate mock questions from the selected resume and target role, practice answer by answer, and receive structured review notes.",
-      "defaultSubtitle": "A career workspace from resume to offer"
+      "defaultSubtitle": "A Taiwan job-search workspace from resume to offer"
     },
     "dashboard": {
       "metrics": {
@@ -609,14 +609,15 @@
       "FIRST": "First round",
       "SECOND": "Second round",
       "THIRD": "Third round",
-      "HR": "HR round"
+      "HR": "HR interview"
     },
     "source": {
-      "shixiseng": "Shixiseng",
-      "boss": "BOSS Zhipin",
-      "liepin": "Liepin",
-      "zhaopin": "Zhaopin",
-      "51job": "51job",
+      "104": "104 Job Bank",
+      "1111": "1111 Job Bank",
+      "cakeresume": "CakeResume",
+      "yourator": "Yourator",
+      "linkedin": "LinkedIn",
+      "headhunter": "Recruiter / headhunter",
       "official": "Official site",
       "referral": "Referral",
       "email": "Email",
@@ -688,8 +689,8 @@
     },
     "placeholders": {
       "company": "Company you applied to",
-      "title": "e.g. Front-end Intern",
-      "link": "e.g. official job link or chat link",
+      "title": "e.g. Firmware Engineer",
+      "link": "e.g. official job link or 104 job link",
       "notes": "e.g. referral, progress, material status",
       "jd": "e.g. responsibilities, requirements, nice-to-haves; fill in the full JD later",
       "jdShort": "e.g. responsibilities, requirements, nice-to-haves"
@@ -757,7 +758,7 @@
       "title": "AI setup required",
       "later": "Later",
       "optimizeMessage": "Configure and test a working model provider in Settings first. AI resume optimization has no local fallback.",
-      "applicationMessage": "Generating cover letters and greetings requires a working AI model. Complete the configuration and test the connection in Settings first."
+      "applicationMessage": "Generating cover letters and short messages requires a working AI model. Complete the configuration and test the connection in Settings first."
     },
     "toolbar": {
       "back": "Back to resumes",
@@ -860,22 +861,22 @@
       "optimizingButton": "Optimizing..."
     },
     "applicationMessageDialog": {
-      "title": "Cover letter and greeting",
+      "title": "Cover letter and short message",
       "description": "Generate application copy from the current resume and job description. AI only uses facts you provide.",
       "kinds": {
         "coverLetter": {
           "title": "Cover letter",
-          "description": "For recruiting posts, email, and formal applications: complete, courteous, and role-specific.",
-          "extraPlaceholder": "For example: available immediately, interested in a long-term internship, and drawn to the team's product direction. Include facts only."
+          "description": "For 104 / CakeResume applications, email, and formal submissions: complete, courteous, and role-specific.",
+          "extraPlaceholder": "For example: available within one month and drawn to the team's product direction. Include facts only."
         },
         "greeting": {
-          "title": "Greeting",
-          "description": "For direct recruiter chat: lead with availability and the strongest matching evidence.",
-          "extraPlaceholder": "For example: available immediately for six months, five days per week; graduating in June 2027."
+          "title": "Short message",
+          "description": "For LinkedIn messages or 104 proactive applications: lead with availability and the strongest matching evidence.",
+          "extraPlaceholder": "For example: available within one month, prefers Hsinchu or Taipei, five years of firmware experience."
         }
       },
       "jdLabel": "Job description / JD",
-      "jdPlaceholder": "Paste the recruiting post or full job description, including responsibilities, requirements, and preferred qualifications.",
+      "jdPlaceholder": "Paste the full job description from 104, LinkedIn, or another platform, including responsibilities, requirements, and preferred qualifications.",
       "extraLabel": "Additional details",
       "extraHint": "Optional; never inferred",
       "resultLabel": "Generated result",
@@ -900,7 +901,7 @@
       "presets": {
         "deep": "Deep slate",
         "gray": "Calm gray",
-        "blue": "Campus blue",
+        "blue": "Classic blue",
         "gold": "Classic gold"
       },
       "primaryColor": "Primary color",
@@ -1013,7 +1014,7 @@
       "providerPlaceholder": "Select provider",
       "modelPlaceholder": "Select model",
       "customModel": "Custom model ID",
-      "customModelPlaceholder": "e.g. deepseek-chat / qwen-plus / openai/gpt-5.5",
+      "customModelPlaceholder": "e.g. gpt-5.5 / gemini-3.8-flash / openai/gpt-5.5",
       "apiKey": "API Key",
       "apiKeyOptional": "API Key (optional)",
       "apiKeySavedPlaceholder": "Saved; leave blank to keep it",
@@ -1090,12 +1091,12 @@
       "website": "Website",
       "github": "GitHub",
       "linkedin": "LinkedIn",
-      "wechat": "WeChat",
+      "wechat": "LINE ID",
       "age": "Age",
       "gender": "Gender",
-      "politicalStatus": "Political status",
-      "ethnicity": "Ethnicity",
-      "hometown": "Hometown",
+      "politicalStatus": "Military service status",
+      "ethnicity": "Nationality",
+      "hometown": "Registered hometown",
       "maritalStatus": "Marital status",
       "yearsOfExperience": "Years of experience",
       "educationLevel": "Highest education",
@@ -1343,8 +1344,8 @@
     },
     "welcome": {
       "title": "I can help with the career information saved in LuJie",
-      "description": "Find campus opportunities by your criteria and read recruitment details. Search resumes and saved jobs, then select parameters and confirm career-material generation or application-card updates.",
-      "prompt1": "Find software development campus opportunities in Hangzhou for 2027 graduates",
+      "description": "Search resumes and saved jobs, record application progress, then select parameters and confirm tailored resumes, interview materials, or application-card updates.",
+      "prompt1": "Tailor a resume for this job",
       "prompt2": "I applied to a role today. Help me record it.",
       "prompt3": "Which resume versions do I have?"
     },

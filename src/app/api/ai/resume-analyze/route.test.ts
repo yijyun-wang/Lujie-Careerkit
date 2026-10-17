@@ -11,13 +11,13 @@ vi.mock("@/lib/ai-service", () => ({
 import { GET, POST } from "./route";
 
 const resume = {
-  basics: { name: "陈同学", email: "", phone: "", city: "", links: [] },
-  profile: { title: "产品经理", summary: "关注 AI 产品。" },
+  basics: { name: "陳同學", email: "", phone: "", city: "", links: [] },
+  profile: { title: "產品經理", summary: "關注 AI 產品。" },
   education: [],
   experiences: [],
   internships: [],
   projects: [],
-  skills: ["AI 产品", "Prompt"],
+  skills: ["AI 產品", "Prompt"],
   awards: [],
   selfReview: "",
 };
@@ -29,36 +29,36 @@ describe("resume analysis route", () => {
 
   it("returns structured AI diagnosis without creating a version", async () => {
     const diagnosis = {
-      summary: "项目表达需要补充行动与结果。",
-      strengths: ["技能方向明确"],
+      summary: "專案表達需要補充行動與結果。",
+      strengths: ["技能方向明確"],
       issues: [{
         id: "issue-1",
         section: "projects",
-        location: "项目经历",
+        location: "專案經歷",
         severity: "high",
         category: "action-result",
-        title: "缺少个人行动",
-        evidence: "参与项目开发",
-        explanation: "没有说明具体负责的工作。",
-        suggestion: "补充本人采取的行动和可验证结果。",
+        title: "缺少個人行動",
+        evidence: "參與專案開發",
+        explanation: "沒有說明具體負責的工作。",
+        suggestion: "補充本人採取的行動和可驗證結果。",
       }],
     };
     mocks.analyzeResumeWithAI.mockResolvedValue({
       source: "ai",
-      message: "简历诊断完成",
+      message: "履歷診斷完成",
       data: diagnosis,
     });
 
-    const response = await POST(jsonRequest({ resume, locale: "zh-CN" }));
+    const response = await POST(jsonRequest({ resume, locale: "zh-TW" }));
 
     expect(response.status).toBe(200);
     expect(mocks.analyzeResumeWithAI).toHaveBeenCalledWith({
       resume: expect.objectContaining(resume),
-      locale: "zh-CN",
+      locale: "zh-TW",
     });
     await expect(response.json()).resolves.toEqual({
       diagnosis,
-      message: "简历诊断完成",
+      message: "履歷診斷完成",
     });
   });
 

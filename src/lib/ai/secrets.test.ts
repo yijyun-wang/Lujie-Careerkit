@@ -17,7 +17,7 @@ describe("local AI secret helpers", () => {
 
   it("builds a safe preview", () => {
     expect(previewSecret("sk-1234567890abcdef")).toBe("sk-1...cdef");
-    expect(previewSecret("short")).toBe("已保存");
+    expect(previewSecret("short")).toBe("已儲存");
     expect(previewSecret("")).toBe("");
   });
 });

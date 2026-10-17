@@ -1,10 +1,10 @@
 import type { ResumeContent } from "./types";
 
-export const UNTITLED_RESUME_NAME = "未命名简历";
+export const UNTITLED_RESUME_NAME = "未命名履歷";
 
 export function buildAutomaticResumeTitle(personName: string) {
   const name = personName.trim();
-  return name ? `${name}的简历` : UNTITLED_RESUME_NAME;
+  return name ? `${name}的履歷` : UNTITLED_RESUME_NAME;
 }
 
 export function shouldAutoRenameResumeTitle(currentTitle: string, previousPersonName: string) {
@@ -25,5 +25,5 @@ export function resolveResumeContentTitle(content: ResumeContent, currentTitle?:
 export function buildResumeDisplayName(content: ResumeContent, fallback: string) {
   const name = content.basics.name.trim();
   if (!name) return fallback;
-  return name.includes("简历") ? name : `${name}的简历`;
+  return name.includes("履歷") ? name : `${name}的履歷`;
 }

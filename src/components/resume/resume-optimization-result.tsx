@@ -607,9 +607,9 @@ export function buildResumeDiffSections(before: ResumeContent, after: ResumeCont
   ) {
     diffs.push({
       key: "header",
-      title: "顶部信息",
-      previewTitles: ["顶部信息"],
-      detail: "姓名、联系方式、城市、链接或求职方向发生变化。",
+      title: "頂部資訊",
+      previewTitles: ["頂部資訊"],
+      detail: "姓名、聯絡方式、城市、連結或求職方向發生變化。",
     });
   }
 
@@ -619,16 +619,16 @@ export function buildResumeDiffSections(before: ResumeContent, after: ResumeCont
     diffs.push({
       key: "summary",
       title: profileSummaryChanged && selfReviewChanged
-        ? "个人简介与自我评价"
+        ? "個人簡介與自我評價"
         : profileSummaryChanged
-          ? "个人简介"
-          : "自我评价",
-      previewTitles: ["个人简介", "自我评价", "求职摘要"],
+          ? "個人簡介"
+          : "自我評價",
+      previewTitles: ["個人簡介", "自我評價", "求職摘要"],
       detail: profileSummaryChanged && selfReviewChanged
-        ? "个人简介和自我评价经过改写。"
+        ? "個人簡介和自我評價經過改寫。"
         : profileSummaryChanged
-          ? "个人简介经过改写。"
-          : "自我评价经过改写。",
+          ? "個人簡介經過改寫。"
+          : "自我評價經過改寫。",
     });
   }
 
@@ -637,61 +637,61 @@ export function buildResumeDiffSections(before: ResumeContent, after: ResumeCont
       key: "education",
       title: "教育背景",
       previewTitles: ["教育背景"],
-      detail: "教育经历内容发生调整。",
+      detail: "教育經歷內容發生調整。",
     });
   }
 
   if (stringifyForDiff(before.experiences) !== stringifyForDiff(after.experiences)) {
     diffs.push({
       key: "experiences",
-      title: "工作经历",
-      previewTitles: ["工作经历"],
-      detail: "工作经历表达或排序发生调整。",
+      title: "工作經歷",
+      previewTitles: ["工作經歷"],
+      detail: "工作經歷表達或排序發生調整。",
     });
   }
 
   if (stringifyForDiff(before.internships) !== stringifyForDiff(after.internships)) {
     diffs.push({
       key: "internships",
-      title: "实习经历",
-      previewTitles: ["实习经历"],
-      detail: "实习经历表达或排序发生调整。",
+      title: "實習經歷",
+      previewTitles: ["實習經歷"],
+      detail: "實習經歷表達或排序發生調整。",
     });
   }
 
   if (stringifyForDiff(before.projects) !== stringifyForDiff(after.projects)) {
     diffs.push({
       key: "projects",
-      title: "项目经历",
-      previewTitles: ["项目经历"],
-      detail: "项目经历的职责、行动或结果表达发生调整。",
+      title: "專案經歷",
+      previewTitles: ["專案經歷"],
+      detail: "專案經歷的職責、行動或結果表達發生調整。",
     });
   }
 
   if (stringifyForDiff(before.awards) !== stringifyForDiff(after.awards)) {
     diffs.push({
       key: "awards",
-      title: "资格证书",
-      previewTitles: ["资格证书", "奖项证书"],
-      detail: "奖项或证书内容发生调整。",
+      title: "資格證書",
+      previewTitles: ["資格證書", "獎項證書"],
+      detail: "獎項或證書內容發生調整。",
     });
   }
 
   if (stringifyForDiff(before.skills) !== stringifyForDiff(after.skills)) {
     diffs.push({
       key: "skills",
-      title: "技能特长",
-      previewTitles: ["技能特长", "核心技能"],
-      detail: "技能顺序或关键词覆盖发生调整。",
+      title: "技能特長",
+      previewTitles: ["技能特長", "核心技能"],
+      detail: "技能順序或關鍵字覆蓋發生調整。",
     });
   }
 
   if (stringifyForDiff(before.customSections ?? []) !== stringifyForDiff(after.customSections ?? [])) {
     diffs.push({
       key: "customSections",
-      title: "自定义模块",
+      title: "自訂模組",
       previewTitles: uniqueTitles([...(before.customSections ?? []), ...(after.customSections ?? [])]),
-      detail: "自定义模块正文发生调整，标题保持用户原始命名。",
+      detail: "自訂模組正文發生調整，標題保持使用者原始命名。",
     });
   }
 
@@ -711,18 +711,18 @@ export function buildOptimizationSummary(
 
   return [
     {
-      label: isGeneral ? "能力关键词" : "岗位关键词",
+      label: isGeneral ? "能力關鍵字" : "職缺關鍵字",
       value: isGeneral
-        ? keywords.slice(0, 5).join("、") || "表达清晰度、信息密度、成果呈现"
-        : keywords.slice(0, 5).join("、") || options.analysis?.keywords?.slice(0, 5).join("、") || "待补充岗位关键词",
+        ? keywords.slice(0, 5).join("、") || "表達清晰度、資訊密度、成果呈現"
+        : keywords.slice(0, 5).join("、") || options.analysis?.keywords?.slice(0, 5).join("、") || "待補充職缺關鍵字",
     },
     {
-      label: "调整范围",
-      value: formatDisplayChangeList(changedSections) || "保留原结构，仅调整表达重点。",
+      label: "調整範圍",
+      value: formatDisplayChangeList(changedSections) || "保留原結構，僅調整表達重點。",
     },
     {
-      label: "事实边界",
-      value: "只重排和改写原简历已有事实，不新增经历或数据。",
+      label: "事實邊界",
+      value: "只重排和改寫原履歷已有事實，不新增經歷或資料。",
     },
   ];
 }
@@ -737,13 +737,13 @@ export function buildOptimizationDescription(
   const summary = cleanMetaSummary(options.meta?.summary);
   const leadingSections = formatDisplayChangeList(changedSections, 4);
   const suffix = changedSections.length
-    ? "右侧简历中浅黄色区域为本次优化产生或调整的模块，可以进入编辑器继续微调。"
-    : "右侧简历没有明显高亮模块，可以进入编辑器继续复核。";
+    ? "右側履歷中淺黃色區域為本次優化產生或調整的模組，可以進入編輯器繼續微調。"
+    : "右側履歷沒有明顯高亮模組，可以進入編輯器繼續複核。";
 
   if (!changedSections.length) {
     return options.mode === "jd"
-      ? `已完成 JD 匹配检查，本次未发现明显结构变化。${suffix}`
-      : `已完成 AI 优化检查，本次未发现明显结构变化。${suffix}`;
+      ? `已完成 JD 比對檢查，本次未發現明顯結構變化。${suffix}`
+      : `已完成 AI 優化檢查，本次未發現明顯結構變化。${suffix}`;
   }
 
   if (summary) {
@@ -751,8 +751,8 @@ export function buildOptimizationDescription(
   }
 
   return options.mode === "jd"
-    ? `已基于职位描述重新组织简历重点，本次主要调整了${leadingSections}。${suffix}`
-    : `已基于当前简历优化表达与信息呈现，本次主要调整了${leadingSections}。${suffix}`;
+    ? `已基於職位描述重新組織履歷重點，本次主要調整了${leadingSections}。${suffix}`
+    : `已基於當前履歷優化表達與資訊呈現，本次主要調整了${leadingSections}。${suffix}`;
 }
 
 function stringifyForDiff(value: unknown) {
@@ -788,16 +788,16 @@ function normalizeDisplayChangeTitles(items: string[]) {
 function humanizeDisplayChange(value: string) {
   const text = value.trim();
   if (!text) return "";
-  if (/^(自我评价|项目经历|工作经历|实习经历|教育背景|技能特长|自定义模块|奖项证书)$/.test(text)) return text;
-  if (/profile\.summary|求职摘要|个人简介|核心能力/.test(text)) return "个人简介";
-  if (/selfReview|自我评价/.test(text)) return "自我评价";
-  if (/projects?(\.|$)|项目/.test(text)) return "项目经历";
-  if (/experiences?(\.|$)|工作/.test(text)) return "工作经历";
-  if (/internships?(\.|$)|实习/.test(text)) return "实习经历";
+  if (/^(自我評價|專案經歷|工作經歷|實習經歷|教育背景|技能特長|自訂模組|獎項證書)$/.test(text)) return text;
+  if (/profile\.summary|求職摘要|個人簡介|核心能力/.test(text)) return "個人簡介";
+  if (/selfReview|自我評價/.test(text)) return "自我評價";
+  if (/projects?(\.|$)|專案/.test(text)) return "專案經歷";
+  if (/experiences?(\.|$)|工作/.test(text)) return "工作經歷";
+  if (/internships?(\.|$)|實習/.test(text)) return "實習經歷";
   if (/education(\.|$)|教育/.test(text)) return "教育背景";
-  if (/customSections?(\.|$)|自定义|主要优势/.test(text)) return "自定义模块";
-  if (/skills?(\.|$)|技能|技术栈/.test(text)) return "技能特长";
-  if (/awards?(\.|$)|奖项|证书|认证/.test(text)) return "奖项证书";
+  if (/customSections?(\.|$)|自訂|主要優勢/.test(text)) return "自訂模組";
+  if (/skills?(\.|$)|技能|技術棧/.test(text)) return "技能特長";
+  if (/awards?(\.|$)|獎項|證書|認證/.test(text)) return "獎項證書";
   if (/[a-zA-Z]+\.[a-zA-Z]+/.test(text)) return "";
   return text.replace(/[。；;].*$/, "").slice(0, 18);
 }
@@ -805,7 +805,7 @@ function humanizeDisplayChange(value: string) {
 function formatDisplayChangeList(items: string[], limit = 3) {
   const visible = items.slice(0, limit);
   if (!visible.length) return "";
-  return `${visible.join("、")}${items.length > limit ? "等模块" : ""}`;
+  return `${visible.join("、")}${items.length > limit ? "等模組" : ""}`;
 }
 
 function cleanMetaSummary(value?: string) {
@@ -813,12 +813,12 @@ function cleanMetaSummary(value?: string) {
   if (!text) return "";
   if (/[a-zA-Z]+\.[a-zA-Z]+/.test(text)) return "";
   return text
-    .replace(/\bcustomSections\b/g, "自定义模块")
-    .replace(/\bprojects\.highlights\b/g, "项目经历")
-    .replace(/\bprofile\.summary\b/g, "个人简介")
-    .replace(/\bselfReview\b/g, "自我评价")
-    .replace(/\bskills\b/g, "技能特长")
-    .replace(/\bawards\b/g, "奖项证书");
+    .replace(/\bcustomSections\b/g, "自訂模組")
+    .replace(/\bprojects\.highlights\b/g, "專案經歷")
+    .replace(/\bprofile\.summary\b/g, "個人簡介")
+    .replace(/\bselfReview\b/g, "自我評價")
+    .replace(/\bskills\b/g, "技能特長")
+    .replace(/\bawards\b/g, "獎項證書");
 }
 
 function uniqueTextList(items: string[]) {

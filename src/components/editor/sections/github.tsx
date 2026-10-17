@@ -76,7 +76,7 @@ export function GitHubSection({ section, onUpdate }: Props) {
     const item = latest[index];
     if (!item) return;
     if (!GITHUB_REPO_RE.test(url)) {
-      setRepoError(item.id, '请填写有效的 GitHub 仓库链接，例如 https://github.com/vercel/next.js。');
+      setRepoError(item.id, '請填寫有效的 GitHub Repository 連結，例如 https://github.com/vercel/next.js。');
       return;
     }
 
@@ -86,7 +86,7 @@ export function GitHubSection({ section, onUpdate }: Props) {
       const res = await fetch(`/api/github/repo?url=${encodeURIComponent(url)}`);
       const data = await res.json().catch(() => null);
       if (!res.ok) {
-        throw new Error(data?.message ?? 'GitHub 仓库信息读取失败。');
+        throw new Error(data?.message ?? 'GitHub Repository 資訊讀取失敗。');
       }
       updateItem(index, {
         name: data.name,
@@ -95,7 +95,7 @@ export function GitHubSection({ section, onUpdate }: Props) {
         description: data.description,
       });
     } catch (error) {
-      setRepoError(item.id, error instanceof Error ? error.message : 'GitHub 仓库信息读取失败。');
+      setRepoError(item.id, error instanceof Error ? error.message : 'GitHub Repository 資訊讀取失敗。');
     } finally {
       setLoadingIds((prev) => {
         const next = new Set(prev);
@@ -148,8 +148,8 @@ export function GitHubSection({ section, onUpdate }: Props) {
                 variant="ghost"
                 size="sm"
                 className="h-7 cursor-pointer p-1 text-zinc-400 hover:text-red-500"
-                aria-label={`删除 GitHub 项目第${index + 1}项`}
-                title={`删除 GitHub 项目第${index + 1}项`}
+                aria-label={`刪除 GitHub 專案第${index + 1}項`}
+                title={`刪除 GitHub 專案第${index + 1}項`}
                 onClick={() => removeItem(index)}
               >
                 <X className="h-3.5 w-3.5" />
@@ -188,8 +188,8 @@ export function GitHubSection({ section, onUpdate }: Props) {
                 <button
                   type="button"
                   className="inline-flex cursor-pointer items-center gap-0.5 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
-                  aria-label={`刷新${item.name}仓库信息`}
-                  title={`刷新${item.name}仓库信息`}
+                  aria-label={`重新整理${item.name}Repository 資訊`}
+                  title={`重新整理${item.name}Repository 資訊`}
                   onClick={() => fetchRepo(index, item.repoUrl)}
                   disabled={loadingIds.has(item.id)}
                 >

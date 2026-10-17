@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   const repo = parseGitHubRepo(url);
 
   if (!repo) {
-    return Response.json({ message: "请填写有效的 GitHub 仓库链接，例如 https://github.com/vercel/next.js。" }, { status: 400 });
+    return Response.json({ message: "請填寫有效的 GitHub 倉庫連結，例如 https://github.com/vercel/next.js。" }, { status: 400 });
   }
 
   try {
@@ -28,11 +28,11 @@ export async function GET(request: Request) {
     });
 
     if (response.status === 404) {
-      return Response.json({ message: "没有找到这个 GitHub 仓库，请检查链接或仓库是否公开。" }, { status: 404 });
+      return Response.json({ message: "沒有找到這個 GitHub 倉庫，請檢查連結或倉庫是否公開。" }, { status: 404 });
     }
 
     if (!response.ok) {
-      return Response.json({ message: "GitHub 仓库信息读取失败，请稍后重试。" }, { status: response.status });
+      return Response.json({ message: "GitHub 倉庫資訊讀取失敗，請稍後重試。" }, { status: response.status });
     }
 
     const data = (await response.json()) as GitHubRepoResponse;
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
       description: data.description ?? "",
     });
   } catch {
-    return Response.json({ message: "无法连接 GitHub，请检查网络后重试。" }, { status: 502 });
+    return Response.json({ message: "無法連線 GitHub，請檢查網路後重試。" }, { status: 502 });
   }
 }
 

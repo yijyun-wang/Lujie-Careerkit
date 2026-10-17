@@ -49,8 +49,8 @@ export function SkillsSection({ section, onUpdate }: Props) {
                 variant="ghost"
                 size="sm"
                 className="mt-5 h-7 cursor-pointer p-1 text-zinc-400 hover:text-red-500"
-                aria-label={`删除技能分类第${index + 1}项`}
-                title={`删除技能分类第${index + 1}项`}
+                aria-label={`刪除技能分類第${index + 1}項`}
+                title={`刪除技能分類第${index + 1}項`}
                 onClick={() => removeCategory(index)}
               >
                 <X className="h-3.5 w-3.5" />

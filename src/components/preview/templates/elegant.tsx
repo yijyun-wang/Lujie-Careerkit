@@ -80,7 +80,7 @@ function ElegantSectionContent({ section, lang }: { section: any; lang?: string 
               <span className="shrink-0 text-xs italic text-zinc-400">{item.startDate} – {item.endDate || (item.current ? (lang === 'zh' ? '至今' : 'Present') : '')}</span>
             </div>
             {item.description && <p className="mt-1 text-sm text-zinc-600" dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
-            {item.technologies?.length > 0 && <p className="mt-0.5 text-xs text-zinc-400 italic">{lang === 'zh' ? '技术栈' : 'Tech'}: {item.technologies.join(', ')}</p>}
+            {item.technologies?.length > 0 && <p className="mt-0.5 text-xs text-zinc-400 italic">{lang === 'zh' ? '使用技術' : 'Tech'}: {item.technologies.join(', ')}</p>}
             {item.highlights?.length > 0 && (
               <ul className="mt-1 list-disc pl-5">
                 {item.highlights.map((h: string, i: number) => <li key={i} className="text-sm text-zinc-600" dangerouslySetInnerHTML={{ __html: md(h) }} />)}
@@ -140,7 +140,7 @@ function ElegantSectionContent({ section, lang }: { section: any; lang?: string 
               {item.startDate && <span className="shrink-0 text-xs italic text-zinc-400">{item.startDate} – {item.endDate || (lang === 'zh' ? '至今' : 'Present')}</span>}
             </div>
             {item.description && <p className="mt-1 text-sm text-zinc-600" dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
-            {item.technologies?.length > 0 && <p className="mt-0.5 text-xs text-zinc-400 italic">{lang === 'zh' ? '技术栈' : 'Tech'}: {item.technologies.join(', ')}</p>}
+            {item.technologies?.length > 0 && <p className="mt-0.5 text-xs text-zinc-400 italic">{lang === 'zh' ? '使用技術' : 'Tech'}: {item.technologies.join(', ')}</p>}
             {item.highlights?.length > 0 && (
               <ul className="mt-1 list-disc pl-5">
                 {item.highlights.map((h: string, i: number) => <li key={i} className="text-sm text-zinc-600" dangerouslySetInnerHTML={{ __html: md(h) }} />)}

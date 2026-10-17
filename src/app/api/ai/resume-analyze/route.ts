@@ -6,7 +6,7 @@ import { resumeContentInputSchema } from "@/lib/resume-content";
 
 const schema = z.object({
   resume: resumeContentInputSchema,
-  locale: z.enum(["zh-CN", "en"]).optional(),
+  locale: z.enum(["zh-TW", "en"]).optional(),
 });
 
 export function GET() {

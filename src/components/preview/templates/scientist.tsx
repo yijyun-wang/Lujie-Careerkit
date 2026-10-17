@@ -103,7 +103,7 @@ function ScientistSectionContent({ section, resume }: { section: any; resume: Re
             </div>
             {item.description && <p className="mt-1 pl-6 text-sm" style={{ color: BODY_TEXT }} dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="pl-6 text-xs italic" style={{ color: MUTED }}>{resume.language === 'zh' ? '技术栈' : 'Methods/Tools'}: {item.technologies.join(', ')}</p>
+              <p className="pl-6 text-xs italic" style={{ color: MUTED }}>{resume.language === 'zh' ? '使用技術' : 'Methods/Tools'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-1 pl-6 space-y-0.5">
@@ -186,7 +186,7 @@ function ScientistSectionContent({ section, resume }: { section: any; resume: Re
             </div>
             {item.description && <p className="mt-1 pl-6 text-sm" style={{ color: BODY_TEXT }} dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="pl-6 text-xs italic" style={{ color: MUTED }}>{resume.language === 'zh' ? '技术栈' : 'Methods/Tools'}: {item.technologies.join(', ')}</p>
+              <p className="pl-6 text-xs italic" style={{ color: MUTED }}>{resume.language === 'zh' ? '使用技術' : 'Methods/Tools'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-1 pl-6 space-y-0.5">

@@ -83,7 +83,7 @@ export function SectionWrapper({ section, onUpdate, onRemove }: SectionWrapperPr
         <div className="flex items-center gap-2">
           <GripVertical
             className="h-4 w-4 cursor-grab text-zinc-300 active:cursor-grabbing"
-            aria-label={`${section.title} 拖拽排序`}
+            aria-label={`${section.title} 拖曳排序`}
             {...attributes}
             {...listeners}
           />
@@ -114,8 +114,8 @@ export function SectionWrapper({ section, onUpdate, onRemove }: SectionWrapperPr
             variant="ghost"
             size="sm"
             className="h-7 w-7 cursor-pointer p-0"
-            aria-label={section.visible ? `隐藏${section.title}` : `显示${section.title}`}
-            title={section.visible ? `隐藏${section.title}` : `显示${section.title}`}
+            aria-label={section.visible ? `隱藏${section.title}` : `顯示${section.title}`}
+            title={section.visible ? `隱藏${section.title}` : `顯示${section.title}`}
             onClick={(e) => {
               e.stopPropagation();
               toggleSectionVisibility(section.id);
@@ -131,8 +131,8 @@ export function SectionWrapper({ section, onUpdate, onRemove }: SectionWrapperPr
             variant="ghost"
             size="sm"
             className="h-7 w-7 cursor-pointer p-0 text-zinc-400 hover:text-red-500"
-            aria-label={`删除${section.title}`}
-            title={`删除${section.title}`}
+            aria-label={`刪除${section.title}`}
+            title={`刪除${section.title}`}
             onClick={(e) => {
               e.stopPropagation();
               onRemove();
@@ -148,7 +148,7 @@ export function SectionWrapper({ section, onUpdate, onRemove }: SectionWrapperPr
         ) : SectionComponent ? (
           <SectionComponent section={section} onUpdate={onUpdate} />
         ) : (
-          <p className="text-sm text-zinc-400">未知模块类型：{section.type}</p>
+          <p className="text-sm text-zinc-400">未知模組類型：{section.type}</p>
         )}
       </div>
     </div>

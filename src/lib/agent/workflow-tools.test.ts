@@ -40,8 +40,8 @@ vi.mock("@/lib/repository", () => ({
 
 const settings = { enabled: true } as never;
 const resume = {
-  basics: { name: "张三", email: "", phone: "", city: "", links: [] },
-  profile: { title: "后端工程师", summary: "" },
+  basics: { name: "張三", email: "", phone: "", city: "", links: [] },
+  profile: { title: "後端工程師", summary: "" },
   education: [],
   experiences: [],
   internships: [],
@@ -56,7 +56,7 @@ beforeEach(() => vi.resetAllMocks());
 describe("Agent workflow tools", () => {
   it("requires a fresh preference card after each new user request", () => {
     const selected = [
-      { role: "user", content: [{ type: "text", text: "优化这份简历" }] },
+      { role: "user", content: [{ type: "text", text: "優化這份履歷" }] },
       {
         role: "tool",
         content: [{
@@ -70,13 +70,13 @@ describe("Agent workflow tools", () => {
     expect(hasRecentToolResult(selected, "configure_jd_optimization")).toBe(true);
     expect(hasRecentToolResult([
       ...selected,
-      { role: "user", content: [{ type: "text", text: "再优化另一份" }] },
+      { role: "user", content: [{ type: "text", text: "再優化另一份" }] },
     ] as never, "configure_jd_optimization")).toBe(false);
   });
 
   it("moves a completed JD configuration directly to the protected write", () => {
     const configured = [
-      { role: "user", content: [{ type: "text", text: "优化这份简历" }] },
+      { role: "user", content: [{ type: "text", text: "優化這份履歷" }] },
       {
         role: "tool",
         content: [{
@@ -105,7 +105,7 @@ describe("Agent workflow tools", () => {
 
   it("routes interview configuration to the requested workflow", () => {
     const configured = [
-      { role: "user", content: [{ type: "text", text: "开始模拟面试" }] },
+      { role: "user", content: [{ type: "text", text: "開始模擬面試" }] },
       {
         role: "tool",
         content: [{
@@ -123,7 +123,7 @@ describe("Agent workflow tools", () => {
   it("requires an unambiguous Job identity when no jobId exists", () => {
     expect(createJdTailoredResumeSchema.safeParse({
       resumeVersionId: "resume-1",
-      jd: "岗位描述",
+      jd: "職缺描述",
     }).success).toBe(false);
   });
 
@@ -132,12 +132,12 @@ describe("Agent workflow tools", () => {
     vi.mocked(createResumeVersion).mockResolvedValue(version("resume-1", null) as never);
 
     const result = await createResumeFromExperience({
-      sourceText: "我在示例公司负责 TypeScript 服务开发和接口维护。",
-      resumeName: "后端求职简历",
-      targetRole: "后端工程师",
-    }, settings, "zh-CN");
+      sourceText: "我在示例公司負責 TypeScript 服務開發和介面維護。",
+      resumeName: "後端求職履歷",
+      targetRole: "後端工程師",
+    }, settings, "zh-TW");
 
-    expect(createResumeVersion).toHaveBeenCalledWith(expect.objectContaining({ name: "后端求职简历", content: resume }));
+    expect(createResumeVersion).toHaveBeenCalledWith(expect.objectContaining({ name: "後端求職履歷", content: resume }));
     expect(result.href).toBe("/resume/edit?version=resume-1");
   });
 
@@ -150,7 +150,7 @@ describe("Agent workflow tools", () => {
     vi.mocked(tailorResumeWithAI).mockResolvedValue({
       source: "ai",
       data: resume,
-      meta: { company: "示例公司", title: "后端工程师", keywords: [], summary: "已优化", changes: [], versionName: "定制简历" },
+      meta: { company: "示例公司", title: "後端工程師", keywords: [], summary: "已優化", changes: [], versionName: "客製履歷" },
       message: "ok",
     } as never);
     vi.mocked(createTailoredVersionForJob).mockResolvedValue(version("tailored-1", job.id) as never);
@@ -173,7 +173,7 @@ describe("Agent workflow tools", () => {
       jobId: job.id,
       resumeVersionId: "resume-1",
       focus: "comprehensive",
-    }, settings, "zh-CN");
+    }, settings, "zh-TW");
 
     expect(createInterviewPreparationRecord).toHaveBeenCalledOnce();
     expect(result.href).toBe("/library/jobs/job-1");
@@ -217,10 +217,10 @@ function sampleJob() {
   return {
     id: "job-1",
     company: "示例公司",
-    title: "后端工程师",
+    title: "後端工程師",
     city: "北京",
-    source: "官网",
-    jd: "负责 TypeScript 后端服务开发。",
+    source: "官網",
+    jd: "負責 TypeScript 後端服務開發。",
     link: "",
     deadline: null,
     analysis: null,
@@ -250,7 +250,7 @@ function version(id: string, jobId: string | null) {
     id,
     resumeId: "root-1",
     jobId,
-    name: "后端简历",
+    name: "後端履歷",
     summary: "摘要",
     content: resume,
     createdAt: new Date("2026-08-26T00:00:00.000Z"),

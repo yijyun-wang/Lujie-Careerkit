@@ -4,7 +4,7 @@ import { normalizeOptimizedResumeVersionName } from "@/lib/resume-versioning";
 import type { ResumeContent } from "@/lib/types";
 
 export type ResumeLibrarySortMode = "recent" | "recentOptimized";
-export type ResumeLibraryCardKind = "原简历" | "优化后简历";
+export type ResumeLibraryCardKind = "原履歷" | "優化後履歷";
 export type ResumeLibrarySaveTarget = { kind: "main" } | { kind: "version"; id: string };
 
 export type ResumeLibraryVersion = {
@@ -34,39 +34,39 @@ export type ResumeLibraryCard = {
 };
 
 export const resumeTemplateLabels: Record<string, string> = {
-  classic: "经典",
-  modern: "现代",
-  minimal: "极简",
-  professional: "专业",
-  "two-column": "双栏",
-  creative: "创意",
+  classic: "經典",
+  modern: "現代",
+  minimal: "極簡",
+  professional: "專業",
+  "two-column": "雙欄",
+  creative: "創意",
   ats: "ATS",
-  academic: "学术",
-  elegant: "优雅",
+  academic: "學術",
+  elegant: "優雅",
   executive: "高管",
-  developer: "开发者",
-  designer: "设计师",
-  startup: "创业",
+  developer: "開發者",
+  designer: "設計師",
+  startup: "創業",
   formal: "正式",
-  infographic: "信息图",
-  compact: "紧凑",
-  euro: "欧式",
+  infographic: "資訊圖",
+  compact: "緊湊",
+  euro: "歐式",
   clean: "清爽",
   bold: "醒目",
-  timeline: "时间线",
-  nordic: "北欧",
-  corporate: "企业",
-  consultant: "咨询",
+  timeline: "時間線",
+  nordic: "北歐",
+  corporate: "企業",
+  consultant: "諮詢",
   finance: "金融",
-  medical: "医疗",
-  gradient: "渐变",
+  medical: "醫療",
+  gradient: "漸變",
   metro: "都市",
   material: "材料",
-  coder: "代码",
-  blocks: "块面",
-  magazine: "杂志",
-  artistic: "艺术",
-  retro: "复古",
+  coder: "程式碼",
+  blocks: "塊面",
+  magazine: "雜誌",
+  artistic: "藝術",
+  retro: "復古",
   neon: "霓虹",
   watercolor: "水彩",
   swiss: "瑞士",
@@ -74,16 +74,16 @@ export const resumeTemplateLabels: Record<string, string> = {
   berlin: "柏林",
   luxe: "奢雅",
   rose: "玫瑰",
-  architect: "建筑",
+  architect: "建築",
   legal: "法律",
-  teacher: "教师",
+  teacher: "教師",
   scientist: "科研",
-  engineer: "工程师",
-  sidebar: "侧栏",
+  engineer: "工程師",
+  sidebar: "側欄",
   card: "卡片",
-  zigzag: "折线",
-  ribbon: "丝带",
-  mosaic: "马赛克",
+  zigzag: "折線",
+  ribbon: "絲帶",
+  mosaic: "馬賽克",
 };
 
 export function buildResumeLibraryCards({
@@ -103,10 +103,10 @@ export function buildResumeLibraryCards({
   const mainCard: ResumeLibraryCard | null = hasResumeContent(resume)
     ? {
         id: "main",
-        kind: "原简历",
+        kind: "原履歷",
         title: buildResumeTitle(resume),
-        detail: `${resume.profile.title || "目标岗位待填写"} · 主简历`,
-        template: resumeTemplateLabels[mainTemplate] ?? "现代",
+        detail: `${resume.profile.title || "目標職缺待填寫"} · 主履歷`,
+        template: resumeTemplateLabels[mainTemplate] ?? "現代",
         templateKey: mainTemplate,
         updatedAt: formatResumeEditedAt(mainResumeUpdatedAt),
         ...formatResumeDateParts(mainResumeUpdatedAt, "edited"),
@@ -123,19 +123,19 @@ export function buildResumeLibraryCards({
     const templateKey = getValidResumeTemplate(version.content.editor?.template);
     return {
       id: version.id,
-      kind: isOptimized ? "优化后简历" : "原简历",
+      kind: isOptimized ? "優化後履歷" : "原履歷",
       optimizationKind,
       title: optimizationKind === "job"
         ? normalizeOptimizedResumeVersionName(version.name)
-        : version.name || "未命名原简历",
+        : version.name || "未命名原履歷",
       detail: version.summary || (
         optimizationKind === "job"
-          ? "基于 JD 生成的岗位优化简历"
+          ? "基於 JD 生成的職缺優化履歷"
           : optimizationKind === "general"
-            ? "经 AI 分析和逐条审阅生成的通用优化简历"
-            : "原简历版本，可作为优化基准"
+            ? "經 AI 分析和逐條審閱生成的通用優化履歷"
+            : "原履歷版本，可作為優化基準"
       ),
-      template: resumeTemplateLabels[templateKey] ?? "现代",
+      template: resumeTemplateLabels[templateKey] ?? "現代",
       templateKey,
       updatedAt: version.updatedAt ? formatResumeEditedAt(editedAt) : formatResumeCreatedAt(editedAt),
       ...formatResumeDateParts(editedAt, version.updatedAt ? "edited" : "created"),
@@ -212,18 +212,18 @@ export function getValidResumeTemplate(template?: string) {
 }
 
 export function formatResumeEditedAt(value?: string) {
-  return formatResumeDate(value, "最近编辑于", "最近编辑时间未知");
+  return formatResumeDate(value, "最近編輯於", "最近編輯時間未知");
 }
 
 function formatResumeCreatedAt(value?: string) {
-  return formatResumeDate(value, "创建于", "创建时间未知");
+  return formatResumeDate(value, "創建於", "建立時間未知");
 }
 
 function formatResumeDate(value: string | undefined, prefix: string, fallback: string) {
   if (!value) return fallback;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return fallback;
-  return `${prefix} ${date.toLocaleDateString("zh-CN")}`;
+  return `${prefix} ${date.toLocaleDateString("zh-TW")}`;
 }
 
 function formatResumeDateParts(value: string | undefined, kind: "edited" | "created") {

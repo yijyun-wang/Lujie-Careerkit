@@ -41,14 +41,14 @@ export function SpeechTextarea({
   const speech = useSpeechRecognition(handleTranscript);
   const isBusy = speech.isPreparing || speech.isTranscribing;
   const label = !speech.isSupported
-    ? "当前浏览器不支持语音输入"
+    ? "當前瀏覽器不支援語音輸入"
     : speech.isPreparing
-      ? "正在准备语音输入"
+      ? "正在準備語音輸入"
       : speech.isTranscribing
-        ? "正在转写语音"
+        ? "正在轉寫語音"
     : speech.isListening
-      ? "停止语音输入"
-      : "开始语音输入";
+      ? "停止語音輸入"
+      : "開始語音輸入";
 
   return (
     <div className={cn("relative", wrapperClassName)}>
@@ -91,7 +91,7 @@ export function SpeechTextarea({
           )}
         >
           {speech.error
-            || (speech.interimText ? `正在识别：${speech.interimText}` : speech.statusMessage || "正在聆听...")}
+            || (speech.interimText ? `正在識別：${speech.interimText}` : speech.statusMessage || "正在聆聽...")}
         </p>
       ) : null}
     </div>

@@ -17,7 +17,7 @@ export function normalizeAiError(error: unknown): NormalizedAiError {
   if (lower.includes("missing") && lower.includes("api key")) {
     return {
       code: "missing_api_key",
-      message: "缺少 API Key，请在设置页保存对应模型服务的密钥。",
+      message: "缺少 API Key，請在設定頁儲存對應模型服務的金鑰。",
     };
   }
 
@@ -31,7 +31,7 @@ export function normalizeAiError(error: unknown): NormalizedAiError {
   ) {
     return {
       code: "unauthorized",
-      message: "AI 密钥校验失败，请检查设置页保存的密钥是否正确。",
+      message: "AI 金鑰校驗失敗，請檢查設定頁儲存的金鑰是否正確。",
     };
   }
 
@@ -44,14 +44,14 @@ export function normalizeAiError(error: unknown): NormalizedAiError {
   ) {
     return {
       code: "rate_limited",
-      message: "AI 服务触发限流或额度不足，请稍后重试或更换模型服务。",
+      message: "AI 服務觸發限流或額度不足，請稍後重試或更換模型服務。",
     };
   }
 
   if (lower.includes("model") || lower.includes("404") || lower.includes("not found")) {
     return {
       code: "unsupported_model",
-      message: "当前模型不可用，请检查模型名称或切换到该服务支持的模型。",
+      message: "當前模型不可用，請檢查模型名稱或切換到該服務支援的模型。",
     };
   }
 
@@ -65,20 +65,20 @@ export function normalizeAiError(error: unknown): NormalizedAiError {
   ) {
     return {
       code: "network",
-      message: "AI 请求失败，请检查网络连接、Base URL 或本地模型服务是否启动。",
+      message: "AI 請求失敗，請檢查網路連線、Base URL 或本地模型服務是否啟動。",
     };
   }
 
   if (lower.includes("json") || lower.includes("schema") || lower.includes("parse")) {
     return {
       code: "invalid_json",
-      message: "模型返回格式不符合要求，请重试或切换模型。",
+      message: "模型返回格式不符合要求，請重試或切換模型。",
     };
   }
 
   return {
     code: "unknown",
-    message: "AI 请求失败，请检查设置页的 Provider、模型和网络连接。",
+    message: "AI 請求失敗，請檢查設定頁的 Provider、模型和網路連線。",
   };
 }
 

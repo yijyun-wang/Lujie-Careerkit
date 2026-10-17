@@ -38,15 +38,15 @@ describe("DELETE /api/jobs/[id]", () => {
 
 describe("PATCH /api/jobs/[id]", () => {
   it("updates the job identity without requiring an application", async () => {
-    updateIdentity.mockResolvedValue({ id: "job-1", company: "字节跳动", title: "AI 产品实习生" } as never);
+    updateIdentity.mockResolvedValue({ id: "job-1", company: "字節跳動", title: "AI 產品實習生" } as never);
 
     const response = await PATCH(new Request("http://localhost/api/jobs/job-1", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ company: "字节跳动", title: "AI 产品实习生" }),
+      body: JSON.stringify({ company: "字節跳動", title: "AI 產品實習生" }),
     }), { params: Promise.resolve({ id: "job-1" }) });
 
-    expect(updateIdentity).toHaveBeenCalledWith("job-1", "字节跳动", "AI 产品实习生");
+    expect(updateIdentity).toHaveBeenCalledWith("job-1", "字節跳動", "AI 產品實習生");
     expect(response.status).toBe(200);
   });
 });

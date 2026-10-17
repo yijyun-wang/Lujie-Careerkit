@@ -12,11 +12,11 @@ export function appendSpeechTranscript(
 
 export function speechRecognitionErrorMessage(error: string) {
   if (error === "not-allowed" || error === "service-not-allowed") {
-    return "无法使用麦克风权限，请在浏览器设置中允许后重试。";
+    return "無法使用麥克風許可權，請在瀏覽器設定中允許後重試。";
   }
-  if (error === "no-speech") return "没有识别到语音，请靠近麦克风后重试。";
-  if (error === "audio-capture") return "浏览器语音识别没有接管到麦克风，请确认系统默认输入设备可用后重试。";
-  if (error === "network") return "语音识别网络连接失败，请稍后重试。";
-  if (error === "aborted") return "语音输入已停止。";
-  return "语音识别失败，请稍后重试。";
+  if (error === "no-speech") return "沒有識別到語音，請靠近麥克風後重試。";
+  if (error === "audio-capture") return "瀏覽器語音識別沒有接管到麥克風，請確認系統預設輸入裝置可用後重試。";
+  if (error === "network") return "語音識別網路連線失敗，請稍後重試。";
+  if (error === "aborted") return "語音輸入已停止。";
+  return "語音識別失敗，請稍後重試。";
 }

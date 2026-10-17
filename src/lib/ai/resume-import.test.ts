@@ -1,14 +1,14 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { getAiProvider } from "./provider-registry";
-import { parseResumeTextWithAi, parseResumeWithQwenDoc } from "./resume-import";
+import { parseResumeFileWithAi, parseResumeTextWithAi } from "./resume-import";
 import type { EffectiveAiSettings } from "./settings";
 
 const settings: EffectiveAiSettings = {
-  providerId: "deepseek",
-  provider: getAiProvider("deepseek"),
-  model: "deepseek-v4-flash",
-  baseUrl: "https://api.deepseek.com/v1",
+  providerId: "gemini",
+  provider: getAiProvider("gemini"),
+  model: "gemini-3.8-flash",
+  baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
   apiKey: "test-key",
   enabled: true,
   temperature: 0.1,
@@ -18,12 +18,12 @@ const settings: EffectiveAiSettings = {
 describe("resume text import", () => {
   it("uses the configured model to structure extracted text", async () => {
     const result = await parseResumeTextWithAi(
-      { fileName: "resume.pdf", text: "张三\n产品经理", settings },
+      { fileName: "resume.pdf", text: "張三\n產品經理", settings },
       {
         generateObject: async () => ({
           object: {
-            basics: { name: "张三", email: "", phone: "", city: "", links: [] },
-            profile: { title: "产品经理", summary: "" },
+            basics: { name: "張三", email: "", phone: "", city: "", links: [] },
+            profile: { title: "產品經理", summary: "" },
             education: [], experiences: [], internships: [], projects: [], skills: [], awards: [], selfReview: "",
           } as never,
         }),
@@ -31,21 +31,21 @@ describe("resume text import", () => {
     );
 
     expect(result.source).toBe("ai");
-    expect(result.data.basics.name).toBe("张三");
-    expect(result.data.profile.title).toBe("产品经理");
+    expect(result.data.basics.name).toBe("張三");
+    expect(result.data.profile.title).toBe("產品經理");
   });
 
   it("tells the model not to duplicate summaries into self evaluation", async () => {
     let prompt = "";
     await parseResumeTextWithAi(
-      { fileName: "resume.pdf", text: "张三\n个人总结\n专注后端开发", settings },
+      { fileName: "resume.pdf", text: "張三\n個人總結\n專注後端開發", settings },
       {
         generateObject: async (input) => {
           prompt = input.prompt;
           return {
             object: {
-              basics: { name: "张三", email: "", phone: "", city: "", links: [] },
-              profile: { title: "", summary: "专注后端开发" },
+              basics: { name: "張三", email: "", phone: "", city: "", links: [] },
+              profile: { title: "", summary: "專注後端開發" },
               education: [], experiences: [], internships: [], projects: [], skills: [], awards: [], selfReview: "",
             } as never,
           };
@@ -53,52 +53,47 @@ describe("resume text import", () => {
       },
     );
 
-    expect(prompt).toContain("profile.summary：只放原简历明确标为个人总结");
-    expect(prompt).toContain("不要放自我评价");
-    expect(prompt).toContain("selfReview：只放原简历明确标为自我评价");
-    expect(prompt).toContain("不要与 profile.summary 重复");
+    expect(prompt).toContain("profile.summary：只放原履歷明確標為個人總結");
+    expect(prompt).toContain("不要放自我評價");
+    expect(prompt).toContain("selfReview：只放原履歷明確標為自我評價");
+    expect(prompt).toContain("不要與 profile.summary 重複");
   });
 });
 
-describe("Qwen document import", () => {
-  afterEach(() => vi.unstubAllGlobals());
+describe("multimodal file import", () => {
+  const json = JSON.stringify({
+    basics: { name: "張三", email: "", phone: "", city: "", links: [] },
+    profile: { title: "", summary: "" },
+    education: [], experiences: [], internships: [], projects: [], skills: [], awards: [], selfReview: "",
+  });
 
-  it("waits for remote temporary-file cleanup before resolving", async () => {
-    let finishDelete!: (response: Response) => void;
-    const deleteResponse = new Promise<Response>((resolve) => {
-      finishDelete = resolve;
-    });
-    const fetchMock = vi.fn()
-      .mockResolvedValueOnce(Response.json({ id: "file-1" }))
-      .mockResolvedValueOnce(Response.json({
-        choices: [{
-          message: {
-            content: JSON.stringify({
-              basics: { name: "张三", email: "", phone: "", city: "", links: [] },
-              profile: { title: "", summary: "" },
-              education: [], experiences: [], internships: [], projects: [], skills: [], awards: [], selfReview: "",
-            }),
-          },
-        }],
-      }))
-      .mockImplementationOnce(() => deleteResponse);
-    vi.stubGlobal("fetch", fetchMock);
+  it("sends a scanned PDF to the configured model as a file part", async () => {
+    const generate = vi.fn(async () => ({ text: json }));
+    const resume = await parseResumeFileWithAi(
+      { file: new File(["%PDF"], "resume.pdf", { type: "application/pdf" }), kind: "pdf", settings },
+      { generate, model: {} as never },
+    );
+    expect(resume).toMatchObject({ basics: { name: "張三" } });
+    const content = (generate.mock.calls[0] as unknown as [{ messages: Array<{ content: Array<{ type: string; mediaType?: string }> }> }])[0].messages[0].content;
+    expect(content[1]).toMatchObject({ type: "file", mediaType: "application/pdf" });
+  });
 
-    let settled = false;
-    const parsing = parseResumeWithQwenDoc({
-      file: new File(["resume"], "resume.pdf", { type: "application/pdf" }),
-      settings: { ...settings, providerId: "qwen" },
-    }).then((resume) => {
-      settled = true;
-      return resume;
-    });
+  it("sends an image as an image part", async () => {
+    const generate = vi.fn(async () => ({ text: json }));
+    await parseResumeFileWithAi(
+      { file: new File(["png"], "resume.png", { type: "image/png" }), kind: "image", settings },
+      { generate, model: {} as never },
+    );
+    const content = (generate.mock.calls[0] as unknown as [{ messages: Array<{ content: Array<{ type: string; mediaType?: string }> }> }])[0].messages[0].content;
+    expect(content[1]).toMatchObject({ type: "image", mediaType: "image/png" });
+  });
 
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(3));
-    expect(settled).toBe(false);
-    finishDelete(new Response(null, { status: 204 }));
-
-    await expect(parsing).resolves.toMatchObject({ basics: { name: "张三" } });
-    expect(fetchMock.mock.calls[2]?.[0]).toBe("https://api.deepseek.com/v1/files/file-1");
-    expect(fetchMock.mock.calls[2]?.[1]).toMatchObject({ method: "DELETE" });
+  it("refuses to send files when AI is disabled", async () => {
+    const generate = vi.fn();
+    await expect(parseResumeFileWithAi(
+      { file: new File(["png"], "resume.png", { type: "image/png" }), kind: "image", settings: { ...settings, enabled: false } },
+      { generate, model: {} as never },
+    )).rejects.toThrow();
+    expect(generate).not.toHaveBeenCalled();
   });
 });

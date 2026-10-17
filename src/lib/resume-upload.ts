@@ -49,11 +49,11 @@ export function getResumeUploadKind(fileName: string): ResumeUploadKind | null {
 
 export async function buildUploadedResumeDraft(file: File, options: ResumeUploadOptions = {}): Promise<UploadedResumeDraft> {
   const uploadKind = getResumeUploadKind(file.name);
-  if (!uploadKind) throw new Error("请上传 PDF、DOC、DOCX、图片、TXT、MD 或 JSON 文件。");
+  if (!uploadKind) throw new Error("請上傳 PDF、DOC、DOCX、圖片、TXT、MD 或 JSON 檔案。");
 
   if (uploadKind === "json") {
     const trimmed = (await file.text()).trim();
-    if (!trimmed) throw new Error("文件内容为空。");
+    if (!trimmed) throw new Error("檔案內容為空。");
     try {
       const parsed = JSON.parse(trimmed) as unknown;
         if (!isResumeContentLike(parsed)) return importResumeWithAI(file, options);
@@ -76,8 +76,8 @@ async function importResumeWithAI(file: File, options: ResumeUploadOptions): Pro
   if (options.preferLocalFallback) formData.set("preferLocalFallback", "true");
   const response = await fetch("/api/ai/resume-import", { method: "POST", body: formData });
   const result = (await response.json().catch(() => null)) as (UploadedResumeDraft & { error?: string }) | null;
-  if (!response.ok) throw new Error(result?.error || "简历导入失败，请稍后重试。");
-  if (!result?.content) throw new Error("简历导入失败，未返回有效结构。");
+  if (!response.ok) throw new Error(result?.error || "履歷匯入失敗，請稍後重試。");
+  if (!result?.content) throw new Error("履歷匯入失敗，未返回有效結構。");
   return {
     fileName: result.fileName,
     content: result.content,

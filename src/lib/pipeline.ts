@@ -1,12 +1,12 @@
 import type { ApplicationStatus } from "./types";
 
 export const applicationStatusDateLabels: Record<ApplicationStatus, string> = {
-  APPLIED: "投递日期",
-  ASSESSMENT: "笔试 / 测评日期",
-  INTERVIEW: "面试日期",
+  APPLIED: "投遞日期",
+  ASSESSMENT: "筆試 / 線上測驗日期",
+  INTERVIEW: "面試日期",
   OFFER: "Offer 日期",
-  REJECTED: "拒绝日期",
-  ARCHIVED: "归档日期",
+  REJECTED: "拒絕日期",
+  ARCHIVED: "歸檔日期",
 };
 
 export const visiblePipelineStatuses = [
@@ -19,46 +19,49 @@ export const visiblePipelineStatuses = [
 ] as const satisfies ApplicationStatus[];
 
 export const pipelineStatusLabels: Record<(typeof visiblePipelineStatuses)[number], string> = {
-  APPLIED: "已投递",
-  ASSESSMENT: "笔试 / 测评",
-  INTERVIEW: "面试中",
+  APPLIED: "已投遞",
+  ASSESSMENT: "筆試 / 線上測驗",
+  INTERVIEW: "面試中",
   OFFER: "Offer",
-  REJECTED: "拒绝",
-  ARCHIVED: "归档",
+  REJECTED: "拒絕",
+  ARCHIVED: "歸檔",
 };
 
 export const companySuggestions = [
-  "字节跳动",
-  "腾讯",
-  "阿里巴巴",
-  "美团",
-  "百度",
-  "京东",
-  "小米",
-  "网易",
-  "快手",
-  "哔哩哔哩",
-  "拼多多",
-  "蚂蚁集团",
-  "华为",
-  "携程",
-  "小红书",
-  "米哈游",
-  "蔚来",
-  "理想汽车",
-  "小鹏汽车",
-  "滴滴",
+  "台積電",
+  "聯發科",
+  "鴻海",
+  "廣達",
+  "緯創",
+  "英業達",
+  "華碩",
+  "宏碁",
+  "瑞昱",
+  "聯詠",
+  "研華",
+  "台達電",
+  "趨勢科技",
+  "中華電信",
+  "Google 台灣",
+  "Microsoft 台灣",
+  "NVIDIA 台灣",
+  "AMD 台灣",
+  "LINE 台灣",
+  "Appier",
+  "蝦皮購物",
+  "91APP",
 ];
 
 export const applicationSourceOptions = [
-  "实习僧",
-  "BOSS直聘",
-  "猎聘",
-  "智联招聘",
-  "前程无忧",
-  "企业官网",
-  "内推",
-  "邮件",
+  "104人力銀行",
+  "1111人力銀行",
+  "CakeResume",
+  "Yourator",
+  "LinkedIn",
+  "獵頭",
+  "企業官網",
+  "內部推薦",
+  "電子郵件",
   "其他",
 ];
 
@@ -147,9 +150,16 @@ export function defaultNextFollowUpDate(appliedAt: string, days = 7) {
 
 export function normalizeApplicationSource(source?: string) {
   const value = source?.trim();
-  if (!value || value === "手动录入" || value === "官网" || value === "企业官网") return "企业官网";
-  if (value === "Boss" || value === "BOSS" || value === "BOSS直聘") return "BOSS直聘";
+  if (!value || value === "手動錄入" || value === "官網" || value === "企業官網") return "企業官網";
   if (applicationSourceOptions.includes(value)) return value;
+  const lower = value.toLowerCase();
+  if (lower === "104" || value === "104人力") return "104人力銀行";
+  if (lower === "1111" || value === "1111人力") return "1111人力銀行";
+  if (lower === "cake" || lower === "cakeresume") return "CakeResume";
+  if (lower === "yourator") return "Yourator";
+  if (lower === "linkedin" || value === "領英") return "LinkedIn";
+  if (value === "獵人頭" || value === "人力仲介") return "獵頭";
+  if (value === "郵件" || lower === "email") return "電子郵件";
   return "其他";
 }
 
@@ -164,7 +174,7 @@ export function buildApplicationTimeline(input: ApplicationTimelineInput): Appli
     key: status,
     status,
     date: getTimelineStepDate(input, status),
-    label: isVisiblePipelineStatus(status) ? pipelineStatusLabels[status] : "当前阶段",
+    label: isVisiblePipelineStatus(status) ? pipelineStatusLabels[status] : "當前階段",
     tone: getTimelineStepTone({
       status,
       index,

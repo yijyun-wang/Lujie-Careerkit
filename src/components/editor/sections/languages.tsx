@@ -49,8 +49,8 @@ export function LanguagesSection({ section, onUpdate }: Props) {
                   variant="ghost"
                   size="sm"
                   className="h-8 w-8 cursor-pointer p-0 text-zinc-400 hover:text-red-500"
-                  aria-label={`删除语言能力第${index + 1}项`}
-                  title={`删除语言能力第${index + 1}项`}
+                  aria-label={`刪除語言能力第${index + 1}項`}
+                  title={`刪除語言能力第${index + 1}項`}
                   onClick={() => removeItem(index)}
                 >
                   <X className="h-3.5 w-3.5" />

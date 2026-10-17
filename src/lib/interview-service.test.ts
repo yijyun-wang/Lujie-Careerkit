@@ -6,25 +6,25 @@ import { createInterviewService, type InterviewSessionRecord } from "./interview
 const questions: InterviewQuestion[] = Array.from({ length: 8 }, (_, index) => ({
   id: `q-${index + 1}`,
   category: index === 0 ? "self-introduction" : "project",
-  prompt: `问题 ${index + 1}`,
-  focus: "验证岗位匹配与真实经历",
+  prompt: `問題 ${index + 1}`,
+  focus: "驗證職缺比對與真實經歷",
   order: index,
 }));
 
 const report: InterviewReport = {
   overallScore: 76,
   dimensions: { jobFit: 82, structure: 78, evidence: 65, star: 73 },
-  strengths: ["岗位动机清晰"],
-  improvements: ["补充个人动作和指标口径"],
+  strengths: ["職缺動機清晰"],
+  improvements: ["補充個人動作和指標口徑"],
   questionReviews: [
     {
       questionId: "q-1",
-      diagnosis: "背景和结果清楚，但个人贡献不足。",
-      suggestion: "补充关键判断与具体动作。",
-      improvedAnswer: "我负责用户访谈与方案验证，并根据数据调整流程。",
+      diagnosis: "背景和結果清楚，但個人貢獻不足。",
+      suggestion: "補充關鍵判斷與具體動作。",
+      improvedAnswer: "我負責使用者訪談與方案驗證，並根據資料調整流程。",
     },
   ],
-  nextActions: ["重新练习项目深挖"],
+  nextActions: ["重新練習專案深挖"],
 };
 
 describe("interview service", () => {
@@ -41,11 +41,11 @@ describe("interview service", () => {
       resumeVersionId: "resume-1",
       mode: "comprehensive",
       context: {
-        company: "腾讯",
-        title: "产品运营实习生",
-        jd: "负责用户研究与数据分析",
-        resumeName: "腾讯产品运营定制版",
-        resume: { basics: { name: "陈同学" } },
+        company: "騰訊",
+        title: "產品營運實習生",
+        jd: "負責使用者研究與資料分析",
+        resumeName: "騰訊產品營運客製版",
+        resume: { basics: { name: "陳同學" } },
       },
     });
 
@@ -58,8 +58,8 @@ describe("interview service", () => {
     const created: InterviewSessionRecord[] = [];
     const service = createInterviewService({
       generateQuestions: async () => ({
-        company: "字节跳动",
-        title: "AI产品实习生（AI数据与安全）",
+        company: "字節跳動",
+        title: "AI產品實習生（AI資料與安全）",
         questions,
       }),
       generateReport: async () => report,
@@ -71,23 +71,23 @@ describe("interview service", () => {
       resumeVersionId: null,
       mode: "comprehensive",
       context: {
-        company: "目标公司",
-        title: "目标岗位",
-        jd: "字节跳动 AI产品实习生（AI数据与安全）完整 JD",
-        resumeName: "姜禾的简历",
+        company: "目標公司",
+        title: "目標職缺",
+        jd: "字節跳動 AI產品實習生（AI資料與安全）完整 JD",
+        resumeName: "姜禾的履歷",
         resume: { basics: { name: "姜禾" } },
       },
     });
 
-    expect(session.context.company).toBe("字节跳动");
-    expect(session.context.title).toBe("AI产品实习生（AI数据与安全）");
+    expect(session.context.company).toBe("字節跳動");
+    expect(session.context.title).toBe("AI產品實習生（AI資料與安全）");
   });
 
   it("saves one answer while preserving existing answers", async () => {
     const sessions = [baseSession()];
     sessions[0].answers["q-1"] = {
       questionId: "q-1",
-      content: "第一个回答",
+      content: "第一個回答",
       skipped: false,
       updatedAt: "2026-06-22T10:00:00.000Z",
     };
@@ -100,7 +100,7 @@ describe("interview service", () => {
     const session = await service.saveProgress("session-1", {
       answer: {
         questionId: "q-2",
-        content: "第二个回答",
+        content: "第二個回答",
         skipped: false,
         updatedAt: "2026-06-22T10:01:00.000Z",
       },
@@ -123,13 +123,13 @@ describe("interview service", () => {
     const session = await service.saveProgress("session-1", {
       answer: {
         questionId: "q-5",
-        content: "自动保存的回答",
+        content: "自動儲存的回答",
         skipped: false,
         updatedAt: "2026-06-22T10:01:00.000Z",
       },
     });
 
-    expect(session.answers["q-5"]?.content).toBe("自动保存的回答");
+    expect(session.answers["q-5"]?.content).toBe("自動儲存的回答");
     expect(session.currentQuestionIndex).toBe(4);
   });
 
@@ -141,7 +141,7 @@ describe("interview service", () => {
       repository: createRepository(sessions),
     });
 
-    await expect(service.finishSession("session-1")).rejects.toThrow("至少完成一道题");
+    await expect(service.finishSession("session-1")).rejects.toThrow("至少完成一道題");
     expect(sessions[0]?.status).toBe("IN_PROGRESS");
   });
 
@@ -149,7 +149,7 @@ describe("interview service", () => {
     const sessions = [baseSession()];
     sessions[0].answers["q-1"] = {
       questionId: "q-1",
-      content: "我负责用户访谈和数据分析。",
+      content: "我負責使用者訪談和資料分析。",
       skipped: false,
       updatedAt: "2026-06-22T10:00:00.000Z",
     };
@@ -172,7 +172,7 @@ describe("interview service", () => {
     sessions[0].feedback = { ...report, overallScore: 60 };
     sessions[0].answers["q-1"] = {
       questionId: "q-1",
-      content: "修改后的回答",
+      content: "修改後的回答",
       skipped: false,
       updatedAt: "2026-06-22T10:00:00.000Z",
     };
@@ -198,11 +198,11 @@ function baseSession(): InterviewSessionRecord {
     mode: "comprehensive",
     status: "IN_PROGRESS",
     context: {
-      company: "腾讯",
-      title: "产品运营实习生",
-      jd: "负责用户研究与数据分析",
-      resumeName: "腾讯产品运营定制版",
-      resume: { basics: { name: "陈同学" } },
+      company: "騰訊",
+      title: "產品營運實習生",
+      jd: "負責使用者研究與資料分析",
+      resumeName: "騰訊產品營運客製版",
+      resume: { basics: { name: "陳同學" } },
     },
     questions,
     answers: {},

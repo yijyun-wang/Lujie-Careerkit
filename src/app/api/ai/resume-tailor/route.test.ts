@@ -17,30 +17,30 @@ vi.mock("@/lib/repository", () => ({
 import { GET, POST } from "./route";
 
 const analysis = {
-  company: "美团",
-  title: "后端开发实习生",
+  company: "美團",
+  title: "後端開發實習生",
   deadline: null,
   requirements: ["Java"],
   keywords: ["Java"],
   bonusPoints: [],
   risks: [],
-  suggestions: ["突出项目"],
+  suggestions: ["突出專案"],
 };
 
 describe("resume tailoring route", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mocks.getTailoringBaseResume.mockResolvedValue({ basics: { name: "陈同学" } });
+    mocks.getTailoringBaseResume.mockResolvedValue({ basics: { name: "陳同學" } });
   });
 
   it("does not create an optimized version when the model falls back", async () => {
     mocks.tailorResumeWithAI.mockResolvedValue({
       source: "fallback",
-      message: "AI 服务触发限流。",
-      data: { basics: { name: "陈同学" } },
+      message: "AI 服務觸發限流。",
+      data: { basics: { name: "陳同學" } },
     });
 
-    const response = await POST(jsonRequest({ jobId: "job-1", jd: "美团 - 后端开发实习生", analysis }));
+    const response = await POST(jsonRequest({ jobId: "job-1", jd: "美團 - 後端開發實習生", analysis }));
 
     expect(response.status).toBe(503);
     expect(mocks.createTailoredVersionForJob).not.toHaveBeenCalled();
@@ -58,8 +58,8 @@ describe("resume tailoring route", () => {
   it("rejects incomplete analysis before it can be persisted", async () => {
     const response = await POST(jsonRequest({
       jobId: "job-1",
-      jd: "美团 - 后端开发实习生",
-      analysis: { company: "美团", title: "后端开发实习生", requirements: [], keywords: [], suggestions: [] },
+      jd: "美團 - 後端開發實習生",
+      analysis: { company: "美團", title: "後端開發實習生", requirements: [], keywords: [], suggestions: [] },
     }));
 
     expect(response.status).toBe(400);
@@ -76,14 +76,14 @@ describe("resume tailoring route", () => {
   it("uses local JD context and calls only the tailoring model when analysis is omitted", async () => {
     mocks.tailorResumeWithAI.mockResolvedValue({
       source: "ai",
-      message: "简历优化完成",
-      data: { basics: { name: "陈同学" } },
+      message: "履歷優化完成",
+      data: { basics: { name: "陳同學" } },
     });
     mocks.createTailoredVersionForJob.mockResolvedValue({ id: "version-1" });
 
     const response = await POST(jsonRequest({
       jobId: "job-1",
-      jd: "美团 - 后端开发实习生\n要求 Java、Spring 和 SQL",
+      jd: "美團 - 後端開發實習生\n要求 Java、Spring 和 SQL",
     }));
 
     expect(response.status).toBe(200);
@@ -91,8 +91,8 @@ describe("resume tailoring route", () => {
     expect(mocks.tailorResumeWithAI).toHaveBeenCalledWith(
       expect.objectContaining({
         analysis: expect.objectContaining({
-          company: "待填写公司",
-          title: "待分析岗位",
+          company: "待填寫公司",
+          title: "待分析職缺",
           keywords: expect.arrayContaining(["Java", "Spring", "SQL"]),
         }),
       }),
@@ -104,12 +104,12 @@ describe("resume tailoring route", () => {
   });
 
   it("returns 404 when the selected resume version no longer exists", async () => {
-    mocks.getTailoringBaseResume.mockRejectedValue(new Error("找不到所选简历版本。"));
+    mocks.getTailoringBaseResume.mockRejectedValue(new Error("找不到所選履歷版本。"));
 
     const response = await POST(jsonRequest({
       jobId: "job-1",
       resumeVersionId: "missing-version",
-      jd: "美团 - 后端开发实习生",
+      jd: "美團 - 後端開發實習生",
     }));
 
     expect(response.status).toBe(404);

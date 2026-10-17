@@ -16,7 +16,7 @@ export type ResumeThemeInput = Omit<Partial<ThemeConfig>, "margin"> & {
   margin?: Partial<ThemeConfig["margin"]>;
 };
 
-const ALLOWED_FONTS = new Set(["Inter", "'Noto Sans SC'", "system-ui", "Georgia", "Arial"]);
+const ALLOWED_FONTS = new Set(["Inter", "'Noto Sans TC'", "system-ui", "Georgia", "Arial"]);
 const ALLOWED_SIZES = new Set(["small", "medium", "large"]);
 
 export function normalizeResumeTheme(input: ResumeThemeInput = {}): ThemeConfig {

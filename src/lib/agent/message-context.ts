@@ -6,17 +6,17 @@ export const AGENT_CONTEXT_TOKEN_BUDGET = 12_000;
 
 export class AgentContextError extends Error {
   constructor() {
-    super("当前任务的必要上下文过长，请缩短 JD、简历或分批处理；已有记录仍保留，请先核对执行结果再继续。");
+    super("當前任務的必要上下文過長，請縮短 JD、履歷或分批處理；已有記錄仍保留，請先核對執行結果再繼續。");
   }
 }
 
 export function mergeLatestMessage(messages: UIMessage[], incoming: UIMessage) {
   const index = messages.findIndex((message) => message.id === incoming.id);
   if (incoming.role === "assistant" && index === -1) {
-    throw new Error("不能从客户端新增 assistant 消息。");
+    throw new Error("不能從客戶端新增 assistant 訊息。");
   }
   if (index !== -1 && (index !== messages.length - 1 || messages[index].role !== incoming.role)) {
-    throw new Error("只能续接当前对话的最后一条消息。");
+    throw new Error("只能續接當前對話的最後一條訊息。");
   }
   if (index === -1) return [...messages, incoming];
   if (incoming.role === "assistant") {
@@ -36,7 +36,7 @@ export function mergeLatestMessage(messages: UIMessage[], incoming: UIMessage) {
       return part;
     }) };
     // Accept only a decision or a configuration result, never client-rewritten calls/history.
-    if (!isDeepStrictEqual(expected, incoming)) throw new Error("只能确认原操作或提交待选择的参数。");
+    if (!isDeepStrictEqual(expected, incoming)) throw new Error("只能確認原操作或提交待選擇的引數。");
   }
   return messages.map((message, messageIndex) => messageIndex === index ? incoming : message);
 }

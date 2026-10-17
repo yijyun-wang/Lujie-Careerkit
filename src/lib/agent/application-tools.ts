@@ -44,10 +44,10 @@ export const applicationChangeSchema = z.object({
   resumeVersionId: z.string().trim().min(1).nullable().optional(),
 }).superRefine((input, context) => {
   if (input.action === "update" && !input.applicationId) {
-    context.addIssue({ code: "custom", path: ["applicationId"], message: "更新投递卡片时必须提供 applicationId。" });
+    context.addIssue({ code: "custom", path: ["applicationId"], message: "更新投遞卡片時必須提供 applicationId。" });
   }
   if (input.action === "create" && !input.jobId && (!input.company || !input.title)) {
-    context.addIssue({ code: "custom", path: ["company"], message: "新建投递卡片需要 jobId，或者同时提供公司和岗位。" });
+    context.addIssue({ code: "custom", path: ["company"], message: "新建投遞卡片需要 jobId，或者同時提供公司和職缺。" });
   }
   if (
     input.action === "update" &&
@@ -58,7 +58,7 @@ export const applicationChangeSchema = z.object({
     input.resumeVersionId === undefined &&
     !input.notesToAppend
   ) {
-    context.addIssue({ code: "custom", message: "没有可更新的投递信息。" });
+    context.addIssue({ code: "custom", message: "沒有可更新的投遞資訊。" });
   }
 });
 
@@ -179,12 +179,12 @@ export async function getResumeContext(input: z.input<typeof resumeContextSchema
 export async function applyApplicationChange(input: ApplicationChangeInput) {
   const current = await getAppData();
   if (input.resumeVersionId && ![current.resume, ...current.versions].some((version) => version?.id === input.resumeVersionId)) {
-    throw new Error("找不到要关联的简历，请重新搜索后再试。");
+    throw new Error("找不到要關聯的履歷，請重新搜尋後再試。");
   }
 
   if (input.action === "update") {
     const existing = current.applications.find((application) => application.id === input.applicationId);
-    if (!existing) throw new Error("找不到要更新的投递卡片。");
+    if (!existing) throw new Error("找不到要更新的投遞卡片。");
 
     await updateApplication({
       id: existing.id,
@@ -206,21 +206,21 @@ export async function applyApplicationChange(input: ApplicationChangeInput) {
   if (!job) {
     const company = input.company?.trim();
     const title = input.title?.trim();
-    if (!company || !title) throw new Error("新建投递卡片前需要公司和岗位名称。");
+    if (!company || !title) throw new Error("新建投遞卡片前需要公司和職缺名稱。");
     const created = await createJob({
       company,
       title,
-      city: input.city || "待填写",
-      source: input.source || "手动录入",
+      city: input.city || "待填寫",
+      source: input.source || "手動錄入",
       link: input.link || "",
-      jd: input.jd || `${company} ${title}，暂未补充完整 JD。`,
+      jd: input.jd || `${company} ${title}，暫未補充完整 JD。`,
     });
     job = (await getAppData()).jobs.find((item) => item.id === created.id);
   }
-  if (!job) throw new Error("岗位创建失败。");
+  if (!job) throw new Error("職缺建立失敗。");
 
   const existing = current.applications.find((application) => application.jobId === job.id);
-  if (existing) throw new Error("该岗位已有投递卡片，请更新原卡片。");
+  if (existing) throw new Error("該職缺已有投遞卡片，請更新原卡片。");
 
   const application = await createApplication({
     jobId: job.id,
@@ -229,7 +229,7 @@ export async function applyApplicationChange(input: ApplicationChangeInput) {
     nextFollowUpAt: input.nextFollowUpAt,
     interviewRound: input.interviewRound as InterviewRound | undefined,
     resumeVersionId: input.resumeVersionId,
-    notes: input.notesToAppend || "由录阶 Agent 创建。",
+    notes: input.notesToAppend || "由錄階 Agent 建立。",
   });
   return readApplicationChangeResult(job.id, application.id, "created");
 }
@@ -238,7 +238,7 @@ async function readApplicationChangeResult(jobId: string, applicationId: string,
   const data = await getAppData();
   const job = data.jobs.find((item) => item.id === jobId);
   const application = data.applications.find((item) => item.id === applicationId);
-  if (!job || !application) throw new Error("投递卡片已写入，但回读失败。");
+  if (!job || !application) throw new Error("投遞卡片已寫入，但回讀失敗。");
   return { operation, job, application };
 }
 

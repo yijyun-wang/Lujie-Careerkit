@@ -7,7 +7,7 @@ export async function DELETE() {
     return Response.json({ data: await clearSampleData() });
   } catch (error) {
     return Response.json(
-      { message: error instanceof Error ? error.message : "示例数据清理失败。" },
+      { message: error instanceof Error ? error.message : "示例資料清理失敗。" },
       { status: 500 },
     );
   }

@@ -100,7 +100,7 @@ function AcademicSectionContent({ section, resume }: { section: any; resume: Res
             </div>
             {item.description && <p className="mt-0.5 text-sm text-zinc-600" dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="text-xs text-zinc-500 italic">{resume.language === 'zh' ? '技术栈' : 'Technologies'}: {item.technologies.join(', ')}</p>
+              <p className="text-xs text-zinc-500 italic">{resume.language === 'zh' ? '使用技術' : 'Technologies'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-0.5 list-disc pl-5">
@@ -179,7 +179,7 @@ function AcademicSectionContent({ section, resume }: { section: any; resume: Res
             </div>
             {item.description && <p className="mt-0.5 text-sm text-zinc-600" dangerouslySetInnerHTML={{ __html: md(item.description) }} />}
             {item.technologies?.length > 0 && (
-              <p className="text-xs text-zinc-500 italic">{resume.language === 'zh' ? '技术栈' : 'Technologies'}: {item.technologies.join(', ')}</p>
+              <p className="text-xs text-zinc-500 italic">{resume.language === 'zh' ? '使用技術' : 'Technologies'}: {item.technologies.join(', ')}</p>
             )}
             {item.highlights?.length > 0 && (
               <ul className="mt-0.5 list-disc pl-5">

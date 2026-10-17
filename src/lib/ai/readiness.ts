@@ -7,9 +7,9 @@ export function isAiReady(settings: RedactedAiSettings | null) {
 }
 
 export function aiReadinessMessage(settings: RedactedAiSettings | null) {
-  if (!settings) return "AI 模型尚未配置。请先在设置页选择 Provider、填写模型与密钥，并测试连接。";
-  if (settings.requiresApiKey && !settings.hasApiKey) return "当前 Provider 需要 API Key。请先在设置页保存密钥。";
-  if (settings.aiLastTestStatus === "failed") return "上次 AI 连接测试失败。请检查 Base URL、模型名称或密钥后重新测试。";
+  if (!settings) return "AI 模型尚未配置。請先在設定頁選擇 Provider、填寫模型與金鑰，並測試連線。";
+  if (settings.requiresApiKey && !settings.hasApiKey) return "當前 Provider 需要 API Key。請先在設定頁儲存金鑰。";
+  if (settings.aiLastTestStatus === "failed") return "上次 AI 連線測試失敗。請檢查 Base URL、模型名稱或金鑰後重新測試。";
   return "AI 功能可用。";
 }
 

@@ -99,7 +99,7 @@ type ResumeWorkbenchProps = {
     diagnosis: ResumeDiagnosis;
     selectedIssueIds: string[];
     additionalDirection: string;
-    locale: "zh-CN" | "en";
+    locale: "zh-TW" | "en";
   }) => Promise<{
     draft: ResumeContent;
     message?: string;
@@ -148,7 +148,7 @@ export function ResumeWorkbench({
   onDeleteVersion,
 }: ResumeWorkbenchProps) {
   const t = useTranslations("resumeWorkbench");
-  const locale = useLocale() === "en" ? "en" : "zh-CN";
+  const locale = useLocale() === "en" ? "en" : "zh-TW";
   const libraryT = useTranslations("app.resumeLibrary");
   const templateT = useTranslations("app.resumeLibrary.templates");
   const savedStatus = t("status.saved");
@@ -1146,7 +1146,7 @@ async function combinePageImages(pages: Array<{ dataUrl: string; width: number; 
   canvas.height = layout.height;
 
   const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("无法创建图片导出画布。");
+  if (!ctx) throw new Error("無法建立圖片匯出畫布。");
   ctx.fillStyle = layout.backgroundColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -1374,12 +1374,12 @@ function waitForNextFrame() {
 }
 
 function buildExportName(resume: Resume) {
-  return sanitizeFileName(resume.title || "录阶简历");
+  return sanitizeFileName(resume.title || "錄階履歷");
 }
 
 function sanitizeFileName(value: string) {
   const sanitized = value.replace(/[\\/:*?"<>|]/g, " ").replace(/\s+/g, " ").trim();
-  return sanitized || "录阶简历";
+  return sanitized || "錄階履歷";
 }
 
 function downloadBlob(blob: Blob, fileName: string) {

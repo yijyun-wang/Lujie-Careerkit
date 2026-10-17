@@ -73,21 +73,21 @@ export function normalizeResumeDiagnosis(
 function isFalseMissingSummaryIssue(issue: ResumeDiagnosisIssue, resume: ResumeContent) {
   if (issue.section !== "summary" || !resume.selfReview.trim()) return false;
   const text = `${issue.location} ${issue.title} ${issue.evidence} ${issue.explanation} ${issue.suggestion}`;
-  return /(?:未提供|缺失|缺少|不存在|为空|missing|not provided|lacks?).{0,32}(?:profile\.summary|profile summary|个人总结|个人简介|开篇简介|求职摘要)|(?:profile\.summary|profile summary|个人总结|个人简介|开篇简介|求职摘要).{0,32}(?:未提供|缺失|缺少|不存在|为空|missing|not provided|lacks?)/i.test(text);
+  return /(?:未提供|缺失|缺少|不存在|為空|missing|not provided|lacks?).{0,32}(?:profile\.summary|profile summary|個人總結|個人簡介|開篇簡介|求職摘要)|(?:profile\.summary|profile summary|個人總結|個人簡介|開篇簡介|求職摘要).{0,32}(?:未提供|缺失|缺少|不存在|為空|missing|not provided|lacks?)/i.test(text);
 }
 
 function issueNeedsUserConfirmation(issue: ResumeDiagnosisIssue) {
   const text = `${issue.title} ${issue.evidence} ${issue.explanation} ${issue.suggestion}`;
-  const gpa = issue.evidence.match(/(?:GPA|绩点)?\s*(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/i);
+  const gpa = issue.evidence.match(/(?:GPA|績點)?\s*(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/i);
   if (gpa && Number(gpa[1]) > Number(gpa[2])) return true;
   return issue.action === "user-confirm"
-    && /GPA|绩点|日期冲突|时间冲突|日期矛盾|时间矛盾|邮箱有误|电话有误|毕业时间|date conflict|incorrect (?:email|phone)/i.test(text);
+    && /GPA|績點|日期衝突|時間衝突|日期矛盾|時間矛盾|電子郵件有誤|電話有誤|畢業時間|date conflict|incorrect (?:email|phone)/i.test(text);
 }
 
 function issueNeedsUserInput(issue: ResumeDiagnosisIssue) {
   if (issue.evidence.trim()) return false;
   if (issue.action === "user-input") return true;
   const text = `${issue.title} ${issue.explanation} ${issue.suggestion}`;
-  return /缺少|未填写|未提供|为空|需要补充|missing|not provided|lacks?/i.test(text)
-    && /课程|排名|技能|量化|数据|数字|指标|结果|技术细节|证书|奖项|个人总结|个人简介|profile summary/i.test(text);
+  return /缺少|未填寫|未提供|為空|需要補充|missing|not provided|lacks?/i.test(text)
+    && /課程|排名|技能|量化|資料|數字|指標|結果|技術細節|證書|獎項|個人總結|個人簡介|profile summary/i.test(text);
 }

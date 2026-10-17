@@ -33,8 +33,8 @@ describe("applicationChangeSchema", () => {
   it("accepts a reviewable application creation proposal", () => {
     expect(applicationChangeSchema.safeParse({
       action: "create",
-      company: "字节跳动",
-      title: "前端实习生",
+      company: "字節跳動",
+      title: "前端實習生",
       status: "APPLIED",
       stageDate: "2026-08-19",
       nextFollowUpAt: "2026-08-26",
@@ -44,14 +44,14 @@ describe("applicationChangeSchema", () => {
   it("rejects impossible calendar dates before a write can be approved", () => {
     expect(applicationChangeSchema.safeParse({
       action: "create",
-      company: "字节跳动",
-      title: "前端实习生",
+      company: "字節跳動",
+      title: "前端實習生",
       stageDate: "2026-02-30",
     }).success).toBe(false);
   });
 
   it("updates only the selected application and appends notes", async () => {
-    const data = sampleData({ notes: "已投递" });
+    const data = sampleData({ notes: "已投遞" });
     readData.mockResolvedValue(data as never);
     updateApplicationRecord.mockResolvedValue({ id: "app-1" } as never);
 
@@ -59,13 +59,13 @@ describe("applicationChangeSchema", () => {
       action: "update",
       applicationId: "app-1",
       status: "INTERVIEW",
-      notesToAppend: "一面安排在周五",
+      notesToAppend: "一面安排在週五",
     });
 
     expect(updateApplicationRecord).toHaveBeenCalledWith(expect.objectContaining({
       id: "app-1",
       status: "INTERVIEW",
-      notes: "已投递\n一面安排在周五",
+      notes: "已投遞\n一面安排在週五",
     }));
     expect(createJobRecord).not.toHaveBeenCalled();
     expect(result.operation).toBe("updated");
@@ -80,8 +80,8 @@ describe("applicationChangeSchema", () => {
 
     const result = await applyApplicationChange({
       action: "create",
-      company: "字节 跳动",
-      title: "前端实习生",
+      company: "字節 跳動",
+      title: "前端實習生",
       status: "APPLIED",
     });
 
@@ -106,21 +106,21 @@ describe("applicationChangeSchema", () => {
       jobs: Array.from({ length: 12 }, (_, index) => ({
         ...base.jobs[0],
         id: `job-${index + 1}`,
-        company: index === 11 ? "目标公司" : `公司${index + 1}`,
-        jd: index === 11 ? "完整目标 JD" : "JD",
+        company: index === 11 ? "目標公司" : `公司${index + 1}`,
+        jd: index === 11 ? "完整目標 JD" : "JD",
         updatedAt: `2026-08-${String(index + 1).padStart(2, "0")}T00:00:00.000Z`,
       })),
       applications: [],
     };
     readData.mockResolvedValue(data as never);
 
-    const searched = await searchApplicationContext({ query: "目标公司", limit: 8 });
+    const searched = await searchApplicationContext({ query: "目標公司", limit: 8 });
     expect(searched.total).toBe(1);
     expect(searched.records[0].job.id).toBe("job-12");
     expect(searched.records[0].job).not.toHaveProperty("jd");
 
     const exact = await searchApplicationContext({ jobId: "job-12" });
-    expect(exact.records[0].job).toMatchObject({ jd: "完整目标 JD" });
+    expect(exact.records[0].job).toMatchObject({ jd: "完整目標 JD" });
   });
 
   it("searches every resume and returns a privacy-filtered exact result", async () => {
@@ -130,7 +130,7 @@ describe("applicationChangeSchema", () => {
         id: `resume-${index + 1}`,
         resumeId: `root-${index + 1}`,
         jobId: null,
-        name: index === 11 ? "后端目标简历" : `简历${index + 1}`,
+        name: index === 11 ? "後端目標履歷" : `履歷${index + 1}`,
         summary: "摘要",
         content: sampleResume(),
         createdAt: "2026-08-19T00:00:00.000Z",
@@ -139,12 +139,12 @@ describe("applicationChangeSchema", () => {
     };
     readData.mockResolvedValue(data as never);
 
-    const searched = await getResumeContext({ query: "后端目标", limit: 8 });
+    const searched = await getResumeContext({ query: "後端目標", limit: 8 });
     expect("resumes" in searched && searched.resumes?.[0].id).toBe("resume-12");
 
     const exact = await getResumeContext({ resumeVersionId: "resume-12" });
     expect("resume" in exact && exact.resume?.content).toMatchObject({
-      basics: { name: "张三", city: "北京" },
+      basics: { name: "張三", city: "北京" },
     });
     expect("resume" in exact && exact.resume?.content).not.toHaveProperty("basics.email");
     expect("resume" in exact && exact.resume?.content).not.toHaveProperty("editor");
@@ -155,10 +155,10 @@ function sampleData(application: Record<string, unknown> = {}) {
   return {
     jobs: [{
       id: "job-1",
-      company: "字节跳动",
-      title: "前端实习生",
+      company: "字節跳動",
+      title: "前端實習生",
       city: "北京",
-      source: "官网",
+      source: "官網",
       jd: "JD",
       link: "",
       deadline: null,
@@ -190,10 +190,10 @@ function sampleData(application: Record<string, unknown> = {}) {
 function sampleResume() {
   return {
     editor: { template: "classic" },
-    basics: { name: "张三", email: "test@example.com", phone: "13800000000", city: "北京", links: ["https://example.com"] },
-    profile: { title: "后端工程师", summary: "简介" },
+    basics: { name: "張三", email: "test@example.com", phone: "13800000000", city: "北京", links: ["https://example.com"] },
+    profile: { title: "後端工程師", summary: "簡介" },
     education: [],
-    experiences: [{ company: "示例公司", role: "工程师", logo: "data:image/png;base64,abc", start: "", end: "", highlights: [] }],
+    experiences: [{ company: "示例公司", role: "工程師", logo: "data:image/png;base64,abc", start: "", end: "", highlights: [] }],
     internships: [],
     projects: [],
     skills: ["TypeScript"],

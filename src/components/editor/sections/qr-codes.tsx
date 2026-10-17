@@ -49,8 +49,8 @@ export function QrCodesSection({ section, onUpdate }: Props) {
             ];
             onUpdate({ items: merged });
           }}
-          aria-label="自动识别简历中的链接"
-          title="自动识别简历中的链接"
+          aria-label="自動識別履歷中的連結"
+          title="自動識別履歷中的連結"
           className="inline-flex cursor-pointer items-center gap-1 rounded-md px-2 py-0.5 text-[11px] text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
         >
           <Sparkles className="h-3 w-3" />
@@ -99,8 +99,8 @@ export function QrCodesSection({ section, onUpdate }: Props) {
               const updated = items.filter((_, i) => i !== idx);
               onUpdate({ items: updated });
             }}
-            aria-label={`删除二维码第${idx + 1}项`}
-            title={`删除二维码第${idx + 1}项`}
+            aria-label={`刪除 QR Code 第${idx + 1}項`}
+            title={`刪除 QR Code 第${idx + 1}項`}
             className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
           >
             <X className="h-3.5 w-3.5" />
@@ -114,8 +114,8 @@ export function QrCodesSection({ section, onUpdate }: Props) {
           const newItem: QrCodeItem = { id: `qr-${Date.now()}`, label: '', url: '' };
           onUpdate({ items: [...items, newItem] });
         }}
-        aria-label="添加二维码"
-        title="添加二维码"
+        aria-label="新增 QR Code"
+        title="新增 QR Code"
         className="inline-flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-xs text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
       >
         <Plus className="h-3 w-3" />

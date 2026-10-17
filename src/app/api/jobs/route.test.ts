@@ -29,18 +29,18 @@ describe("/api/jobs", () => {
       new Request("http://localhost/api/jobs", {
         method: "POST",
         body: JSON.stringify({
-          company: "美团",
-          title: "后端开发实习生",
-          jd: "负责服务端接口开发",
+          company: "美團",
+          title: "後端開發實習生",
+          jd: "負責服務端介面開發",
         }),
       }),
     );
 
     expect(response.status).toBe(200);
     expect(create).toHaveBeenCalledWith(expect.objectContaining({
-      company: "美团",
-      title: "后端开发实习生",
-      jd: "负责服务端接口开发",
+      company: "美團",
+      title: "後端開發實習生",
+      jd: "負責服務端介面開發",
     }));
   });
 
@@ -48,7 +48,7 @@ describe("/api/jobs", () => {
     const response = await POST(
       new Request("http://localhost/api/jobs", {
         method: "POST",
-        body: JSON.stringify({ company: "  ", title: "后端开发", jd: "岗位描述" }),
+        body: JSON.stringify({ company: "  ", title: "後端開發", jd: "職缺描述" }),
       }),
     );
 
@@ -60,7 +60,7 @@ describe("/api/jobs", () => {
     const response = await POST(
       new Request("http://localhost/api/jobs", {
         method: "POST",
-        body: JSON.stringify({ company: "美团", title: "后端开发", jd: "岗位描述", deadline: "2026-02-30" }),
+        body: JSON.stringify({ company: "美團", title: "後端開發", jd: "職缺描述", deadline: "2026-02-30" }),
       }),
     );
 

@@ -44,7 +44,7 @@ export function ResumeDiagnosisDialog({
   onOptimize: (input: ResumeDiagnosisSelection) => Promise<void>;
 }) {
   const t = useTranslations("resumeWorkbench.diagnosisDialog");
-  const locale = useLocale() === "en" ? "en" : "zh-CN";
+  const locale = useLocale() === "en" ? "en" : "zh-TW";
   const [diagnosis, setDiagnosis] = useState<ResumeDiagnosis | null>(initialSelection?.diagnosis ?? null);
   const [selectedIssueIds, setSelectedIssueIds] = useState<string[]>(
     initialSelection?.selectedIssueIds.filter((id) =>

@@ -5,10 +5,10 @@ import { buildMatchResultTitle, type MatchOptimizationResult } from "./match-vie
 const result: MatchOptimizationResult = {
   job: {
     id: "version-resume-1",
-    company: "本地优化版本",
-    title: "AI应用开发工程师",
-    city: "待填写",
-    source: "AI简历优化",
+    company: "本地優化版本",
+    title: "AI應用開發工程師",
+    city: "待填寫",
+    source: "AI履歷優化",
     jd: "",
     link: "",
     deadline: null,
@@ -18,11 +18,11 @@ const result: MatchOptimizationResult = {
   version: {
     id: "resume-1",
     jobId: null,
-    name: "AI优化-林舟-AI应用开发工程师",
+    name: "AI優化-林舟-AI應用開發工程師",
     summary: "",
     content: {
       basics: { name: "林舟", email: "", phone: "", city: "", links: [] },
-      profile: { title: "AI应用开发工程师", summary: "" },
+      profile: { title: "AI應用開發工程師", summary: "" },
       education: [],
       experiences: [],
       internships: [],
@@ -38,15 +38,15 @@ const result: MatchOptimizationResult = {
   optimization: {
     company: "",
     title: "",
-    keywords: ["AI Agent开发"],
-    summary: "已优化简历表达。",
-    changes: ["自我评价"],
-    versionName: "AI优化-林舟-AI应用开发工程师",
+    keywords: ["AI Agent開發"],
+    summary: "已優化履歷表達。",
+    changes: ["自我評價"],
+    versionName: "AI優化-林舟-AI應用開發工程師",
   },
 };
 
 describe("match result title", () => {
   it("uses general AI optimization title for non-JD optimized versions", () => {
-    expect(buildMatchResultTitle(result)).toBe("AI优化简历完成");
+    expect(buildMatchResultTitle(result)).toBe("AI優化履歷完成");
   });
 });

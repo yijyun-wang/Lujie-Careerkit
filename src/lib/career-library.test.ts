@@ -17,7 +17,7 @@ import {
 
 const baseResume: ResumeContent = {
   basics: { name: "李明", email: "", phone: "", city: "上海", links: [] },
-  profile: { title: "产品经理", summary: "负责产品规划。" },
+  profile: { title: "產品經理", summary: "負責產品規劃。" },
   education: [],
   experiences: [],
   internships: [],
@@ -36,7 +36,7 @@ function makeData(): InitialData {
         resumeId: "resume-plain",
         jobId: null,
         name: "普通副本",
-        summary: "不属于系统生成成果",
+        summary: "不屬於系統生成成果",
         content: baseResume,
         createdAt: "2026-08-01T00:00:00.000Z",
         updatedAt: "2026-08-01T00:00:00.000Z",
@@ -45,11 +45,11 @@ function makeData(): InitialData {
         id: "general",
         resumeId: "resume-plain",
         jobId: null,
-        name: "通用优化简历",
-        summary: "通用优化",
+        name: "通用優化履歷",
+        summary: "通用優化",
         content: {
           ...baseResume,
-          profile: { ...baseResume.profile, summary: "负责从需求洞察到上线复盘的完整产品流程。" },
+          profile: { ...baseResume.profile, summary: "負責從需求洞察到上線回顧的完整產品流程。" },
           _tailoringBaseResume: baseResume,
         } as ResumeContent,
         createdAt: "2026-08-02T00:00:00.000Z",
@@ -59,11 +59,11 @@ function makeData(): InitialData {
         id: "tailored",
         resumeId: "resume-plain",
         jobId: "job-1",
-        name: "AI 产品经理定制版",
-        summary: "岗位定制",
+        name: "AI 產品經理客製版",
+        summary: "職缺客製",
         content: {
           ...baseResume,
-          profile: { ...baseResume.profile, summary: "围绕 AI 产品规划补强岗位匹配表达。" },
+          profile: { ...baseResume.profile, summary: "圍繞 AI 產品規劃補強職缺比對表達。" },
           _tailoringBaseResume: baseResume,
         } as ResumeContent,
         createdAt: "2026-08-03T00:00:00.000Z",
@@ -73,18 +73,18 @@ function makeData(): InitialData {
     jobs: [
       {
         id: "job-1",
-        company: "字节跳动",
-        title: "AI 产品经理",
+        company: "字節跳動",
+        title: "AI 產品經理",
         city: "北京",
-        source: "官网",
-        jd: "负责 AI 产品规划。",
+        source: "官網",
+        jd: "負責 AI 產品規劃。",
         link: "",
         deadline: null,
         analysis: {
-          company: "字节跳动",
-          title: "AI 产品经理",
+          company: "字節跳動",
+          title: "AI 產品經理",
           deadline: null,
-          requirements: ["产品规划"],
+          requirements: ["產品規劃"],
           keywords: ["AI"],
           bonusPoints: [],
           risks: [],
@@ -108,8 +108,8 @@ function makeData(): InitialData {
         updatedAt: "2026-08-05T00:00:00.000Z",
       },
     ],
-    interviewPreparations: [makePreparation("prep-1", "interview-draft-job", "独角兽科技", "增长产品经理")],
-    interviews: [makeInterview("session-1", "interview-draft-job", "独角兽科技", "增长产品经理")],
+    interviewPreparations: [makePreparation("prep-1", "interview-draft-job", "獨角獸科技", "增長產品經理")],
+    interviews: [makeInterview("session-1", "interview-draft-job", "獨角獸科技", "增長產品經理")],
     settings: null,
   };
 }
@@ -143,8 +143,8 @@ describe("career library", () => {
     const virtual = archives.find((archive) => archive.jobId === null);
 
     expect(virtual).toMatchObject({
-      company: "独角兽科技",
-      role: "增长产品经理",
+      company: "獨角獸科技",
+      role: "增長產品經理",
       counts: { analyses: 0, tailoredResumes: 0, preparations: 1, interviews: 1 },
     });
     expect(virtual?.id).toMatch(/^virtual-/);
@@ -152,9 +152,9 @@ describe("career library", () => {
 
   it("binds interview outcomes through a tailored resume first and the exact JD second", () => {
     const data = makeData();
-    const preparation = makePreparation("prep-linked", "interview-draft-job", "不同展示名", "不同岗位名");
+    const preparation = makePreparation("prep-linked", "interview-draft-job", "不同展示名", "不同職缺名");
     preparation.resumeVersionId = "tailored";
-    const interview = makeInterview("session-linked", "interview-draft-job", "另一展示名", "另一岗位名");
+    const interview = makeInterview("session-linked", "interview-draft-job", "另一展示名", "另一職缺名");
     interview.resumeVersionId = null;
     interview.context.jd = data.jobs[0].jd;
     interview.createdAt = "2026-08-05T00:00:00.000Z";
@@ -165,13 +165,13 @@ describe("career library", () => {
 
     expect(artifacts.find((artifact) => artifact.id === preparation.id)).toMatchObject({
       jobArchiveId: "job-1",
-      company: "字节跳动",
-      role: "AI 产品经理",
+      company: "字節跳動",
+      role: "AI 產品經理",
     });
     expect(artifacts.find((artifact) => artifact.id === interview.id)).toMatchObject({
       jobArchiveId: "job-1",
-      company: "字节跳动",
-      role: "AI 产品经理",
+      company: "字節跳動",
+      role: "AI 產品經理",
     });
   });
 
@@ -218,14 +218,14 @@ describe("career library", () => {
       counts: { analyses: 0, tailoredResumes: 0, preparations: 0, interviews: 0 },
     });
     const groups = groupCareerJobArchivesByCompany([
-      archive("job-ai", "字节跳动有限公司", "AI 产品经理"),
-      archive("job-growth", "字节跳动", "增长产品经理"),
-      archive("job-cloud", "阿里云", "产品经理"),
+      archive("job-ai", "字節跳動有限公司", "AI 產品經理"),
+      archive("job-growth", "字節跳動", "增長產品經理"),
+      archive("job-cloud", "阿里雲", "產品經理"),
     ]);
 
     expect(normalizeCompanyIdentity("ByteDance Co., Ltd.")).toBe("bytedance");
     expect(groups).toHaveLength(2);
-    expect(groups[0]).toMatchObject({ name: "字节跳动" });
+    expect(groups[0]).toMatchObject({ name: "字節跳動" });
     expect(groups[0].archives.map((item) => item.id)).toEqual(["job-ai", "job-growth"]);
   });
 });
@@ -241,10 +241,10 @@ function makePreparation(
     jobId,
     resumeVersionId: null,
     mode: "comprehensive",
-    context: { jd: "JD", resumeName: "主简历", resume: baseResume, focus: "comprehensive", locale: "zh-CN" },
+    context: { jd: "JD", resumeName: "主履歷", resume: baseResume, focus: "comprehensive", locale: "zh-TW" },
     content: {
-      meta: { company, title, roleFamily: "产品", roleSummary: "负责增长产品", assumptions: [] },
-      capabilityProfile: { overview: "能力概览", dimensions: [] },
+      meta: { company, title, roleFamily: "產品", roleSummary: "負責增長產品", assumptions: [] },
+      capabilityProfile: { overview: "能力概覽", dimensions: [] },
       evidenceMatrix: [],
       knowledgeTopics: [],
       deepDives: [],
@@ -270,8 +270,8 @@ function makeInterview(
     resumeVersionId: null,
     mode: "comprehensive",
     status: "IN_PROGRESS",
-    context: { company, title, jd: "JD", resumeName: "主简历", resume: baseResume },
-    questions: [{ id: "question-1", prompt: "请介绍项目", category: "project", focus: "验证经历", order: 0 }],
+    context: { company, title, jd: "JD", resumeName: "主履歷", resume: baseResume },
+    questions: [{ id: "question-1", prompt: "請介紹專案", category: "project", focus: "驗證經歷", order: 0 }],
     answers: { "question-1": { questionId: "question-1", content: "我的回答", skipped: false, updatedAt: "2026-08-06T00:00:00.000Z" } },
     feedback: null,
     currentQuestionIndex: 0,

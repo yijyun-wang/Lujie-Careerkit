@@ -5,7 +5,7 @@ export const interviewPreparationInputSchema = z.object({
   resumeName: z.string().trim().min(1).max(200),
   resume: z.unknown(),
   focus: z.enum(["comprehensive", "project", "behavioral", "hr"]).default("comprehensive"),
-  locale: z.enum(["zh-CN", "en"]).default("zh-CN"),
+  locale: z.enum(["zh-TW", "en"]).default("zh-TW"),
 });
 
 export const createInterviewPreparationInputSchema = interviewPreparationInputSchema.extend({
@@ -110,24 +110,24 @@ export function normalizeInterviewPreparation(input: unknown): InterviewPreparat
     label: shortLabel(item.requirement, `要求${index + 1}`),
     requirementLevel: index < 2 ? "core" as const : "important" as const,
     evidenceLevel: legacyEvidenceLevel(item.state),
-    evidenceSummary: textValue(item.assessment) || "需要结合简历进一步确认。",
-    nextStep: textValue(item.action) || "补充可验证的经历与准备要点。",
+    evidenceSummary: textValue(item.assessment) || "需要結合履歷進一步確認。",
+    nextStep: textValue(item.action) || "補充可驗證的經歷與準備要點。",
   }));
   for (const item of knowledgeItems) {
     if (dimensions.length >= 5) break;
     dimensions.push({
-      label: shortLabel(item.topic, `知识${dimensions.length + 1}`),
+      label: shortLabel(item.topic, `知識${dimensions.length + 1}`),
       requirementLevel: "important",
       evidenceLevel: "unknown",
-      evidenceSummary: textValue(item.currentEvidence) || "当前资料未形成明确证据。",
-      nextStep: textValue(item.targetLevel) || "按岗位要求完成基础准备。",
+      evidenceSummary: textValue(item.currentEvidence) || "當前資料未形成明確證據。",
+      nextStep: textValue(item.targetLevel) || "按職缺條件完成基礎準備。",
     });
   }
 
   return interviewPreparationSchema.parse({
     ...input,
     capabilityProfile: {
-      overview: isRecord(input.meta) ? textValue(input.meta.roleSummary) || "根据 JD 与简历整理的能力证据概览。" : "根据 JD 与简历整理的能力证据概览。",
+      overview: isRecord(input.meta) ? textValue(input.meta.roleSummary) || "根據 JD 與履歷整理的能力證據概覽。" : "根據 JD 與履歷整理的能力證據概覽。",
       dimensions,
     },
   });

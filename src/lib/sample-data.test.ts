@@ -43,7 +43,7 @@ describe("sample resume versions", () => {
       sampleTailoredResumeVersion.id,
     ]);
 
-    expect(sampleJobs.every((job) => job.city && job.link && !job.jd.includes("暂未补充"))).toBe(true);
+    expect(sampleJobs.every((job) => job.city && job.link && !job.jd.includes("暫未補充"))).toBe(true);
     expect(sampleApplications.every((application) => jobIds.has(application.jobId))).toBe(true);
     expect(
       sampleApplications.every((application) =>

@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "录阶 | LuJie CareerKit",
-  description: "从简历到 Offer 的校招实习工作台",
+  title: "錄階 | LuJie CareerKit",
+  description: "從履歷到 Offer 的台灣求職工作台",
   icons: {
     icon: "/brand/lujie-mark.svg",
     shortcut: "/brand/lujie-mark.svg",

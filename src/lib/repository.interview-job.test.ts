@@ -26,7 +26,7 @@ describe("interview job attribution", () => {
   });
 
   it("reuses the existing Job by identical JD and keeps its canonical company and title", async () => {
-    const job = { id: "job-byte", company: "字节跳动", title: "AI产品实习生-AI数据与安全", jd: "相同 JD" };
+    const job = { id: "job-byte", company: "字節跳動", title: "AI產品實習生-AI資料與安全", jd: "相同 JD" };
     db.job.findFirst.mockResolvedValue(job);
     db.interviewSession.create.mockImplementation(async ({ data }: { data: Record<string, unknown> }) => ({
       ...data,
@@ -43,7 +43,7 @@ describe("interview job attribution", () => {
       resumeVersionId: null,
       mode: "comprehensive",
       status: "IN_PROGRESS",
-      context: { company: "ByteIntern", title: "AI产品实习生", jd: "相同 JD", resumeName: "主简历", resume: {} },
+      context: { company: "ByteIntern", title: "AI產品實習生", jd: "相同 JD", resumeName: "主履歷", resume: {} },
       questions: [],
       answers: {},
       feedback: null,
@@ -54,23 +54,23 @@ describe("interview job attribution", () => {
     expect(db.job.findFirst).toHaveBeenCalledWith({ where: { jd: "相同 JD" }, orderBy: { updatedAt: "desc" } });
     expect(db.job.create).not.toHaveBeenCalled();
     expect(db.interviewSession.create).toHaveBeenCalledWith(expect.objectContaining({
-      data: expect.objectContaining({ jobId: "job-byte", context: expect.objectContaining({ company: "字节跳动", title: "AI产品实习生-AI数据与安全" }) }),
+      data: expect.objectContaining({ jobId: "job-byte", context: expect.objectContaining({ company: "字節跳動", title: "AI產品實習生-AI資料與安全" }) }),
     }));
-    expect(session.context.company).toBe("字节跳动");
+    expect(session.context.company).toBe("字節跳動");
   });
 
   it("deletes questions without deleting a saved AI review", async () => {
     const feedback = {
       overallScore: 80,
       dimensions: { jobFit: 80, structure: 80, evidence: 80, star: 80 },
-      strengths: ["表达清晰"],
-      improvements: ["补充证据"],
-      questionReviews: [{ questionId: "q1", diagnosis: "结构清楚", suggestion: "增加数据", improvedAnswer: "补充量化结果" }],
-      nextActions: ["复习项目经历"],
+      strengths: ["表達清晰"],
+      improvements: ["補充證據"],
+      questionReviews: [{ questionId: "q1", diagnosis: "結構清楚", suggestion: "增加資料", improvedAnswer: "補充量化結果" }],
+      nextActions: ["複習專案經歷"],
     };
     db.interviewSession.findUnique.mockResolvedValue({
       id: "session-1",
-      questions: [{ id: "q1", category: "general", prompt: "请介绍项目经历", focus: "项目能力", order: 0 }],
+      questions: [{ id: "q1", category: "general", prompt: "請介紹專案經歷", focus: "專案能力", order: 0 }],
       feedback,
     });
     db.interviewSession.update.mockImplementation(async ({ data }: { data: Record<string, unknown> }) => ({
@@ -79,7 +79,7 @@ describe("interview job attribution", () => {
       resumeVersionId: null,
       mode: "comprehensive",
       status: "COMPLETED",
-      context: { company: "腾讯", title: "产品经理", jd: "岗位描述", resumeName: "主简历", resume: {} },
+      context: { company: "騰訊", title: "產品經理", jd: "職缺描述", resumeName: "主履歷", resume: {} },
       questions: data.questions,
       answers: data.answers,
       feedback,

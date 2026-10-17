@@ -30,7 +30,7 @@ describe("AI settings helpers", () => {
 
   it("normalizes provider defaults when model and baseUrl are omitted", () => {
     const patch = buildAiSettingsPatch({
-      aiProvider: "deepseek",
+      aiProvider: "gemini",
       aiModel: "",
       aiBaseUrl: "",
       aiApiKey: "",
@@ -38,9 +38,9 @@ describe("AI settings helpers", () => {
       aiTemperature: 0.3,
     });
 
-    expect(patch.aiProvider).toBe("deepseek");
-    expect(patch.aiModel).toBe("deepseek-flash");
-    expect(patch.aiBaseUrl).toBe("https://api.deepseek.com/v1");
+    expect(patch.aiProvider).toBe("gemini");
+    expect(patch.aiModel).toBe("gemini-3.8-flash");
+    expect(patch.aiBaseUrl).toBe("https://generativelanguage.googleapis.com/v1beta/openai");
   });
 
   it("defaults to enabled while keeping keyless providers unavailable at runtime", () => {
@@ -64,7 +64,7 @@ describe("AI settings helpers", () => {
   it("ignores the removed legacy AI toggle when the provider is available", () => {
     const stored = {
       aiProvider: "ollama",
-      aiModel: "qwen3:8b",
+      aiModel: "gpt-oss:20b",
       aiBaseUrl: "http://localhost:11434/v1",
       aiApiKey: "",
       aiEnabled: false,
@@ -119,7 +119,7 @@ describe("AI settings helpers", () => {
         aiEnabled: true,
         aiTemperature: 0.3,
       }),
-    ).toThrow("Base URL 格式不正确。");
+    ).toThrow("Base URL 格式不正確。");
   });
 
   it("resolves runtime settings with decrypted key and provider metadata", () => {
@@ -135,7 +135,7 @@ describe("AI settings helpers", () => {
     });
 
     expect(runtime.provider.id).toBe("ollama");
-    expect(runtime.model).toBe("qwen3:8b");
+    expect(runtime.model).toBe("gpt-oss:20b");
     expect(runtime.baseUrl).toBe("http://localhost:11434/v1");
     expect(runtime.apiKey).toBe("");
     expect(runtime.requiresApiKey).toBe(false);

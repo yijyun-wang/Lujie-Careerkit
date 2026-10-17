@@ -15,7 +15,7 @@ const schema = z.object({
   diagnosis: resumeDiagnosisSchema.optional(),
   selectedIssueIds: z.array(z.string().trim().min(1).max(80)).max(12).optional(),
   additionalDirection: z.string().trim().max(1_000).optional(),
-  locale: z.enum(["zh-CN", "en"]).optional(),
+  locale: z.enum(["zh-TW", "en"]).optional(),
 }).superRefine((input, context) => {
   if (!input.diagnosis) return;
   const issueIds = new Set(input.diagnosis.issues.map((issue) => issue.id));
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       resumeContent: input.resumeContent,
     });
   } catch (error) {
-    if (error instanceof Error && error.message === "找不到所选简历版本。") {
+    if (error instanceof Error && error.message === "找不到所選履歷版本。") {
       return Response.json({ message: error.message }, { status: 404 });
     }
     throw error;

@@ -15,13 +15,13 @@ vi.mock("@/lib/repository", () => ({
 import { GET, POST } from "./route";
 
 const baseResume = {
-  basics: { name: "陈同学", email: "", phone: "", city: "", links: [] },
-  profile: { title: "产品经理", summary: "关注 AI 产品。" },
+  basics: { name: "陳同學", email: "", phone: "", city: "", links: [] },
+  profile: { title: "產品經理", summary: "關注 AI 產品。" },
   education: [],
   experiences: [],
   internships: [],
   projects: [],
-  skills: ["AI 产品", "Prompt"],
+  skills: ["AI 產品", "Prompt"],
   awards: [],
   selfReview: "",
 };
@@ -47,11 +47,11 @@ describe("resume AI optimization route", () => {
   it("returns a review draft without creating a resume version when AI succeeds", async () => {
     const optimizedResume = {
       ...baseResume,
-      profile: { ...baseResume.profile, summary: "具备 AI 产品规划与 Prompt 迭代经验。" },
+      profile: { ...baseResume.profile, summary: "具備 AI 產品規劃與 Prompt 迭代經驗。" },
     };
     mocks.optimizeResumeWithAI.mockResolvedValue({
       source: "ai",
-      message: "简历优化完成",
+      message: "履歷優化完成",
       data: optimizedResume,
     });
 
@@ -78,29 +78,29 @@ describe("resume AI optimization route", () => {
         versionName: "",
       },
       source: "ai",
-      message: "简历优化完成",
+      message: "履歷優化完成",
     });
   });
 
   it("passes the selected diagnosis and optimization preferences to AI", async () => {
     const diagnosis = {
-      summary: "需要加强成果表达。",
+      summary: "需要加強成果表達。",
       strengths: [],
       issues: [{
         id: "issue-1",
         section: "projects",
-        location: "项目经历",
+        location: "專案經歷",
         severity: "high",
         category: "action-result",
-        title: "结果不清楚",
-        evidence: "参与需求分析",
-        explanation: "没有说明行动带来的结果。",
-        suggestion: "使用已有事实补充行动与结果。",
+        title: "結果不清楚",
+        evidence: "參與需求分析",
+        explanation: "沒有說明行動帶來的結果。",
+        suggestion: "使用已有事實補充行動與結果。",
       }],
     };
     mocks.optimizeResumeWithAI.mockResolvedValue({
       source: "ai",
-      message: "简历优化完成",
+      message: "履歷優化完成",
       data: baseResume,
     });
 
@@ -108,8 +108,8 @@ describe("resume AI optimization route", () => {
       resumeContent: baseResume,
       diagnosis,
       selectedIssueIds: ["issue-1"],
-      additionalDirection: "GPA 写法无需调整，优先优化项目经历。",
-      locale: "zh-CN",
+      additionalDirection: "GPA 寫法無需調整，優先優化專案經歷。",
+      locale: "zh-TW",
     }));
 
     expect(response.status).toBe(200);
@@ -117,8 +117,8 @@ describe("resume AI optimization route", () => {
       resume: baseResume,
       diagnosis,
       selectedIssueIds: ["issue-1"],
-      additionalDirection: "GPA 写法无需调整，优先优化项目经历。",
-      locale: "zh-CN",
+      additionalDirection: "GPA 寫法無需調整，優先優化專案經歷。",
+      locale: "zh-TW",
     });
   });
 
@@ -133,7 +133,7 @@ describe("resume AI optimization route", () => {
   });
 
   it("returns 404 when the selected resume version no longer exists", async () => {
-    mocks.getTailoringBaseResume.mockRejectedValue(new Error("找不到所选简历版本。"));
+    mocks.getTailoringBaseResume.mockRejectedValue(new Error("找不到所選履歷版本。"));
 
     const response = await POST(jsonRequest({ resumeVersionId: "missing-version" }));
 
@@ -143,7 +143,7 @@ describe("resume AI optimization route", () => {
 
   it("rejects automatic optimization for an issue requiring user confirmation", async () => {
     const diagnosis = {
-      summary: "GPA 写法需要核实。",
+      summary: "GPA 寫法需要核實。",
       strengths: [],
       issues: [{
         id: "issue-1",
@@ -152,10 +152,10 @@ describe("resume AI optimization route", () => {
         severity: "high",
         action: "user-confirm",
         category: "clarity",
-        title: "GPA 格式有误",
+        title: "GPA 格式有誤",
         evidence: "GPA 8/4.0",
-        explanation: "分子大于满分。",
-        suggestion: "请确认实际 GPA 和满分制式。",
+        explanation: "分子大於滿分。",
+        suggestion: "請確認實際 GPA 和滿分制式。",
       }],
     };
 

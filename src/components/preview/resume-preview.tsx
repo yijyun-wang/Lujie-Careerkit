@@ -157,7 +157,7 @@ function buildThemeCSS(scopeId: string, theme: ThemeConfig, template: string): s
   const primaryIsDark = isDark(theme.primaryColor);
   return `
     ${s} > div {
-      font-family: ${theme.fontFamily}, 'Noto Sans SC', sans-serif !important;
+      font-family: ${theme.fontFamily}, 'Noto Sans TC', sans-serif !important;
       line-height: ${theme.lineSpacing} !important;
       ${needsPadding ? `padding-top: ${m.top}px !important; padding-right: ${m.right}px !important; padding-bottom: ${m.bottom}px !important; padding-left: ${m.left}px !important;` : ''}
       --base-body-size: ${fs.body};

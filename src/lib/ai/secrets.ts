@@ -36,7 +36,7 @@ export function decryptLocalSecret(value: string | null | undefined) {
 
 export function previewSecret(value: string) {
   if (!value) return "";
-  if (value.length < 12) return "已保存";
+  if (value.length < 12) return "已儲存";
   return `${value.slice(0, 4)}...${value.slice(-4)}`;
 }
 

@@ -25,7 +25,7 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
   const editor = content.editor ?? {};
 
   const generatedSections: ResumeSection[] = [
-    section<PersonalInfoContent>(resumeId, "personal_info", "个人信息", 0, {
+    section<PersonalInfoContent>(resumeId, "personal_info", "個人資訊", 0, {
       fullName: content.basics.name,
       jobTitle: "",
       email: content.basics.email,
@@ -33,7 +33,7 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
       location: content.basics.city,
       website: content.basics.links[0] ?? "",
       github: content.basics.links.find((item) => item.toLowerCase().includes("github")) ?? "",
-      customLinks: content.basics.links.slice(1).map((url, index) => ({ label: `链接 ${index + 1}`, url })),
+      customLinks: content.basics.links.slice(1).map((url, index) => ({ label: `連結 ${index + 1}`, url })),
     }),
     section<EducationContent>(resumeId, "education", "教育背景", 1, {
       items: content.education.map((item) => ({
@@ -46,13 +46,13 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
         highlights: item.highlights,
       })),
     }),
-    section<WorkExperienceContent>(resumeId, "work_experience", "工作经历", 2, {
+    section<WorkExperienceContent>(resumeId, "work_experience", "工作經歷", 2, {
       items: content.experiences.map(toWorkExperienceItem("work")),
     }),
-    section<WorkExperienceContent>(resumeId, "internship_experience", "实习经历", 3, {
+    section<WorkExperienceContent>(resumeId, "internship_experience", "實習經歷", 3, {
       items: internships.map(toWorkExperienceItem("internship")),
     }),
-    section<ProjectsContent>(resumeId, "projects", "项目经历", 4, {
+    section<ProjectsContent>(resumeId, "projects", "專案經歷", 4, {
       items: content.projects.map((item) => ({
         id: generateId("project"),
         name: item.name,
@@ -62,7 +62,7 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
         highlights: item.highlights,
       })),
     }),
-    section<CertificationsContent>(resumeId, "certifications", "资格证书", 5, {
+    section<CertificationsContent>(resumeId, "certifications", "資格證書", 5, {
       items: content.awards.map((award) => ({
         id: generateId("cert"),
         name: award,
@@ -70,13 +70,13 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
         date: "",
       })),
     }),
-    section<SummaryContent>(resumeId, "self_evaluation", "自我评价", 6, {
+    section<SummaryContent>(resumeId, "self_evaluation", "自我評價", 6, {
       text: content.selfReview,
     }),
   ];
 
   if (content.profile.summary) {
-    generatedSections.splice(1, 0, section<SummaryContent>(resumeId, "summary", "个人简介", 1, {
+    generatedSections.splice(1, 0, section<SummaryContent>(resumeId, "summary", "個人簡介", 1, {
       text: content.profile.summary,
     }));
     generatedSections.forEach((item, index) => { item.sortOrder = index; });
@@ -84,7 +84,7 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
 
   if (skills.length > 0) {
     generatedSections.push(
-      section<SkillsContent>(resumeId, "skills", "技能特长", generatedSections.length, {
+      section<SkillsContent>(resumeId, "skills", "技能特長", generatedSections.length, {
         categories: [{ id: generateId("skills"), name: "核心技能", skills }],
       }),
     );
@@ -110,7 +110,7 @@ export function contentToJadeResume(rawContent: ResumeContent): Resume {
   return {
     id: resumeId,
     userId: "local-user",
-    title: content.editor?.displayName?.trim() || (content.basics.name ? `${content.basics.name}的简历` : "未命名简历"),
+    title: content.editor?.displayName?.trim() || (content.basics.name ? `${content.basics.name}的履歷` : "未命名履歷"),
     template: editor.template ?? "modern",
     language: "zh",
     isDefault: true,

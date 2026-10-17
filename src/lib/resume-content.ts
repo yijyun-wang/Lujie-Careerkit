@@ -70,14 +70,14 @@ export const resumeContentSchema: z.ZodType<ResumeContent> = z.object({
 type SectionKey = "profile" | "selfReview" | "education" | "experiences" | "internships" | "projects" | "skills" | "awards";
 
 const headingMatchers: Array<[SectionKey, RegExp]> = [
-  ["profile", /^(个人总结|个人优势|职业概述|求职意向|profile|summary|objective)$/i],
-  ["selfReview", /^(自我评价|self[- ]?(?:evaluation|review))$/i],
-  ["education", /^(教育背景|教育经历|教育|education)$/i],
-  ["experiences", /^(工作经历|工作经验|全职经历|professional experience|work experience|experience)$/i],
-  ["internships", /^(实习经历|实习经验|internship|internships)$/i],
-  ["projects", /^(项目经历|项目经验|项目|projects?)$/i],
-  ["skills", /^(技能特长|专业技能|技能|技术栈|skills?|technical skills)$/i],
-  ["awards", /^(荣誉奖项|获奖经历|证书|资格证书|奖项|awards?|certifications?)$/i],
+  ["profile", /^(個人總結|個人優勢|職業概述|應徵職務|profile|summary|objective)$/i],
+  ["selfReview", /^(自我評價|self[- ]?(?:evaluation|review))$/i],
+  ["education", /^(教育背景|教育經歷|教育|education)$/i],
+  ["experiences", /^(工作經歷|工作經驗|全職經歷|professional experience|work experience|experience)$/i],
+  ["internships", /^(實習經歷|實習經驗|internship|internships)$/i],
+  ["projects", /^(專案經歷|專案經驗|專案|projects?)$/i],
+  ["skills", /^(技能特長|專業技能|技能|技術棧|skills?|technical skills)$/i],
+  ["awards", /^(榮譽獎項|獲獎經歷|證書|資格證書|獎項|awards?|certifications?)$/i],
 ];
 
 const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
@@ -92,7 +92,7 @@ export const resumeContentInputSchema = z
   .custom<ResumeContent>(isResumeContentLike, { message: "Invalid resume content." })
   .transform((content) => normalizeResumeContent(content));
 
-export function coerceResumeContent(value: unknown, fallbackName = "未命名简历"): ResumeContent {
+export function coerceResumeContent(value: unknown, fallbackName = "未命名履歷"): ResumeContent {
   const resume = toRecord(value);
   const basics = toRecord(resume.basics);
   const profile = toRecord(resume.profile);
@@ -173,7 +173,7 @@ export function resumeContentFromText(fileName: string, text: string): ResumeCon
   );
 }
 
-export function normalizeResumeContent(content: ResumeContent, fallbackName = "未命名简历"): ResumeContent {
+export function normalizeResumeContent(content: ResumeContent, fallbackName = "未命名履歷"): ResumeContent {
   const contacts = normalizeContacts(content.basics.email, content.basics.phone);
   return {
     ...content,
@@ -383,8 +383,8 @@ function parseEducation(lines: string[]): ResumeContent["education"] {
     const parts = splitHeader(header.replace(range.raw, ""));
     return {
       school: parts[0] ?? "",
-      degree: parts.find((part) => /本科|硕士|博士|大专|学士|master|bachelor|phd/i.test(part)) ?? "",
-      major: parts.slice(1).filter((part) => !/本科|硕士|博士|大专|学士|master|bachelor|phd/i.test(part)).join(" "),
+      degree: parts.find((part) => /學士|碩士|博士|專科|大學部|master|bachelor|phd/i.test(part)) ?? "",
+      major: parts.slice(1).filter((part) => !/學士|碩士|博士|專科|大學部|master|bachelor|phd/i.test(part)).join(" "),
       start: range.start,
       end: range.end,
       highlights: block.slice(1).map(cleanBullet).filter(Boolean),
@@ -456,7 +456,7 @@ function splitBlocks(lines: string[]) {
 }
 
 function extractDateRange(value: string) {
-  const match = value.match(/((?:19|20)\d{2}(?:[./-]\d{1,2})?)\s*(?:-|~|—|–|至|到)\s*((?:19|20)\d{2}(?:[./-]\d{1,2})?|至今|现在|present|now)/i);
+  const match = value.match(/((?:19|20)\d{2}(?:[./-]\d{1,2})?)\s*(?:-|~|—|–|至|到)\s*((?:19|20)\d{2}(?:[./-]\d{1,2})?|至今|現在|present|now)/i);
   return {
     raw: match?.[0] ?? "",
     start: match?.[1] ?? "",
@@ -476,12 +476,12 @@ function inferName(lines: string[], fallbackName: string) {
 }
 
 function inferProfileTitle(lines: string[]) {
-  const titleLine = lines.find((line) => /(求职意向|目标岗位|应聘岗位)[:：]/.test(line)) ?? lines[1] ?? "";
-  return titleLine.replace(/^(求职意向|目标岗位|应聘岗位)[:：]\s*/, "").trim();
+  const titleLine = lines.find((line) => /(應徵職務|希望職稱|希望職務|求職意向|目標職缺|應聘職缺|求职意向)[:：]/.test(line)) ?? lines[1] ?? "";
+  return titleLine.replace(/^(應徵職務|希望職稱|希望職務|求職意向|目標職缺|應聘職缺|求职意向)[:：]\s*/, "").trim();
 }
 
 function inferCity(text: string) {
-  return firstMatch(text, /(北京|上海|广州|深圳|杭州|成都|南京|武汉|西安|苏州|天津|重庆|长沙|郑州|青岛|厦门)/);
+  return firstMatch(text, /((?:台|臺)北|新北|桃園|新竹|苗栗|(?:台|臺)中|彰化|南投|雲林|嘉義|(?:台|臺)南|高雄|屏東|基隆|宜蘭|花蓮|(?:台|臺)東|澎湖|金門|馬祖|東京|大阪|香港|新加坡|上海|北京|深圳)/);
 }
 
 function firstMatch(text: string, matcher: RegExp) {
@@ -489,7 +489,7 @@ function firstMatch(text: string, matcher: RegExp) {
 }
 
 function isContactLine(line: string) {
-  return /@|电话|手机|邮箱|微信|地址|现居|https?:\/\//i.test(line);
+  return /@|電話|手機|電子郵件|e-?mail|LINE ?ID|微信|地址|現居|居住地|https?:\/\//i.test(line);
 }
 
 function isBulletLine(line: string) {

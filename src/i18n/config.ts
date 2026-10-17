@@ -1,7 +1,7 @@
-export const locales = ["zh-CN", "en"] as const;
+export const locales = ["zh-TW", "en"] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = "zh-CN";
+export const defaultLocale: Locale = "zh-TW";
 export const localeCookieName = "NEXT_LOCALE";
 
 export function isLocale(value: string | undefined): value is Locale {

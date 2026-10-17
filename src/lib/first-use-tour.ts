@@ -27,7 +27,6 @@ export function buildFirstUseTourSteps(): FirstUseTourStep[] {
     { id: "settings", nav: "settings" },
     { id: "agent", target: "agent" },
     { id: "resume", nav: "resume" },
-    { id: "campus", nav: "campus" },
     { id: "match", nav: "match" },
     { id: "interview", nav: "interview" },
     { id: "library", nav: "library" },

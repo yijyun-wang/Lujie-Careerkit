@@ -1,6 +1,6 @@
 import { Buffer } from "node:buffer";
 
-import { parseResumeTextWithAi, parseResumeWithQwenDoc } from "@/lib/ai/resume-import";
+import { parseResumeFileWithAi, parseResumeTextWithAi } from "@/lib/ai/resume-import";
 import { getEffectiveAiRuntimeSettings } from "@/lib/repository";
 import { extractPdfText, extractWordText } from "@/lib/resume-file-parsers";
 import { normalizeResumeContent, resumeContentFromText, isResumeContentLike } from "@/lib/resume-content";
@@ -9,6 +9,7 @@ import { getResumeUploadKind } from "@/lib/resume-upload";
 export const runtime = "nodejs";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const VISION_HINT = "圖片或掃描版 PDF 需要在設定中選擇支援圖片／PDF 輸入的模型（例如 OpenAI、Google Gemini、Anthropic Claude，或本機的 Gemma 3 等視覺模型）。";
 
 export async function POST(request: Request) {
   try {
@@ -16,25 +17,25 @@ export async function POST(request: Request) {
     const file = formData.get("file");
     const preferLocalFallback = formData.get("preferLocalFallback") === "true";
     if (!(file instanceof File)) {
-      return Response.json({ error: "请选择要导入的简历文件。" }, { status: 400 });
+      return Response.json({ error: "請選擇要匯入的履歷檔案。" }, { status: 400 });
     }
     if (file.size === 0) {
-      return Response.json({ error: "文件内容为空。" }, { status: 400 });
+      return Response.json({ error: "檔案內容為空。" }, { status: 400 });
     }
     if (file.size > MAX_FILE_SIZE) {
-      return Response.json({ error: "文件不能超过 10 MB。" }, { status: 413 });
+      return Response.json({ error: "檔案不能超過 10 MB。" }, { status: 413 });
     }
 
     const kind = getResumeUploadKind(file.name);
     if (!kind) {
-      return Response.json({ error: "请上传 PDF、DOC、DOCX、图片、TXT、MD 或 JSON 文件。" }, { status: 415 });
+      return Response.json({ error: "請上傳 PDF、DOC、DOCX、圖片、TXT、MD 或 JSON 檔案。" }, { status: 415 });
     }
 
     let plainText = "";
     if (kind === "json" || kind === "text") {
       plainText = (await file.text()).trim();
       if (!plainText) {
-        return Response.json({ error: "文件内容为空。" }, { status: 400 });
+        return Response.json({ error: "檔案內容為空。" }, { status: 400 });
       }
     }
 
@@ -45,45 +46,42 @@ export async function POST(request: Request) {
           return ok(file.name, normalizeResumeContent(parsed, file.name.replace(/\.[^.]+$/, "")), "local-json");
         }
       } catch {
-        // 非标准 JSON 继续交给 AI 尝试整理。
+        // 非標準 JSON 繼續交給 AI 嘗試整理。
       }
     }
 
     const settings = await getEffectiveAiRuntimeSettings();
 
     if (preferLocalFallback) {
-      const local = await localFallback(file, kind, plainText, "已使用本地规则解析，字段归类效果可能不佳。");
+      const local = await localFallback(file, kind, plainText, "已使用本機規則解析，欄位歸類效果可能不佳。");
       if (local) return local;
-      return Response.json({ error: "图片简历需要先配置阿里百炼 / Qwen 后才能解析。" }, { status: 422 });
+      return Response.json({ error: VISION_HINT }, { status: 422 });
     }
 
-    if (settings.providerId !== "qwen" && kind !== "image") {
+    if (kind !== "image") {
       const text = await extractLocalText(file, kind, plainText);
-      if (!text) {
-        return Response.json({ error: "未能从该 PDF 或 Word 文件提取到文本；扫描件需要配置阿里百炼 / Qwen 后才能解析。" }, { status: 422 });
+      if (text) {
+        const result = await parseResumeTextWithAi({ fileName: file.name, text, settings });
+        return ok(
+          file.name,
+          result.data,
+          result.source === "ai" ? "ai-text" : "local-fallback",
+          result.message,
+        );
       }
-      const result = await parseResumeTextWithAi({ fileName: file.name, text, settings });
-      return ok(
-        file.name,
-        result.data,
-        result.source === "ai" ? "ai-text" : "local-fallback",
-        result.message,
-      );
+      if (kind !== "pdf") {
+        return Response.json({ error: "無法從此 Word 檔案擷取文字，請另存為 PDF 或文字檔後再匯入。" }, { status: 422 });
+      }
     }
 
-    let aiError: unknown = null;
+    // 圖片或掃描版 PDF：直接把檔案交給使用者設定的模型（需支援圖片／PDF 輸入）。
     try {
-      return ok(file.name, await parseResumeWithQwenDoc({ file, settings }), "qwen-doc-turbo");
+      return ok(file.name, await parseResumeFileWithAi({ file, kind, settings }), "ai-file");
     } catch (error) {
-      aiError = error;
+      return Response.json({ error: `AI 履歷解析失敗。${formatError(error)} ${VISION_HINT}`.trim() }, { status: 502 });
     }
-
-    const local = await localFallback(file, kind, plainText, `AI 解析失败，已使用本地文本兜底。${formatError(aiError)}`);
-    if (local) return local;
-
-    return Response.json({ error: `AI 简历解析失败。${formatError(aiError) || "请确认已在设置中启用阿里百炼 / Qwen。"}` }, { status: 502 });
   } catch (error) {
-    return Response.json({ error: formatError(error) || "简历导入失败，请稍后重试。" }, { status: 500 });
+    return Response.json({ error: formatError(error) || "履歷匯入失敗，請稍後重試。" }, { status: 500 });
   }
 }
 

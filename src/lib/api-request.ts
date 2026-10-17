@@ -16,6 +16,6 @@ export async function parseJsonRequest<T>(request: Request, schema: z.ZodType<T>
 
   return {
     success: false,
-    response: Response.json({ error: "请求参数无效。" }, { status: 400 }),
+    response: Response.json({ error: "請求引數無效。" }, { status: 400 }),
   };
 }

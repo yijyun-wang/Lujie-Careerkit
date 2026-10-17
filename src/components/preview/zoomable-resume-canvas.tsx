@@ -142,7 +142,7 @@ export function ZoomableResumeCanvas({
         backgroundImage: "radial-gradient(circle at 1px 1px, rgba(100,116,139,0.2) 1px, transparent 0)",
         backgroundSize: "24px 24px",
       }}
-      title="滚轮缩放，左键/中键拖动画布"
+      title="滾輪縮放，左鍵/中鍵拖曳畫布"
       onMouseDown={handleCanvasMouseDown}
       onAuxClick={(event) => {
         if (event.button === 1) event.preventDefault();
@@ -151,8 +151,8 @@ export function ZoomableResumeCanvas({
       <div className="absolute right-2 top-2 z-20 flex items-center gap-0.5 rounded-md border border-line bg-white/95 p-0.5 shadow-[0_8px_24px_rgba(15,23,42,0.12)] backdrop-blur">
         <button
           type="button"
-          aria-label="缩小画布"
-          title="缩小画布"
+          aria-label="縮小畫布"
+          title="縮小畫布"
           disabled={zoom <= minZoom}
           onClick={() => updateZoom(zoom - zoomStep)}
           className="grid h-6 w-6 place-items-center rounded text-foreground hover:bg-surface-low disabled:cursor-not-allowed disabled:text-muted-foreground/50"
@@ -160,8 +160,8 @@ export function ZoomableResumeCanvas({
           <Minus className="h-3 w-3" />
         </button>
         <input
-          aria-label="画布缩放比例"
-          title="画布缩放比例"
+          aria-label="畫布縮放比例"
+          title="畫布縮放比例"
           type="range"
           min={minZoom}
           max={maxZoom}
@@ -172,8 +172,8 @@ export function ZoomableResumeCanvas({
         />
         <button
           type="button"
-          aria-label="放大画布"
-          title="放大画布"
+          aria-label="放大畫布"
+          title="放大畫布"
           disabled={zoom >= maxZoom}
           onClick={() => updateZoom(zoom + zoomStep)}
           className="grid h-6 w-6 place-items-center rounded text-foreground hover:bg-surface-low disabled:cursor-not-allowed disabled:text-muted-foreground/50"
@@ -183,8 +183,8 @@ export function ZoomableResumeCanvas({
         <span className="w-10 text-center text-[0.6875rem] font-medium text-muted-foreground">{zoom}%</span>
         <button
           type="button"
-          aria-label="重置画布视图"
-          title="重置画布视图"
+          aria-label="重設畫布檢視"
+          title="重設畫布檢視"
           onClick={resetView}
           className="grid h-6 w-6 place-items-center rounded text-foreground hover:bg-surface-low"
         >
@@ -194,7 +194,7 @@ export function ZoomableResumeCanvas({
 
       <div className="pointer-events-none absolute bottom-3 left-3 z-20 flex items-center gap-1.5 rounded-lg border border-line bg-white/90 px-2.5 py-1.5 text-[0.6875rem] text-muted-foreground shadow-sm backdrop-blur">
         <Move className="h-3.5 w-3.5" />
-        滚轮缩放 · 左键/中键拖动画布
+        滾輪縮放 · 左鍵/中鍵拖曳畫布
       </div>
 
       <div

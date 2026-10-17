@@ -58,7 +58,7 @@ export async function ensureSeedData() {
   }
 
   const sampleVersion = sampleResumeVersions[0];
-  const resume = await prisma.resume.create({ data: { name: sampleVersion?.name ?? "示例简历" } });
+  const resume = await prisma.resume.create({ data: { name: sampleVersion?.name ?? "示例履歷" } });
   if (sampleVersion) {
     await prisma.resumeVersion.create({
       data: {
@@ -78,12 +78,12 @@ export async function ensureSeedData() {
         id: job.id,
         company: job.company,
         title: job.title,
-        city: job.city ?? "待填写",
-        source: job.source ?? "企业官网",
+        city: job.city ?? "待填寫",
+        source: job.source ?? "企業官網",
         jd: job.jd,
         link: job.link ?? "",
         deadline: job.deadline ? new Date(job.deadline) : null,
-        analysis: analyzeJobInput(`${job.company} - ${job.title}\n投递截止日期：${job.deadline}\n${job.jd}`),
+        analysis: analyzeJobInput(`${job.company} - ${job.title}\n投遞截止日期：${job.deadline}\n${job.jd}`),
       },
     });
   }
@@ -456,10 +456,10 @@ export async function createResumeVersion(input: {
     ? attachTailoringBaseResume(input.content, input.baseResume, input.optimizationMeta)
     : input.content;
   const name = input.name.trim() || deriveResumeVersionName(content);
-  const summary = input.summary?.trim() || "原简历版本，可作为 JD匹配优化的基准。";
+  const summary = input.summary?.trim() || "原履歷版本，可作為 JD比對優化的基準。";
 
   if (input.baseResume) {
-    if (!input.sourceResumeId) throw new Error("优化版本缺少来源简历。");
+    if (!input.sourceResumeId) throw new Error("優化版本缺少來源履歷。");
     return prisma.resumeVersion.create({
       data: { resumeId: input.sourceResumeId, jobId: null, name, summary, content },
     });
@@ -484,7 +484,7 @@ export async function updateResumeVersion(input: {
     where: { id: input.versionId },
     select: { resumeId: true, jobId: true, content: true },
   });
-  if (!existing) throw new Error("找不到要更新的简历。");
+  if (!existing) throw new Error("找不到要更新的履歷。");
   const data: {
     name?: string;
     summary?: string;
@@ -523,14 +523,14 @@ export async function getTailoringBaseResume(input: {
       select: { content: true },
     });
     if (version) return version.content as ResumeContent;
-    throw new Error("找不到所选简历版本。");
+    throw new Error("找不到所選履歷版本。");
   }
   const version = await prisma.resumeVersion.findFirst({
     where: { jobId: null },
     orderBy: { updatedAt: "desc" },
     select: { content: true },
   });
-  if (!version) throw new Error("找不到可用于优化的简历。");
+  if (!version) throw new Error("找不到可用於優化的履歷。");
   return version.content as ResumeContent;
 }
 
@@ -557,7 +557,7 @@ async function resolveResumeSource(input: {
           resumeId: resume.id,
           jobId: null,
           name,
-          summary: "导入后用于岗位优化的基础简历。",
+          summary: "匯入後用於職缺優化的基礎履歷。",
           content,
         },
       });
@@ -570,7 +570,7 @@ async function resolveResumeSource(input: {
     orderBy: { updatedAt: "desc" },
     select: { id: true, resumeId: true, content: true },
   });
-  if (!version) throw new Error("找不到可用于优化的简历。");
+  if (!version) throw new Error("找不到可用於優化的履歷。");
   return { versionId: version.id, resumeId: version.resumeId, content: version.content as ResumeContent };
 }
 
@@ -590,9 +590,9 @@ export async function createTailoredVersionForJob(input: {
       ? prisma.application.findUnique({ where: { id: input.applicationId }, select: { jobId: true } })
       : null,
   ]);
-  if (!job) throw new Error("找不到目标岗位。");
+  if (!job) throw new Error("找不到目標職缺。");
   if (input.applicationId && application?.jobId !== input.jobId) {
-    throw new Error("投递记录不属于该岗位。");
+    throw new Error("投遞記錄不屬於該職缺。");
   }
   const source = await resolveResumeSource({
     resumeVersionId: input.resumeVersionId,
@@ -661,8 +661,8 @@ export async function createJob(input: CreateJobInput) {
     data: {
       company: input.company || analysis.company,
       title: input.title || analysis.title,
-      city: input.city ?? "待填写",
-      source: input.source ?? "官网",
+      city: input.city ?? "待填寫",
+      source: input.source ?? "官網",
       jd: input.jd,
       link: input.link ?? "",
       deadline: input.deadline ? new Date(input.deadline) : null,
@@ -702,7 +702,7 @@ export async function createApplication(input: {
           : null,
       stageDate: stageDate ? new Date(stageDate) : null,
       nextFollowUpAt: input.nextFollowUpAt ? new Date(input.nextFollowUpAt) : null,
-      notes: input.notes || "已加入投递跟进。",
+      notes: input.notes || "已加入投遞追蹤。",
     },
   });
 }
@@ -771,7 +771,7 @@ export async function updateJobWithApplication(input: {
     where: { id: input.applicationId },
     select: { jobId: true, status: true, appliedAt: true, interviewRound: true },
   });
-  if (existingApplication?.jobId !== input.jobId) throw new Error("投递记录不属于该岗位。");
+  if (existingApplication?.jobId !== input.jobId) throw new Error("投遞記錄不屬於該職缺。");
   const effectiveStatus = input.status ?? existingApplication?.status;
   const interviewRound = normalizeApplicationInterviewRound(
     effectiveStatus,
@@ -784,7 +784,7 @@ export async function updateJobWithApplication(input: {
         company: input.company,
         title: input.title,
         city: input.city,
-        source: input.source ?? "官网",
+        source: input.source ?? "官網",
         link: input.link ?? "",
         jd: input.jd ?? "",
       },
@@ -910,7 +910,7 @@ export const interviewSessionRepository: InterviewRepository = {
   async saveProgress(id, input) {
     if (!input.answer && input.currentQuestionIndex === undefined) {
       const current = await findStoredInterviewSession(id);
-      if (!current) throw new Error("未找到这次面试练习。");
+      if (!current) throw new Error("未找到這次面試練習。");
       return toInterviewSessionRecord(current);
     }
 
@@ -939,10 +939,10 @@ export const interviewSessionRepository: InterviewRepository = {
         WHERE "id" = ${id} AND "status" = 'IN_PROGRESS'
       `;
     }
-    if (!count) throw new Error("这次面试练习不存在或已经完成。");
+    if (!count) throw new Error("這次面試練習不存在或已經完成。");
 
     const session = await findStoredInterviewSession(id);
-    if (!session) throw new Error("未找到这次面试练习。");
+    if (!session) throw new Error("未找到這次面試練習。");
     return toInterviewSessionRecord(session);
   },
 
@@ -1034,7 +1034,7 @@ export async function updateInterviewSessionRecord(
 export async function deleteInterviewSessionSection(id: string, section: "questions" | "feedback") {
   await ensureSeedData();
   const existing = await prisma.interviewSession.findUnique({ where: { id } });
-  if (!existing) throw new Error("未找到这次面试练习。");
+  if (!existing) throw new Error("未找到這次面試練習。");
 
   const questions = normalizeInterviewQuestions(existing.questions);
   const hasFeedback = interviewReportSchema.safeParse(existing.feedback).success
@@ -1077,10 +1077,10 @@ async function resolveInterviewJob(
   }
   const byJd = await prisma.job.findFirst({ where: { jd: context.jd }, orderBy: { updatedAt: "desc" } });
   if (byJd) return byJd;
-  const company = cleanJobLabel(context.company) || "目标公司";
-  const title = cleanJobLabel(context.title) || "目标岗位";
+  const company = cleanJobLabel(context.company) || "目標公司";
+  const title = cleanJobLabel(context.title) || "目標職缺";
   return prisma.job.create({
-    data: { company, title, city: "", source: "面试助手", jd: context.jd, link: "" },
+    data: { company, title, city: "", source: "面試助手", jd: context.jd, link: "" },
   });
 }
 
@@ -1099,10 +1099,10 @@ function toInterviewSessionRecord(session: StoredInterviewSession): InterviewSes
   const parsedReport = interviewReportSchema.safeParse(session.feedback);
   const rawContext = isRecord(session.context) ? session.context : {};
   const context = {
-    company: stringValue(rawContext.company) || session.job?.company || "目标公司",
-    title: stringValue(rawContext.title) || session.job?.title || "目标岗位",
+    company: stringValue(rawContext.company) || session.job?.company || "目標公司",
+    title: stringValue(rawContext.title) || session.job?.title || "目標職缺",
     jd: stringValue(rawContext.jd) || session.job?.jd || "",
-    resumeName: stringValue(rawContext.resumeName) || session.resumeVersion?.name || "历史简历",
+    resumeName: stringValue(rawContext.resumeName) || session.resumeVersion?.name || "歷史履歷",
     resume: rawContext.resume ?? session.resumeVersion?.content ?? null,
   };
   const answers = normalizeInterviewAnswers(session.answers, questions, session.updatedAt.toISOString());
@@ -1170,10 +1170,10 @@ function toInterviewPreparationRecord(record: StoredInterviewPreparation): Inter
   const rawContext = isRecord(record.context) ? record.context : {};
   const context = interviewPreparationInputSchema.parse({
     jd: stringValue(rawContext.jd) || record.job?.jd || "",
-    resumeName: stringValue(rawContext.resumeName) || record.resumeVersion?.name || "历史简历",
+    resumeName: stringValue(rawContext.resumeName) || record.resumeVersion?.name || "歷史履歷",
     resume: rawContext.resume ?? record.resumeVersion?.content ?? null,
     focus: rawContext.focus ?? record.mode,
-    locale: rawContext.locale ?? "zh-CN",
+    locale: rawContext.locale ?? "zh-TW",
   });
   return {
     id: record.id,
@@ -1190,12 +1190,12 @@ function toInterviewPreparationRecord(record: StoredInterviewPreparation): Inter
 function cleanJobLabel(value?: string | null) {
   const text = value?.trim() ?? "";
   if (!text) return "";
-  if (/待|未知|未识别|目标公司|目标岗位/.test(text)) return "";
+  if (/待|未知|未識別|目標公司|目標職缺/.test(text)) return "";
   return text.length > 100 ? "" : text;
 }
 
 export function preserveConfirmedJobLabel(current: string, proposed?: string | null) {
-  const placeholder = /^(?:待填写公司|待分析岗位|目标公司|目标岗位|未知公司|未知岗位|未识别公司|未识别岗位)$/u;
+  const placeholder = /^(?:待填寫公司|待分析職缺|目標公司|目標職缺|未知公司|未知職缺|未識別公司|未識別職缺)$/u;
   if (current.trim() && !placeholder.test(current.trim())) return current;
   return cleanJobLabel(proposed) || current;
 }

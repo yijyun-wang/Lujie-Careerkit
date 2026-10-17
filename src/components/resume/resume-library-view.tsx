@@ -267,7 +267,7 @@ function ResumeCard({
 }
 
 function ResumeMiniPreview({ template }: { template: string }) {
-  const isModern = template === "现代";
+  const isModern = template === "現代";
   return (
     <div className="h-36 w-24 overflow-hidden rounded-lg border border-line bg-white shadow-sm">
       <div className={cn("h-12 px-3 py-2", isModern ? "bg-[#172554]" : "bg-white")}>

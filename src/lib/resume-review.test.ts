@@ -8,34 +8,34 @@ import {
 import type { ResumeContent } from "./types";
 
 const original: ResumeContent = {
-  basics: { name: "陈同学", email: "chen@example.com", phone: "13800000000", city: "北京", links: [] },
-  profile: { title: "AI 产品经理", summary: "关注 AI 产品。" },
+  basics: { name: "陳同學", email: "chen@example.com", phone: "13800000000", city: "北京", links: [] },
+  profile: { title: "AI 產品經理", summary: "關注 AI 產品。" },
   education: [],
   experiences: [],
   internships: [],
   projects: [{
-    name: "课程推荐系统",
-    role: "产品负责人",
-    highlights: ["参与需求分析。", "整理复盘材料。"],
+    name: "課程推薦系統",
+    role: "產品負責人",
+    highlights: ["參與需求分析。", "整理回顧材料。"],
   }],
-  skills: ["Python", "产品设计"],
-  awards: ["一等奖学金"],
-  customSections: [{ title: "主要优势", content: "学习能力强。" }],
-  selfReview: "希望参与真实业务。",
+  skills: ["Python", "產品設計"],
+  awards: ["一等獎學金"],
+  customSections: [{ title: "主要優勢", content: "學習能力強。" }],
+  selfReview: "希望參與真實業務。",
 };
 
 describe("resume review changes", () => {
   it("builds granular changes only for editable resume copy", () => {
     const optimized: ResumeContent = {
       ...original,
-      basics: { ...original.basics, name: "不应出现的姓名" },
-      profile: { ...original.profile, summary: "具备 AI 产品规划与落地经验。" },
+      basics: { ...original.basics, name: "不應出現的姓名" },
+      profile: { ...original.profile, summary: "具備 AI 產品規劃與落地經驗。" },
       projects: [{
         ...original.projects[0],
-        highlights: ["完成需求拆解并推进方案验证。", original.projects[0].highlights[1]],
+        highlights: ["完成需求拆解並推進方案驗證。", original.projects[0].highlights[1]],
       }],
-      skills: ["产品设计", "Python"],
-      customSections: [{ title: "主要优势", content: "能够快速学习并完成业务验证。" }],
+      skills: ["產品設計", "Python"],
+      customSections: [{ title: "主要優勢", content: "能夠快速學習並完成業務驗證。" }],
     };
 
     const changes = buildResumeReviewChanges(original, optimized);
@@ -46,16 +46,16 @@ describe("resume review changes", () => {
       "skills:list",
       "customSections:0",
     ]);
-    expect(changes.some((change) => change.before.includes("陈同学"))).toBe(false);
+    expect(changes.some((change) => change.before.includes("陳同學"))).toBe(false);
   });
 
   it("applies only accepted changes and preserves identity fields", () => {
     const optimized: ResumeContent = {
       ...original,
-      profile: { ...original.profile, summary: "具备 AI 产品规划与落地经验。" },
+      profile: { ...original.profile, summary: "具備 AI 產品規劃與落地經驗。" },
       projects: [{
         ...original.projects[0],
-        highlights: ["完成需求拆解并推进方案验证。", original.projects[0].highlights[1]],
+        highlights: ["完成需求拆解並推進方案驗證。", original.projects[0].highlights[1]],
       }],
     };
     const changes = buildResumeReviewChanges(original, optimized);
@@ -63,18 +63,18 @@ describe("resume review changes", () => {
       original,
       changes,
       new Set(["projects:0:highlight:0"]),
-      { "projects:0:highlight:0": "拆解需求并推动 2 轮已有方案验证。" },
+      { "projects:0:highlight:0": "拆解需求並推動 2 輪已有方案驗證。" },
     );
 
     expect(reviewed.profile.summary).toBe(original.profile.summary);
-    expect(reviewed.projects[0].highlights[0]).toBe("拆解需求并推动 2 轮已有方案验证。");
+    expect(reviewed.projects[0].highlights[0]).toBe("拆解需求並推動 2 輪已有方案驗證。");
     expect(reviewed.basics).toEqual(original.basics);
   });
 
   it("keeps the original value when an accepted edit is blank", () => {
     const optimized = {
       ...original,
-      skills: ["产品设计", "Python"],
+      skills: ["產品設計", "Python"],
     };
     const changes = buildResumeReviewChanges(original, optimized);
     const reviewed = applyResumeReviewChanges(
@@ -92,26 +92,26 @@ describe("resume review changes", () => {
       ...original,
       projects: [{
         ...original.projects[0],
-        highlights: ["完成需求拆解并推进方案验证。", original.projects[0].highlights[1]],
+        highlights: ["完成需求拆解並推進方案驗證。", original.projects[0].highlights[1]],
       }],
     };
     const changes = buildResumeReviewChanges(original, optimized);
     const addressedIssue = {
       id: "issue-1",
       section: "projects" as const,
-      location: "课程推荐系统",
+      location: "課程推薦系統",
       severity: "high" as const,
       category: "clarity" as const,
-      title: "行动不清楚",
-      evidence: "参与需求分析。",
-      explanation: "没有写明行动。",
-      suggestion: "明确具体行动。",
+      title: "行動不清楚",
+      evidence: "參與需求分析。",
+      explanation: "沒有寫明行動。",
+      suggestion: "明確具體行動。",
     };
     const untouchedIssue = {
       ...addressedIssue,
       id: "issue-2",
-      title: "复盘结果不清楚",
-      evidence: "整理复盘材料。",
+      title: "回顧結果不清楚",
+      evidence: "整理回顧材料。",
     };
 
     expect(resumeReviewChangeAddressesIssue(changes[0], addressedIssue)).toBe(true);
@@ -123,20 +123,20 @@ describe("resume review changes", () => {
       ...original,
       projects: [{
         ...original.projects[0],
-        highlights: ["独立完成需求分析。", original.projects[0].highlights[1]],
+        highlights: ["獨立完成需求分析。", original.projects[0].highlights[1]],
       }],
     };
     const [change] = buildResumeReviewChanges(original, optimized);
     const issue = {
       id: "issue-quoted",
       section: "projects" as const,
-      location: "课程推荐系统",
+      location: "課程推薦系統",
       severity: "medium" as const,
       category: "clarity" as const,
-      title: "“参与”弱化个人角色",
-      evidence: "“参与需求分析”",
-      explanation: "个人行动不清楚。",
-      suggestion: "明确个人行动。",
+      title: "“參與”弱化個人角色",
+      evidence: "“參與需求分析”",
+      explanation: "個人行動不清楚。",
+      suggestion: "明確個人行動。",
     };
 
     expect(resumeReviewChangeAddressesIssue(change, issue)).toBe(true);
@@ -147,7 +147,7 @@ describe("resume review changes", () => {
       ...original,
       projects: [{
         ...original.projects[0],
-        highlights: ["参与需求分析：", "整理复盘材料。"],
+        highlights: ["參與需求分析：", "整理回顧材料。"],
       }],
     };
 
@@ -159,20 +159,20 @@ describe("resume review changes", () => {
       ...original,
       projects: [{
         ...original.projects[0],
-        highlights: ["独立完成需求分析并推进验证。", original.projects[0].highlights[1]],
+        highlights: ["獨立完成需求分析並推進驗證。", original.projects[0].highlights[1]],
       }],
     };
     const [change] = buildResumeReviewChanges(original, optimized);
     const issue = {
       id: "issue-location",
       section: "projects" as const,
-      location: "项目经历 > 课程推荐系统 > 第 1 条",
+      location: "專案經歷 > 課程推薦系統 > 第 1 條",
       severity: "high" as const,
       category: "clarity" as const,
-      title: "个人行动不清楚",
-      evidence: "参与需求分析与方案规划",
-      explanation: "引用内容与实际原文略有差异。",
-      suggestion: "明确个人行动。",
+      title: "個人行動不清楚",
+      evidence: "參與需求分析與方案規劃",
+      explanation: "引用內容與實際原文略有差異。",
+      suggestion: "明確個人行動。",
     };
 
     expect(resumeReviewChangeAddressesIssue(change, issue)).toBe(true);

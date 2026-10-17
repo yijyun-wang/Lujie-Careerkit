@@ -111,7 +111,7 @@ type ResumeOptimizationRequest = {
   diagnosis: ResumeDiagnosis;
   selectedIssueIds: string[];
   additionalDirection: string;
-  locale: "zh-CN" | "en";
+  locale: "zh-TW" | "en";
 };
 type ResumeOptimizationResponse = { draft: ResumeContent; message?: string; optimization?: ResumeOptimizationMeta };
 type ResumeOptimizationView = {
@@ -364,30 +364,30 @@ export function CareerKitApp({
   async function deleteInterviewSession(sessionId: string) {
     try {
       const response = await fetch(`/api/interviews/${sessionId}`, { method: "DELETE" });
-      if (!response.ok) throw new Error("删除模拟面试失败。");
+      if (!response.ok) throw new Error("刪除模擬面試失敗。");
       setInterviewSessions((current) => current.filter((session) => session.id !== sessionId));
       if (interviewSessionId === sessionId) {
         setInterviewSessionId(undefined);
         window.history.pushState(null, "", "/interview");
       }
-      setToast("模拟面试记录已删除。");
+      setToast("模擬面試記錄已刪除。");
     } catch (error) {
-      setToast(error instanceof Error ? error.message : "删除模拟面试失败。");
+      setToast(error instanceof Error ? error.message : "刪除模擬面試失敗。");
     }
   }
 
   async function deleteInterviewPreparation(preparationId: string) {
     try {
       const response = await fetch(`/api/interviews/preparation/${preparationId}`, { method: "DELETE" });
-      if (!response.ok) throw new Error("删除面试复习资料失败。");
+      if (!response.ok) throw new Error("刪除面試複習資料失敗。");
       setInterviewPreparations((current) => current.filter((record) => record.id !== preparationId));
       if (interviewPreparationId === preparationId) {
         setInterviewPreparationId(undefined);
         window.history.pushState(null, "", "/interview");
       }
-      setToast("面试复习资料已删除。");
+      setToast("面試複習資料已刪除。");
     } catch (error) {
-      setToast(error instanceof Error ? error.message : "删除面试复习资料失败。");
+      setToast(error instanceof Error ? error.message : "刪除面試複習資料失敗。");
     }
   }
 
@@ -476,7 +476,7 @@ export function CareerKitApp({
   async function resetLocalDataToSample() {
     const result = (await postJson("/api/settings/reset-data", {})) as { data: InitialData };
     replaceLocalData(result.data);
-    setToast("本地数据已清空，并恢复示例数据。");
+    setToast("本機資料已清空，並恢復範例資料。");
     navigateTo("dashboard");
   }
 
@@ -530,7 +530,7 @@ export function CareerKitApp({
             : item,
         ),
       );
-      setToast("简历已保存到本地 SQLite。");
+      setToast("履歷已儲存到本機 SQLite。");
       return { kind: "version" as const, version: result.version };
     }
 
@@ -539,11 +539,11 @@ export function CareerKitApp({
         version: ResumeVersionView;
       };
       setVersions((items) => [result.version, ...items]);
-      setToast("新简历已保存到本地 SQLite。");
+      setToast("新履歷已儲存到本機 SQLite。");
       return { kind: "version" as const, version: result.version };
     }
 
-    if (!mainResumeVersionId) throw new Error("找不到正在编辑的基础简历。");
+    if (!mainResumeVersionId) throw new Error("找不到正在編輯的基礎履歷。");
     setResume(nextContent);
     const result = (await postJson("/api/resume", { versionId: mainResumeVersionId, content: nextContent, name })) as {
       resume: { id: string; resumeId: string; updatedAt?: string };
@@ -551,7 +551,7 @@ export function CareerKitApp({
     setMainResumeVersionId(result.resume.id);
     setMainResumeRootId(result.resume.resumeId);
     setResumeUpdatedAt(result.resume.updatedAt ?? new Date().toISOString());
-    setToast("原简历已保存到本地 SQLite。");
+    setToast("原履歷已儲存到本機 SQLite。");
     return { kind: "main" as const };
   }
 
@@ -564,7 +564,7 @@ export function CareerKitApp({
         name,
       );
     } catch (error) {
-      setToast(`修改标题失败：${formatRequestError(error)}`);
+      setToast(`修改標題失敗：${formatRequestError(error)}`);
       throw error;
     }
   }
@@ -621,7 +621,7 @@ export function CareerKitApp({
   }
 
   function deleteMainResume() {
-    const confirmed = window.confirm("删除这份基础简历及由它生成的所有优化版本？投递记录和面试资料会保留，但不再关联这份简历。此操作会真正删除数据，且无法撤销。");
+    const confirmed = window.confirm("刪除這份基礎履歷及由它生成的所有優化版本？投遞記錄和面試資料會保留，但不再關聯這份履歷。此操作會真正刪除資料，且無法復原。");
     if (!confirmed) return;
     const blank = emptyResume();
     startTransition(async () => {
@@ -654,16 +654,16 @@ export function CareerKitApp({
             : preparation,
         ));
         resetMatchIfDeleted(deletedIds);
-        setToast("原简历已删除。");
+        setToast("原履歷已刪除。");
       } catch (error) {
-        setToast(`删除失败：${formatRequestError(error)}`);
+        setToast(`刪除失敗：${formatRequestError(error)}`);
       }
     });
   }
 
   function deleteResumeVersion(versionId: string) {
     const version = versions.find((item) => item.id === versionId);
-    const confirmed = window.confirm(`删除「${version?.name || "这份简历"}」？`);
+    const confirmed = window.confirm(`刪除「${version?.name || "這份履歷"}」？`);
     if (!confirmed) return;
     const deletedIds = new Set([versionId]);
 
@@ -693,9 +693,9 @@ export function CareerKitApp({
             : preparation,
         ));
         resetMatchIfDeleted(deletedIds);
-        setToast("简历已删除。");
+        setToast("履歷已刪除。");
       } catch (error) {
-        setToast(`删除失败：${formatRequestError(error)}`);
+        setToast(`刪除失敗：${formatRequestError(error)}`);
       }
     });
   }
@@ -712,7 +712,7 @@ export function CareerKitApp({
     const applicationStatus = stage.status;
     const interviewRound = stage.interviewRound;
     if (!company || !title) {
-      setToast("公司和岗位名称都要填写。");
+      setToast("公司和職缺名稱都要填寫。");
       return Promise.resolve(false);
     }
     return new Promise((resolve) => startTransition(async () => {
@@ -720,11 +720,11 @@ export function CareerKitApp({
         const jobResult = (await postJson("/api/jobs", {
           company,
           title,
-          city: String(formData.get("city") ?? "").trim() || "待填写",
-          source: String(formData.get("source") ?? "").trim() || "企业官网",
+          city: String(formData.get("city") ?? "").trim() || "待填寫",
+          source: String(formData.get("source") ?? "").trim() || "企業官網",
           deadline: String(formData.get("deadline") ?? "") || null,
           link: String(formData.get("link") ?? ""),
-          jd: jd || notes || `${company} ${title}，暂未补充完整 JD。`,
+          jd: jd || notes || `${company} ${title}，暫未補充完整 JD。`,
         })) as { job: JobView };
         const job = normalizeJob(jobResult.job);
         const applicationResult = (await postJson("/api/applications", {
@@ -740,11 +740,11 @@ export function CareerKitApp({
           normalizeApplication(applicationResult.application),
           ...current.filter((item) => item.id !== applicationResult.application.id),
         ]);
-        setToast("投递岗位已加入跟进。");
+        setToast("投遞職缺已加入追蹤。");
         form.reset();
         resolve(true);
       } catch (error) {
-        setToast(`岗位保存失败：${formatRequestError(error)}`);
+        setToast(`職缺儲存失敗：${formatRequestError(error)}`);
         resolve(false);
       }
     }));
@@ -752,14 +752,14 @@ export function CareerKitApp({
 
   async function runMatchOptimization(input: MatchOptimizationRequest): Promise<MatchOptimizationResult> {
     const jd = input.jd.trim();
-    if (!jd) throw new Error("请先粘贴职位描述 / 任职要求。");
+    if (!jd) throw new Error("請先貼上職位描述 / 應徵條件。");
     if (!isAiReady(aiSettings)) throw new Error(aiReadinessMessage(aiSettings));
 
     const result = (await postJson("/api/jobs", {
-      company: "待填写公司",
-      title: "待分析岗位",
-      city: "待填写",
-      source: "JD匹配优化",
+      company: "待填寫公司",
+      title: "待分析職缺",
+      city: "待填寫",
+      source: "JD比對優化",
       deadline: null,
       link: "",
       jd,
@@ -809,7 +809,7 @@ export function CareerKitApp({
     setVersions((current) => [version, ...current]);
     setToast(
       tailored.message ??
-        `${cleanOptimizationLabel(tailored.analysis.title) || "目标岗位"}的优化后简历已生成。`,
+        `${cleanOptimizationLabel(tailored.analysis.title) || "目標職缺"}的優化後履歷已生成。`,
     );
 
     return {
@@ -834,12 +834,12 @@ export function CareerKitApp({
         resumeVersionId,
         status: "APPLIED",
         appliedAt: new Date().toISOString().slice(0, 10),
-        notes: "从 JD 匹配加入投递跟进。",
+        notes: "從 JD 比對加入投遞追蹤。",
       })) as { application: ApplicationView };
       setApplications((current) => [normalizeApplication(result.application), ...current]);
-      setToast("已加入投递岗位跟进。");
+      setToast("已加入投遞職缺追蹤。");
     } catch (error) {
-      setToast(`加入投递跟进失败：${formatRequestError(error)}`);
+      setToast(`加入投遞追蹤失敗：${formatRequestError(error)}`);
     }
   }
 
@@ -910,7 +910,7 @@ export function CareerKitApp({
         { kind: "version", id: result.version.id },
         result.version.name,
       );
-      if (saved.kind !== "version") throw new Error("通用优化版本保存失败。");
+      if (saved.kind !== "version") throw new Error("通用優化版本儲存失敗。");
       version = normalizeVersion(saved.version);
     } else {
       const sourceResumeId = result.sourceVersionId
@@ -918,9 +918,9 @@ export function CareerKitApp({
           ? mainResumeRootId
           : versions.find((item) => item.id === result.sourceVersionId)?.resumeId
         : mainResumeRootId;
-      if (!sourceResumeId) throw new Error("找不到通用优化的来源简历。");
+      if (!sourceResumeId) throw new Error("找不到通用優化的來源履歷。");
       version = normalizeVersion(((await postJson("/api/resume-versions", {
-          name: optimization.versionName || `AI优化-${buildResumeDisplayName(result.before, "未命名简历")}`,
+          name: optimization.versionName || `AI優化-${buildResumeDisplayName(result.before, "未命名履歷")}`,
           summary: optimization.summary,
           content: persistedContent,
           baseResume: result.before,
@@ -971,7 +971,7 @@ export function CareerKitApp({
       diagnosis: input.diagnosis,
       selectedIssueIds: input.selectedIssueIds,
       additionalDirection: input.additionalDirection,
-      locale: document.documentElement.lang === "en" ? "en" : "zh-CN",
+      locale: document.documentElement.lang === "en" ? "en" : "zh-TW",
     });
     setResumeOptimizationResult({
       ...result,
@@ -1004,7 +1004,7 @@ export function CareerKitApp({
     const title = String(formData.get("title") ?? "").trim();
     const stage = parsePipelineStage(formData.get("stage") ?? formData.get("status"));
     if (!jobId || !applicationId || !company || !title) {
-      setToast("公司和岗位名称都要填写。");
+      setToast("公司和職缺名稱都要填寫。");
       return Promise.resolve(false);
     }
 
@@ -1016,9 +1016,9 @@ export function CareerKitApp({
             applicationId,
             company,
             title,
-            source: String(formData.get("source") ?? "").trim() || "企业官网",
+            source: String(formData.get("source") ?? "").trim() || "企業官網",
             link: String(formData.get("link") ?? "").trim(),
-            jd: String(formData.get("jd") ?? "").trim() || `${company} ${title}，暂未补充完整 JD。`,
+            jd: String(formData.get("jd") ?? "").trim() || `${company} ${title}，暫未補充完整 JD。`,
             status: stage.status,
             interviewRound: stage.interviewRound,
             stageDate: String(formData.get("stageDate") ?? "") || null,
@@ -1034,10 +1034,10 @@ export function CareerKitApp({
         setApplications((current) =>
           current.map((item) => (item.id === application.id ? { ...item, ...application } : item)),
         );
-        setToast(`${company} 的投递信息已更新。`);
+        setToast(`${company} 的投遞資訊已更新。`);
         resolve(true);
       } catch (error) {
-        setToast(`投递信息保存失败：${formatRequestError(error)}`);
+        setToast(`投遞資訊儲存失敗：${formatRequestError(error)}`);
         resolve(false);
       }
     }));
@@ -1052,9 +1052,9 @@ export function CareerKitApp({
           throw new Error(message);
         }
         setApplications((current) => current.filter((application) => application.id !== applicationId));
-        setToast("已从投递跟进移除，岗位档案和资料仍保留。");
+        setToast("已從投遞追蹤移除，職缺檔案和資料仍保留。");
       } catch (error) {
-        setToast(`删除失败：${formatRequestError(error)}`);
+        setToast(`刪除失敗：${formatRequestError(error)}`);
       }
     });
   }
@@ -1070,9 +1070,9 @@ export function CareerKitApp({
             item.id === applicationId ? { ...item, ...normalizeApplication(result.application) } : item,
           ),
         );
-        setToast(`状态已更新为「${statusMeta[status].label}」。`);
+        setToast(`狀態已更新為「${statusMeta[status].label}」。`);
       } catch (error) {
-        setToast(`状态更新失败：${formatRequestError(error)}`);
+        setToast(`狀態更新失敗：${formatRequestError(error)}`);
       }
     });
   }
@@ -1102,7 +1102,7 @@ export function CareerKitApp({
       resumes={[
         ...(mainResumeVersionId ? [{
           id: mainResumeVersionId,
-          name: initialData.resume?.name ?? buildResumeDisplayName(resume, "原简历"),
+          name: initialData.resume?.name ?? buildResumeDisplayName(resume, "原履歷"),
         }] : []),
         ...versions.map((version) => ({ id: version.id, name: version.name })),
       ]}
@@ -1204,7 +1204,7 @@ export function CareerKitApp({
                   }}
                   title={resumeOptimizationStage === 1
                     ? optimizationT("review.pageTitle")
-                    : "AI优化简历完成"}
+                    : "AI優化履歷完成"}
                   description={resumeOptimizationStage === 1
                     ? optimizationT("review.pageDescription")
                     : buildOptimizationDescription(
@@ -1229,7 +1229,7 @@ export function CareerKitApp({
                       meta: currentResumeOptimizationResult.optimization,
                     },
                   )}
-                  openEditorLabel="进入编辑器修改"
+                  openEditorLabel="進入編輯器修改"
                   onOpenEditor={resumeOptimizationStage === 2 && currentResumeOptimizationResult.version
                     ? openResumeOptimizationVersion
                     : undefined}
@@ -1316,7 +1316,7 @@ export function CareerKitApp({
               key={interviewSessionId ?? interviewPreparationId ?? "setup"}
               versions={versions}
               resume={resume}
-               mainResumeName={initialData.resume?.name ?? buildResumeDisplayName(resume, "原简历")}
+               mainResumeName={initialData.resume?.name ?? buildResumeDisplayName(resume, "原履歷")}
                mainResumeVersionId={mainResumeVersionId}
               targetSessionId={interviewSessionId}
               targetPreparationId={interviewPreparationId}
@@ -1445,7 +1445,7 @@ async function postJson(url: string, body: unknown, method = "POST") {
 
 function formatRequestError(error: unknown) {
   if (error instanceof Error && error.message.trim()) return error.message.trim();
-  return "请稍后重试";
+  return "請稍後重試";
 }
 
 function readStoredOptimizationBase(content: ResumeContent) {
@@ -1476,7 +1476,7 @@ function isResumeContentRecord(value: unknown): value is ResumeContent {
 function cleanOptimizationLabel(value?: string | null) {
   const text = value?.trim() ?? "";
   if (!text) return "";
-  if (/待|未知|未识别|目标公司|目标岗位/.test(text)) return "";
+  if (/待|未知|未識別|目標公司|目標職缺/.test(text)) return "";
   return text.length > 100 ? "" : text;
 }
 

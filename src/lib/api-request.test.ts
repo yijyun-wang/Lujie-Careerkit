@@ -9,10 +9,10 @@ describe("JSON request parsing", () => {
   it("returns parsed data for a valid request", async () => {
     const result = await parseJsonRequest(new Request("http://localhost", {
       method: "POST",
-      body: JSON.stringify({ name: "  录阶  " }),
+      body: JSON.stringify({ name: "  錄階  " }),
     }), schema);
 
-    expect(result).toEqual({ success: true, data: { name: "录阶" } });
+    expect(result).toEqual({ success: true, data: { name: "錄階" } });
   });
 
   it("returns 400 for malformed JSON and schema mismatches", async () => {

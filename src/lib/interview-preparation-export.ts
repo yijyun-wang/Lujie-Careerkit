@@ -36,13 +36,13 @@ export type InterviewPreparationExportLabels = {
   evidenceLabels: Record<InterviewPreparation["capabilityProfile"]["dimensions"][number]["evidenceLevel"], string>;
 };
 
-export function buildInterviewPreparationFileName(preparation: InterviewPreparation, suffix = "面试准备资料") {
+export function buildInterviewPreparationFileName(preparation: InterviewPreparation, suffix = "面試準備資料") {
   const name = `${preparation.meta.company}-${preparation.meta.title}-${suffix}`
     .replace(/[<>:"/\\|?*\u0000-\u001F]/g, "-")
     .replace(/\s+/g, " ")
     .replace(/\s*-+\s*/g, "-")
     .trim();
-  return (name || "面试准备资料").slice(0, 100);
+  return (name || "面試準備資料").slice(0, 100);
 }
 
 export async function exportInterviewPreparationDocx(
@@ -159,7 +159,7 @@ export async function exportInterviewPreparationDocx(
     styles: {
       default: {
         document: {
-          run: { font: "Microsoft YaHei", size: 22, color: "334155" },
+          run: { font: "Microsoft JhengHei", size: 22, color: "334155" },
           paragraph: { spacing: { line: 320, after: 100 } },
         },
       },
@@ -236,7 +236,7 @@ export function buildInterviewPreparationPrintHtml(
     + `<h3>${e(labels.introduction)}</h3><p class="pre">${e(preparation.selfIntroduction)}</p><h3>${e(labels.reverseQuestions)}</h3>${list(preparation.reverseQuestions)}`;
 
   return `<!doctype html><html><head><meta charset="utf-8"><title>${e(buildInterviewPreparationFileName(preparation, labels.documentTitle))}</title><style>
-    @page{size:A4;margin:16mm 15mm}*{box-sizing:border-box}body{margin:0;color:#27364a;font:14px/1.75 "Microsoft YaHei","PingFang SC",Arial,sans-serif}
+    @page{size:A4;margin:16mm 15mm}*{box-sizing:border-box}body{margin:0;color:#27364a;font:14px/1.75 "Microsoft JhengHei","PingFang TC",Arial,sans-serif}
     header{padding:0 0 18px;border-bottom:2px solid #315f92}h1{margin:0;color:#173b63;font-size:25px}header p{margin:6px 0 0;color:#64748b}
     section{break-before:page;padding-top:2px}section:first-of-type{break-before:auto}h2{margin:18px 0 12px;color:#244a73;font-size:20px;border-bottom:1px solid #cbd5e1;padding-bottom:7px}
     h3{margin:15px 0 6px;color:#27364a;font-size:15px}h3 span{font-size:12px;color:#315f92}h4{margin:8px 0 3px}p{margin:5px 0}.lead{color:#475569}.pre{white-space:pre-wrap}

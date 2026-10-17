@@ -233,7 +233,7 @@ export const useResumeStore = create<ResumeStore>((set, get) => ({
     // Publish the promise before invoking the writer, so every caller joins the same queue.
     const pendingSave = Promise.resolve().then(async () => {
       try {
-        if (!_persistResume) throw new Error('简历保存通道不可用，请返回编辑器后重试。');
+        if (!_persistResume) throw new Error('履歷儲存通道不可用，請返回編輯器後重試。');
         await _persistResume(snapshot, { source });
         if (get()._resumeGeneration !== generation) return false;
         set((state) => {
@@ -250,7 +250,7 @@ export const useResumeStore = create<ResumeStore>((set, get) => ({
       } catch (error) {
         console.error('Failed to save resume:', error);
         if (get()._resumeGeneration === generation) {
-          set({ isDirty: true, saveError: error instanceof Error ? error.message : '保存失败' });
+          set({ isDirty: true, saveError: error instanceof Error ? error.message : '儲存失敗' });
         }
         return false;
       } finally {

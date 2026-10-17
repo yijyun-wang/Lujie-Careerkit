@@ -39,7 +39,7 @@ describe("Agent stream persistence", () => {
     vi.mocked(createAiModel).mockReturnValue(model);
     return model;
   }
-  function request(text: string, locale = "zh-CN") {
+  function request(text: string, locale = "zh-TW") {
     return new Request("http://localhost/api/agent/chat", { method: "POST", body: JSON.stringify({
       id: "thread", locale, message: { id: "current", role: "user", parts: [{ type: "text", text }] },
     }) });
@@ -68,7 +68,7 @@ describe("Agent stream persistence", () => {
 
   it("returns a readable bilingual budget error without invoking the provider or overwriting history", async () => {
     const model = setup([]);
-    const response = await POST(request("简历".repeat(5_000), "en"));
+    const response = await POST(request("履歷".repeat(5_000), "en"));
     expect(response.status).toBe(422);
     expect(await response.json()).toMatchObject({ error: expect.stringContaining("required context is too long") });
     expect(model.doStreamCalls).toHaveLength(0);
@@ -130,7 +130,7 @@ describe("Agent stream persistence", () => {
     expect(model.doStreamCalls).toHaveLength(0);
   });
 
-  async function setupApprovedWrite(locale = "zh-CN") {
+  async function setupApprovedWrite(locale = "zh-TW") {
     const pending = pendingApproval();
     const history: UIMessage[] = [{ id: "user", role: "user", parts: [{ type: "text", text: "Change the template" }] }, pending];
     setup(history);
@@ -163,7 +163,7 @@ describe("Agent stream persistence", () => {
     expect(updateResumeVersion).toHaveBeenCalledTimes(1);
   });
 
-  it.each(["zh-CN", "en"])("keeps a durable unknown result after final persistence fails (%s)", async (locale) => {
+  it.each(["zh-TW", "en"])("keeps a durable unknown result after final persistence fails (%s)", async (locale) => {
     const { send, getStored } = await setupApprovedWrite(locale);
     const save = vi.mocked(saveAgentThreadMessages).getMockImplementation()!;
     vi.mocked(saveAgentThreadMessages).mockImplementation(async (...args) => {
@@ -172,7 +172,7 @@ describe("Agent stream persistence", () => {
     });
     const response = await send();
     const resultText = await response.text();
-    expect(resultText).toContain(locale === "en" ? "check saved records" : "核对已有成果");
+    expect(resultText).toContain(locale === "en" ? "check saved records" : "核對已有成果");
     expect(updateResumeVersion).toHaveBeenCalledTimes(1);
     expect(getStored().messages.at(-1)?.parts[0]).toMatchObject({ state: "output-error", approval: { approved: true } });
     expect((await send()).status).toBe(400);
@@ -187,7 +187,7 @@ describe("Agent stream persistence", () => {
   it("does not execute or consume an approval if the budget check or checkpoint save fails", async () => {
     const { send, getStored } = await setupApprovedWrite();
     vi.mocked(getAgentThread).mockResolvedValue({ ...getStored(), messages: [
-      { id: "user", role: "user", parts: [{ type: "text", text: "简历".repeat(5_000) }] }, pendingApproval(),
+      { id: "user", role: "user", parts: [{ type: "text", text: "履歷".repeat(5_000) }] }, pendingApproval(),
     ] });
     expect((await send()).status).toBe(422);
     expect(saveAgentThreadMessages).not.toHaveBeenCalled();

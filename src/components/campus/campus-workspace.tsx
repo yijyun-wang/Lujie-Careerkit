@@ -17,7 +17,7 @@ const emptyFilters = { q: "", recruitmentType: "", target: "", location: "", com
 type FilterKey = keyof typeof emptyFilters;
 type OptionKey = keyof CampusResult["facets"] | "deadline";
 const filterGroups = ["recruitmentType", "target", "companyType", "industry", "exam", "deadline"] as const;
-const popularCities = ["北京", "上海", "广州", "深圳", "杭州", "成都", "武汉", "南京", "苏州", "西安", "重庆", "天津", "长沙", "合肥", "香港"];
+const popularCities = ["台北", "新北", "桃園", "新竹", "台中", "台南", "高雄", "遠端"];
 const sortOptions = ["updated_desc", "updated_asc", "deadline_asc", "deadline_desc", "company_asc"] as const;
 
 function FilterChoices({ label, value, options, onChange }: {

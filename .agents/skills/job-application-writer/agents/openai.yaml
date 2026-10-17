@@ -1,4 +1,4 @@
 interface:
-  display_name: "求职申请写作"
-  short_description: "根据简历、岗位和沟通渠道撰写真实克制的高匹配求职文本"
-  default_prompt: "使用 $job-application-writer 根据我的简历和岗位信息撰写合适的求职申请文本。"
+  display_name: "求職申請寫作"
+  short_description: "根據履歷、職缺和溝通管道撰寫真實克制的高契合度求職文本"
+  default_prompt: "使用 $job-application-writer 根據我的履歷和職缺資訊撰寫合適的求職申請文本。"

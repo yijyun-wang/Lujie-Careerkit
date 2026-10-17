@@ -37,7 +37,7 @@ export function ApplicationMessageDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations("resumeWorkbench.applicationMessageDialog");
-  const locale = useLocale() === "en" ? "en" : "zh-CN";
+  const locale = useLocale() === "en" ? "en" : "zh-TW";
   const [kind, setKind] = useState<ApplicationMessageKind>("cover-letter");
   const [jd, setJd] = useState("");
   const [extraContext, setExtraContext] = useState("");

@@ -7,7 +7,7 @@ describe("resume theme normalization", () => {
     expect(normalizeResumeTheme({
       primaryColor: "#172554",
       accentColor: "#2563eb",
-      fontFamily: "'Noto Sans SC'",
+      fontFamily: "'Noto Sans TC'",
       fontSize: "large",
       logoSize: "small",
       lineSpacing: 1.6,
@@ -17,7 +17,7 @@ describe("resume theme normalization", () => {
     })).toEqual({
       primaryColor: "#172554",
       accentColor: "#2563eb",
-      fontFamily: "'Noto Sans SC'",
+      fontFamily: "'Noto Sans TC'",
       fontSize: "large",
       logoSize: "small",
       lineSpacing: 1.6,

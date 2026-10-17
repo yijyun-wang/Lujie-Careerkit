@@ -7,7 +7,7 @@ describe("resume docx style mapping", () => {
     const config = buildDocxThemeConfig({
       primaryColor: "#172554",
       accentColor: "#2563eb",
-      fontFamily: "'Noto Sans SC'",
+      fontFamily: "'Noto Sans TC'",
       fontSize: "large",
       lineSpacing: 1.6,
       margin: { top: 24, right: 32, bottom: 28, left: 36 },
@@ -17,7 +17,7 @@ describe("resume docx style mapping", () => {
 
     expect(config.primaryColor).toBe("172554");
     expect(config.accentColor).toBe("2563EB");
-    expect(config.font).toBe("Noto Sans SC");
+    expect(config.font).toBe("Noto Sans TC");
     expect(config.sizes.body).toBe(24);
     expect(config.sizes.h1).toBe(45);
     expect(config.lineTwips).toBe(384);
@@ -38,7 +38,7 @@ describe("resume docx style mapping", () => {
 
     expect(config.primaryColor).toBe("1A1A2E");
     expect(config.accentColor).toBe("E94560");
-    expect(config.font).toBe("Microsoft YaHei");
+    expect(config.font).toBe("Microsoft JhengHei");
     expect(config.sizes.body).toBe(21);
     expect(config.lineTwips).toBe(264);
   });

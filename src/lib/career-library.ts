@@ -310,9 +310,11 @@ export function normalizeCompanyIdentity(company: string) {
     .normalize("NFKC")
     .trim()
     .toLocaleLowerCase()
-    .replace(/[（(](?:中国|china|北京|上海|深圳|杭州|广州|香港|hongkong|hk)[)）]/giu, "")
+    .replace(/[（(](?:台灣|臺灣|taiwan|中國|china|北京|上海|深圳|杭州|廣州|香港|hongkong|hk|日本|japan)[)）]/giu, "")
     .replace(/[\s·•._—–,，。-]+/g, "")
-    .replace(/(?:股份有限公司|有限责任公司|集团有限公司|集团公司|有限公司|公司)$/u, "")
+    .replace(/^(?:日商|美商|英商|德商|法商|韓商|港商|荷商|瑞士商|新加坡商)/u, "")
+    .replace(/(?:台灣|臺灣)?分公司$/u, "")
+    .replace(/(?:股份有限公司|有限責任公司|集團有限公司|集團公司|有限公司|公司)$/u, "")
     .replace(/(?:companylimited|coltd|corporation|incorporated|limited|corp|inc|ltd|llc|plc)$/u, "");
 }
 
@@ -455,5 +457,5 @@ function closestJob(jobs: JobView[], createdAt: string) {
 }
 
 function isPlaceholderCompany(company: string) {
-  return /待填写|未知|未识别|unknown|target company/i.test(company);
+  return /待填寫|未知|未識別|unknown|target company/i.test(company);
 }

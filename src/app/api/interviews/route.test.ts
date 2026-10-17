@@ -40,11 +40,11 @@ describe("interview routes", () => {
       resumeVersionId: null,
       mode: "comprehensive",
       context: {
-        company: "腾讯",
-        title: "产品运营实习生",
-        jd: "负责用户研究、活动复盘和数据分析",
-        resumeName: "主简历",
-        resume: { basics: { name: "陈同学" } },
+        company: "騰訊",
+        title: "產品營運實習生",
+        jd: "負責使用者研究、活動回顧和資料分析",
+        resumeName: "主履歷",
+        resume: { basics: { name: "陳同學" } },
       },
     };
     const response = await POST(jsonRequest("http://localhost/api/interviews", body));
@@ -75,8 +75,8 @@ describe("interview routes", () => {
 
   it("saves user edits to mock interview questions, answers and feedback", async () => {
     const edited = {
-      context: { company: "腾讯", title: "产品经理", jd: "负责产品规划", resumeName: "主简历", resume: {} },
-      questions: [{ id: "q1", category: "general", prompt: "请介绍项目经历", focus: "项目能力", order: 0 }],
+      context: { company: "騰訊", title: "產品經理", jd: "負責產品規劃", resumeName: "主履歷", resume: {} },
+      questions: [{ id: "q1", category: "general", prompt: "請介紹專案經歷", focus: "專案能力", order: 0 }],
       answers: { q1: { questionId: "q1", content: "我的回答", skipped: false, updatedAt: "2026-08-23T00:00:00.000Z" } },
       feedback: null,
     };

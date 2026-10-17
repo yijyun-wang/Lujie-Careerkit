@@ -11,7 +11,7 @@ describe("thread save protection", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     vi.spyOn(Date, "now").mockReturnValue(new Date(timestamp).getTime());
-    db.findUnique.mockResolvedValue({ id: "thread", title: "新对话", createdAt: new Date(timestamp), updatedAt: new Date(timestamp) });
+    db.findUnique.mockResolvedValue({ id: "thread", title: "新對話", createdAt: new Date(timestamp), updatedAt: new Date(timestamp) });
     db.updateMany.mockResolvedValue({ count: 1 });
   });
   afterEach(() => vi.restoreAllMocks());
@@ -44,13 +44,13 @@ describe("deriveThreadTitle", () => {
   it("uses the first user message without leaking later conversation text", () => {
     expect(deriveThreadTitle([
       { id: "a", role: "assistant", parts: [{ type: "text", text: "你好" }] },
-      { id: "u", role: "user", parts: [{ type: "text", text: "  帮我记录   字节跳动前端实习生  " }] },
-      { id: "u2", role: "user", parts: [{ type: "text", text: "不应该用这句" }] },
-    ] as never)).toBe("帮我记录 字节跳动前端实习生");
+      { id: "u", role: "user", parts: [{ type: "text", text: "  幫我記錄   字節跳動前端實習生  " }] },
+      { id: "u2", role: "user", parts: [{ type: "text", text: "不應該用這句" }] },
+    ] as never)).toBe("幫我記錄 字節跳動前端實習生");
   });
 
   it("caps long titles and keeps an empty thread usable", () => {
-    expect(deriveThreadTitle([])).toBe("新对话");
+    expect(deriveThreadTitle([])).toBe("新對話");
     expect([...deriveThreadTitle([
       { id: "u", role: "user", parts: [{ type: "text", text: "a".repeat(50) }] },
     ] as never)]).toHaveLength(28);
@@ -58,9 +58,9 @@ describe("deriveThreadTitle", () => {
 
   it("repairs legacy empty or duplicate message ids while reading history", () => {
     const messages = parseStoredMessages(JSON.stringify([
-      { id: "", role: "assistant", parts: [{ type: "text", text: "旧消息" }] },
-      { id: "same", role: "user", parts: [{ type: "text", text: "第一条" }] },
-      { id: "same", role: "assistant", parts: [{ type: "text", text: "第二条" }] },
+      { id: "", role: "assistant", parts: [{ type: "text", text: "舊訊息" }] },
+      { id: "same", role: "user", parts: [{ type: "text", text: "第一條" }] },
+      { id: "same", role: "assistant", parts: [{ type: "text", text: "第二條" }] },
     ]));
 
     expect(messages.map((message) => message.id)).toEqual([

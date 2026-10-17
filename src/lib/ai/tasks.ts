@@ -37,11 +37,11 @@ export async function runAiObjectTask<TSchema extends z.ZodType>(
   dependencies: { generateObject?: AiObjectExecutor; model?: LanguageModel } = {},
 ): Promise<AiTaskResult<z.infer<TSchema>>> {
   if (input.settings.requiresApiKey && !input.settings.apiKey) {
-    return fallbackResult(input, "缺少 API Key，请先在设置页保存对应模型服务的密钥。");
+    return fallbackResult(input, "缺少 API Key，請先在設定頁儲存對應模型服務的金鑰。");
   }
 
   if (!input.settings.enabled) {
-    return fallbackResult(input, "当前使用本地规则结果。请在设置中连接 AI 后获取模型分析。");
+    return fallbackResult(input, "當前使用本地規則結果。請在設定中連線 AI 後獲取模型分析。");
   }
 
   try {
@@ -73,10 +73,10 @@ export async function testAiConnection(
     {
       settings: { ...settings, enabled: true },
       schema: connectionTestSchema,
-      system: "你是连接测试助手。请只返回 JSON，不要 Markdown。",
-      prompt: '返回 {"ok": true} 表示连接可用。',
+      system: "你是連線測試助手。請只返回 JSON，不要 Markdown。",
+      prompt: '返回 {"ok": true} 表示連線可用。',
       fallback: { ok: false },
-      taskLabel: "连接测试",
+      taskLabel: "連線測試",
     },
     dependencies,
   );
@@ -92,8 +92,8 @@ async function defaultGenerateObject<TSchema extends z.ZodType>(input: {
   const schemaDescription = JSON.stringify(z.toJSONSchema(input.schema));
   const result = await generateText({
     model: input.model,
-    system: `${input.system}\n必须仅返回一个 JSON 对象，不要使用 Markdown 代码块。`,
-    prompt: `JSON Schema：\n${schemaDescription}\n\n任务：\n${input.prompt}`,
+    system: `${input.system}\n必須僅返回一個 JSON 物件，不要使用 Markdown 程式碼塊。`,
+    prompt: `JSON Schema：\n${schemaDescription}\n\n任務：\n${input.prompt}`,
     temperature: input.temperature,
   });
 

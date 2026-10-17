@@ -4,9 +4,9 @@ import type { RedactedAiSettings } from "./settings";
 import { isAiReady } from "./readiness";
 
 const configuredSettings: RedactedAiSettings = {
-  aiProvider: "deepseek",
-  aiModel: "deepseek-v4-flash",
-  aiBaseUrl: "https://api.deepseek.com/v1",
+  aiProvider: "gemini",
+  aiModel: "gemini-3.8-flash",
+  aiBaseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
   aiEnabled: true,
   aiTemperature: 0.3,
   aiLastTestedAt: null,

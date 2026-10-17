@@ -41,8 +41,8 @@ export function EditableList({ label, items, onChange, placeholder }: EditableLi
               variant="ghost"
               size="sm"
               className="h-8 w-8 shrink-0 cursor-pointer p-0 text-zinc-400 hover:text-red-500"
-              aria-label={`删除${label}第${index + 1}项`}
-              title={`删除${label}第${index + 1}项`}
+              aria-label={`刪除${label}第${index + 1}項`}
+              title={`刪除${label}第${index + 1}項`}
               onClick={() => removeItem(index)}
             >
               <X className="h-3.5 w-3.5" />
@@ -56,7 +56,7 @@ export function EditableList({ label, items, onChange, placeholder }: EditableLi
           className="h-7 cursor-pointer gap-1 text-xs"
         >
           <Plus className="h-3 w-3" />
-          添加{label}
+          新增{label}
         </Button>
       </div>
     </div>

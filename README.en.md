@@ -8,8 +8,18 @@
   <strong>A career Agent workspace from resume editing to offer acceptance, covering resume editing, JD matching, application tracking, mock interviews, reviews, and more.</strong>
 </p>
 <p align="center">
-  English · <a href="README.md">简体中文</a>
+  English · <a href="README.md">繁體中文</a>
 </p>
+
+> [!NOTE]
+> **Taiwan-localized fork.** This repository is a fork of [Chozzc/Lujie-Careerkit](https://github.com/Chozzc/Lujie-Careerkit) adapted for job searching in Taiwan:
+> - the UI, AI prompts, and Agent Skills use **Traditional Chinese (Taiwan)** and Taiwanese terminology;
+> - application channels and sample data use Taiwanese platforms and companies (104, 1111, CakeResume, Yourator, LinkedIn, etc.);
+> - **the mainland-China campus recruitment catalog has been removed** (the campus module and its agent search tool are hidden);
+> - **no China-hosted online services**: DeepSeek, Qwen/Alibaba Bailian, Kimi, Zhipu, Doubao, MiniMax and SiliconFlow were removed; official Google Gemini and Anthropic Claude APIs were added; image/scanned resumes are parsed by your chosen multimodal model;
+> - scenarios cover internships, new graduates, and experienced job changers.
+>
+> Design, features, and licensing belong to the original author; the rest of this README largely follows upstream, with differences noted.
 
 <p align="center">
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs" />
@@ -24,11 +34,11 @@ https://github.com/user-attachments/assets/d4c1a1bb-4461-4c03-99cd-44d9ac6e4dfc
 
 ## Overview
 
-LuJie CareerKit is built for internships, campus recruiting, and career job searches. It brings resume editing, JD matching, career-material organization, interview preparation, mock practice, and application tracking into an Agent-driven workspace. You can maintain multiple resume versions for different roles, generate more relevant resumes and interview materials from a JD, and continuously organize every analysis, practice session, and application update.
+LuJie CareerKit is built for internships, new-graduate, and experienced job searches. It brings resume editing, JD matching, career-material organization, interview preparation, mock practice, and application tracking into an Agent-driven workspace. You can maintain multiple resume versions for different roles, generate more relevant resumes and interview materials from a JD, and continuously organize every analysis, practice session, and application update.
 
 ## Online Preview
 
-Try the live preview at [https://lujie.chozzc.dev](https://lujie.chozzc.dev). Personal data in the online preview stays in the current browser and does not automatically synchronize with local source or Docker installations.
+Try the upstream live preview at [https://lujie.chozzc.dev](https://lujie.chozzc.dev) (Simplified Chinese, without this fork's Taiwan localization). Personal data in the online preview stays in the current browser and does not automatically synchronize with local source or Docker installations.
 
 ## Feature Demos
 
@@ -46,7 +56,7 @@ Try the live preview at [https://lujie.chozzc.dev](https://lujie.chozzc.dev). Pe
     </td>
   </tr>
   <tr>
-    <th width="50%">Campus Recruitment</th>
+    <th width="50%">Campus Recruitment (upstream; hidden in this fork)</th>
     <th width="50%">Resume Editor</th>
   </tr>
   <tr>
@@ -87,14 +97,13 @@ Try the live preview at [https://lujie.chozzc.dev](https://lujie.chozzc.dev). Pe
 
 - **Structured resume editing**: maintain multiple resume versions, create an independent copy of any resume to try different edits, edit education, internship, project, skill, and custom sections, switch templates and themes, and export PDF, PNG, or editable DOCX files.
 - **AI resume analysis**: diagnose action-result structure, evidence, clarity, and organization first; let the user choose which issues and directions to address; then create an independent optimized version while preserving the original.
-- **Cover letters and recruiter greetings**: combine the current resume, a complete JD, and user-provided availability details to generate a formal cover letter or a concise recruiter-chat opener, then edit, copy, or regenerate the result.
+- **Cover letters and recruiter greetings**: combine the current resume, a complete JD, and user-provided availability details to generate a formal cover letter or a concise application message for 104/1111 "主動應徵" or CakeResume-style platforms, then edit, copy, or regenerate the result.
 - **JD matching**: paste a complete JD with the company, full role title, requirements, and responsibilities, then let AI diagnose evidence, reorder emphasis, improve wording, and save a role-specific version without inventing experience.
 - **Role-specific interview prep**: combine a selected resume with a complete JD to generate and save a guide with an overview, capability profile, evidence gaps, core knowledge, experience deep dives, targeted questions, and a preparation plan, then export the complete guide as an editable Word document or print-ready PDF.
 - **Application tracking**: record companies, roles, sources, stages, deadlines, follow-up dates, notes, JD text, and linked resume versions.
 - **Mock interviews and review**: generate interview questions from a resume and JD, save answer drafts, and create an AI review report you can revisit.
 - **Career materials library**: organize original JDs, tailored resumes, interview prep guides, mock answers, and AI reviews by role or material type, with per-artifact viewing, editing, and deletion.
-- **Campus recruitment library**: filter recruitment records by keywords, recruitment type, graduation cohort, location, and more; view positions or eligible majors, deadline information, and recruitment links.
-- **In-app agent**: search campus opportunities, saved jobs and privacy-filtered resumes, open specific recruitment details, then select parameters and confirm creating independent resumes, JD-tailored versions, interview guides, mock interviews, resume-template changes, or application-card updates.
+- **In-app agent**: search saved jobs and privacy-filtered resumes, then select parameters and confirm creating independent resumes, JD-tailored versions, interview guides, mock interviews, resume-template changes, or application-card updates.
 - **Job-search Agent Skills**: reuse LuJie's refined workflows for resume improvement, interview preparation, mock interviews, and job application writing in coding agents such as Codex and Claude Code.
 - **Data and privacy controls**: resumes, jobs, applications, generated materials, agent conversations, and settings are stored in a local SQLite database for long-term personal use.
 
@@ -108,17 +117,15 @@ For example:
 
 | Goal | Example request |
 | --- | --- |
-| Discover opportunities | Find software-related campus recruitment in Hangzhou for the 2027 graduation cohort, and open one record's details. |
-| Schedule a follow-up | Find my Baidu application, set the next follow-up to 2026-10-09, and append “Send a follow-up email.” |
+| Schedule a follow-up | Find my Appier application, set the next follow-up to 2026-10-09, and append "Send a follow-up email." |
 | Create a resume | Create an independent backend engineering resume from these real experiences: … |
 | Tailor a version | Use my backend resume with this complete JD and create a new tailored version: … |
-| Prepare for interviews | Generate project-focused interview preparation for my Baidu role and its tailored resume. |
+| Prepare for interviews | Generate project-focused interview preparation for my Appier role and its tailored resume. |
 | Start practice | Create a comprehensive mock interview using the same role and resume. |
 | Change appearance | Find my base resume and switch it to the classic template. |
 
 Referenced roles and resumes must exist in your library. Clarify ambiguous targets and supply a complete JD when needed. The current source can:
 
-- filter campus recruitment records from natural-language requests, paginate results, read full records, and open their details from the conversation; records are not automatically added to personal jobs or application tracking, and an unknown deadline does not mean recruitment is still open;
 - search existing jobs and application cards from natural-language requests;
 - search resumes by name, role, skill, school, company, or project, then read one complete privacy-filtered version by ID;
 - propose creating or updating an application card, then execute only after explicit confirmation;
@@ -142,7 +149,7 @@ LuJie provides more than an application interface. Four of its refined job-searc
 | `resume-improvement`     | Diagnose and improve a resume, with optional JD-specific tailoring                   |
 | `prepare-job-interview`  | Research a company and role, then build a structured interview preparation guide     |
 | `mock-interview-coach`   | Run an interactive mock interview with adaptive follow-ups and evidence-based review |
-| `job-application-writer` | Write cover letters, recruiter greetings, emails, referrals, and follow-up messages  |
+| `job-application-writer` | Write cover letters, 104 application messages, emails, referrals, and follow-up messages  |
 
 After cloning the repository, launch Codex from the project directory and describe the task directly. Codex can select the relevant skill automatically, or you can explicitly name one such as `$resume-improvement`. Claude Code and other coding agents can also read the corresponding `SKILL.md` and follow the same workflow.
 
@@ -178,6 +185,9 @@ docker run -d --name lujie-careerkit \
   -e LUJIE_SETTINGS_SECRET="replace-with-a-long-random-string" \
   ghcr.io/chozzc/lujie-careerkit:latest
 ```
+
+> [!IMPORTANT]
+> `ghcr.io/chozzc/lujie-careerkit` is the upstream image (Simplified Chinese, with the China campus catalog). To run this Taiwan fork, build it locally with `docker build -t lujie-careerkit-tw .` and use `lujie-careerkit-tw` as the image name above.
 
 Open [http://localhost:3000](http://localhost:3000). SQLite data is stored in the Docker volume `lujie-data`. API keys are configured from the in-app Settings page.
 
@@ -220,8 +230,8 @@ Open [http://localhost:3000](http://localhost:3000). The app creates the local s
 ```env
 DATABASE_URL="file:./dev.db"
 LUJIE_SETTINGS_SECRET="change-me-to-a-long-random-string"
-OPENAI_BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
-OPENAI_MODEL="qwen3.8-flash"
+OPENAI_BASE_URL="https://api.openai.com/v1"
+OPENAI_MODEL="gpt-6-luna"
 ```
 
 `OPENAI_BASE_URL` and `OPENAI_MODEL` only set first-run defaults. Configure the actual API key from the in-app Settings page.
@@ -239,7 +249,7 @@ AI is available after saving a valid configuration; test the connection first. A
 
 ### v0.4.0
 
-Campus recruitment and expanded in-app agent workflows, with stronger saving and operation-confirmation safeguards.
+Campus recruitment (hidden in this fork) and expanded in-app agent workflows, with stronger saving and operation-confirmation safeguards.
 
 #### Campus recruitment and opportunity search
 
@@ -285,7 +295,7 @@ Campus recruitment and expanded in-app agent workflows, with stronger saving and
 #### First-use guidance and sample-data updates
 
 - The initial eight-step tour covered Dashboard → Connect AI → Meet the agent → Resume editing → JD matching → Interview assistant → Career materials library → Application tracking.
-- Added six structured sample roles and one complete Baidu workflow covering a base resume, tailored resume, professional interview preparation, eight complete mock answers, per-question feedback, and an AI review.
+- Added six structured sample roles and one complete sample workflow (replaced with a Taiwanese Appier example in this fork) covering a base resume, tailored resume, professional interview preparation, eight complete mock answers, per-question feedback, and an AI review.
 - Added “Remove sample data” in Settings. It removes built-in sample roles, the sample resume, and generated sample materials while preserving user-created data and AI settings. “Reset and restore sample data” remains the full local reset action.
 
 ### v0.2.5
@@ -328,7 +338,6 @@ Dockerfile              Production container image definition
 docker-compose.yml      Local Docker startup with persistent SQLite volume
 prisma/                 Prisma schema and local SQLite runtime data
 scripts/                Database migration scripts
-data/campus/            Published recruitment snapshot; local intake and archives ignored
 src/app/                Next.js pages and API routes
 src/components/         Workspace, resume, interview, and shared UI
 src/hooks/              Browser hooks such as speech recognition

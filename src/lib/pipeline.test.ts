@@ -31,9 +31,9 @@ describe("pipeline presentation helpers", () => {
     const overview = buildPipelineOverview(
       {
         jobs: [
-          { id: "job-1", source: "手动录入", deadline: "2026-06-10" },
-          { id: "job-2", source: "内推", deadline: "2026-06-20" },
-          { id: "job-3", source: "Boss", deadline: null },
+          { id: "job-1", source: "手動錄入", deadline: "2026-06-10" },
+          { id: "job-2", source: "內部推薦", deadline: "2026-06-20" },
+          { id: "job-3", source: "104", deadline: null },
         ],
         applications: [
           {
@@ -66,19 +66,19 @@ describe("pipeline presentation helpers", () => {
     expect(overview.interviewRate).toBe(67);
     expect(overview.statusCounts.map((item) => String(item.status))).not.toContain("READY");
     expect(overview.sourceCounts).toEqual([
-      { source: "企业官网", count: 1 },
-      { source: "内推", count: 1 },
-      { source: "BOSS直聘", count: 1 },
+      { source: "企業官網", count: 1 },
+      { source: "內部推薦", count: 1 },
+      { source: "104人力銀行", count: 1 },
     ]);
   });
 
   it("provides common company and source options for application entry", () => {
-    expect(companySuggestions).toContain("字节跳动");
-    expect(companySuggestions).toContain("腾讯");
+    expect(companySuggestions).toContain("台積電");
+    expect(companySuggestions).toContain("聯發科");
     expect(applicationSourceOptions).toEqual(
-      expect.arrayContaining(["实习僧", "BOSS直聘", "猎聘", "企业官网", "内推", "邮件", "其他"]),
+      expect.arrayContaining(["104人力銀行", "1111人力銀行", "CakeResume", "LinkedIn", "企業官網", "內部推薦", "電子郵件", "其他"]),
     );
-    expect(applicationSourceOptions).not.toContain("手动录入");
+    expect(applicationSourceOptions).not.toContain("手動錄入");
   });
 
   it("defaults the next follow-up date to one week after applying", () => {
@@ -105,7 +105,7 @@ describe("pipeline presentation helpers", () => {
       updatedAt: "2026-06-08T09:00:00.000Z",
     });
 
-    expect(timeline.map((item) => item.label)).toEqual(["已投递", "笔试 / 测评", "面试中", "Offer"]);
+    expect(timeline.map((item) => item.label)).toEqual(["已投遞", "筆試 / 線上測驗", "面試中", "Offer"]);
     expect(timeline.map((item) => item.tone)).toEqual(["done", "done", "current", "future"]);
     expect(timeline[0].date).toBe("2026-06-01");
     expect(timeline[2].date).toBe("2026-06-08T09:00:00.000Z");
@@ -118,7 +118,7 @@ describe("pipeline presentation helpers", () => {
       updatedAt: "2026-06-08",
     });
 
-    expect(timeline.map((item) => item.label)).toEqual(["已投递", "笔试 / 测评", "面试中", "拒绝"]);
+    expect(timeline.map((item) => item.label)).toEqual(["已投遞", "筆試 / 線上測驗", "面試中", "拒絕"]);
     expect(timeline.map((item) => item.tone)).toEqual(["done", "future", "future", "terminal"]);
   });
 });

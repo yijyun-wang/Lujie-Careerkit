@@ -100,7 +100,7 @@ export function ResumeThemePanel({
             className="w-full rounded-lg border border-line bg-surface-low px-3 py-2 text-sm outline-none focus:border-primary"
           >
             <option value="Inter">Inter</option>
-            <option value="'Noto Sans SC'">Noto Sans SC</option>
+            <option value="'Noto Sans TC'">Noto Sans TC</option>
             <option value="system-ui">System UI</option>
             <option value="Georgia">Georgia</option>
             <option value="Arial">Arial</option>

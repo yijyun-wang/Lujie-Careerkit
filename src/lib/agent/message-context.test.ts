@@ -6,7 +6,7 @@ import { AgentContextError, estimateContextTokens, prepareAgentContext } from ".
 describe("Agent model context", () => {
   it("keeps many short turns instead of dropping everything before message twelve", () => {
     const messages: ModelMessage[] = Array.from({ length: 40 }, (_, index) => ({
-      role: index % 2 ? "assistant" : "user", content: `第 ${index} 条`,
+      role: index % 2 ? "assistant" : "user", content: `第 ${index} 條`,
     }));
     expect(prepareAgentContext(messages)).toEqual(messages);
   });
@@ -27,7 +27,7 @@ describe("Agent model context", () => {
   });
 
   it("counts Chinese and emoji conservatively instead of treating four characters as one token", () => {
-    expect(estimateContextTokens("校招岗位")).toBeGreaterThanOrEqual(12);
+    expect(estimateContextTokens("校園徵才職缺")).toBeGreaterThanOrEqual(12);
     expect(estimateContextTokens("😀")).toBeGreaterThanOrEqual(4);
   });
 
@@ -66,7 +66,7 @@ describe("Agent model context", () => {
   });
 
   it("rejects an oversized current turn without silently truncating it", () => {
-    const messages: ModelMessage[] = [{ role: "user", content: "简历".repeat(5_000) }];
+    const messages: ModelMessage[] = [{ role: "user", content: "履歷".repeat(5_000) }];
     expect(() => prepareAgentContext(messages)).toThrow(AgentContextError);
     expect(messages[0].content).toHaveLength(10_000);
   });

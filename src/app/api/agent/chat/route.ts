@@ -12,7 +12,7 @@ export const maxDuration = 60;
 
 const requestSchema = z.object({
   id: z.string().trim().min(1),
-  locale: z.enum(["zh-CN", "en"]).default("zh-CN"),
+  locale: z.enum(["zh-TW", "en"]).default("zh-TW"),
   message: z.object({
     id: z.string().min(1),
     role: z.enum(["user", "assistant"]),
@@ -23,14 +23,14 @@ const requestSchema = z.object({
 
 export async function POST(request: Request) {
   const parsed = requestSchema.safeParse(await request.json().catch(() => null));
-  if (!parsed.success) return Response.json({ error: "对话请求无效。" }, { status: 400 });
+  if (!parsed.success) return Response.json({ error: "對話請求無效。" }, { status: 400 });
 
   const thread = await getAgentThread(parsed.data.id);
-  if (!thread) return Response.json({ error: "对话不存在。" }, { status: 404 });
+  if (!thread) return Response.json({ error: "對話不存在。" }, { status: 404 });
 
   const settings = await getEffectiveAiRuntimeSettings();
   if (!settings.enabled) {
-    return Response.json({ error: "请先在设置中完成 AI Provider 与 API Key 配置。" }, { status: 503 });
+    return Response.json({ error: "請先在設定中完成 AI Provider 與 API Key 配置。" }, { status: 503 });
   }
 
   const agent = createCareerAgent(settings, parsed.data.locale);
@@ -38,11 +38,11 @@ export async function POST(request: Request) {
   try {
     messages = mergeLatestMessage(thread.messages, parsed.data.message as UIMessage);
   } catch {
-    return Response.json({ error: "对话消息顺序无效。" }, { status: 400 });
+    return Response.json({ error: "對話訊息順序無效。" }, { status: 400 });
   }
   const uncertainResult = parsed.data.locale === "en"
     ? "This approval was accepted, but the result is not yet confirmed. Reopen the conversation and check saved records before requesting another operation; this approval will not run again."
-    : "这次确认已接收，但执行结果尚未确认。请重新打开对话并核对已有成果，再决定是否发起新操作；这次确认不会重复执行。";
+    : "這次確認已接收，但執行結果尚未確認。請重新開啟對話並核對已有成果，再決定是否發起新操作；這次確認不會重複執行。";
   let revision = thread.updatedAt;
   const onError = (error: unknown) => {
     if (error instanceof AgentContextError) return parsed.data.locale === "en"
@@ -85,7 +85,7 @@ export async function POST(request: Request) {
     if (TypeValidationError.isInstance(error)) {
       return Response.json({ error: parsed.data.locale === "en"
         ? "The conversation history is incompatible with the current tools."
-        : "对话历史与当前工具定义不兼容。" }, { status: 400 });
+        : "對話歷史與當前工具定義不相容。" }, { status: 400 });
     }
     return Response.json({ error: onError(error) }, { status: error instanceof AgentContextError ? 422
       : error instanceof AgentThreadConflictError ? 409 : 500 });

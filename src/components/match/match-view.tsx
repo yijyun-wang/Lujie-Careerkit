@@ -492,9 +492,9 @@ function getMatchOptimizationMode(result: MatchOptimizationResult): "jd" | "gene
 export function buildMatchResultTitle(
   result: MatchOptimizationResult,
   labels: { general: string; jdComplete: string; jdPrefix: string } = {
-    general: "AI优化简历完成",
-    jdComplete: "JD匹配优化完成",
-    jdPrefix: "JD匹配优化",
+    general: "AI優化履歷完成",
+    jdComplete: "JD比對優化完成",
+    jdPrefix: "JD比對優化",
   },
 ) {
   if (getMatchOptimizationMode(result) === "general") return labels.general;
@@ -515,7 +515,7 @@ export function buildMatchResultTitle(
 function cleanResultTitlePart(value?: string | null) {
   const text = value?.trim() ?? "";
   if (!text) return "";
-  if (/待|未知|未识别|目标公司|目标岗位/.test(text)) return "";
+  if (/待|未知|未識別|目標公司|目標職缺/.test(text)) return "";
   return text.length > 100 ? "" : text;
 }
 
@@ -523,10 +523,10 @@ function buildSyntheticJobForVersion(version: MatchResumeVersionView): MatchJobV
   const isGeneralAiVersion = !version.jobId;
   return {
     id: version.jobId ?? `version-${version.id}`,
-    company: isGeneralAiVersion ? "" : "本地优化版本",
+    company: isGeneralAiVersion ? "" : "本地優化版本",
     title: isGeneralAiVersion ? "" : version.name,
-    city: "待填写",
-    source: isGeneralAiVersion ? "AI简历优化" : "JD匹配优化",
+    city: "待填寫",
+    source: isGeneralAiVersion ? "AI履歷優化" : "JD比對優化",
     jd: version.summary || version.name,
     link: "",
     deadline: null,

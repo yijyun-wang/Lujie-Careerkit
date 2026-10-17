@@ -6,21 +6,21 @@ import type { PersonalInfoContent, SkillsContent, WorkExperienceContent } from "
 
 const baseResume: ResumeContent = {
   basics: {
-    name: "林泽宇",
+    name: "林澤宇",
     email: "linzeyu@example.com",
     phone: "139 0000 0000",
     city: "杭州",
     links: ["github.com/linzeyu"],
   },
   profile: {
-    title: "后端开发实习生",
+    title: "後端開發實習生",
     summary: "",
   },
   education: [
     {
-      school: "浙江某大学",
-      degree: "本科",
-      major: "软件工程",
+      school: "浙江某大學",
+      degree: "學士",
+      major: "軟體工程",
       start: "2022",
       end: "2026",
       highlights: ["GPA 3.8/4.0"],
@@ -28,32 +28,32 @@ const baseResume: ResumeContent = {
   ],
   experiences: [
     {
-      company: "校内云计算实验室",
-      role: "研发助理",
+      company: "校內雲端計算實驗室",
+      role: "研發助理",
       start: "2024-09",
       end: "2025-01",
-      highlights: ["维护 Spring Boot 课程平台接口。"],
+      highlights: ["維護 Spring Boot 課程平台介面。"],
     },
   ],
   internships: [
     {
-      company: "网易",
-      role: "后端开发实习生",
+      company: "網易",
+      role: "後端開發實習生",
       start: "2025-06",
       end: "2025-09",
-      highlights: ["参与订单查询接口改造，将慢查询比例降低 23%。"],
+      highlights: ["參與訂單查詢介面改造，將慢查詢比例降低 23%。"],
     },
   ],
   projects: [
     {
-      name: "校园二手交易平台",
-      role: "后端负责人",
-      highlights: ["设计用户、商品、订单和消息模块。"],
+      name: "校園二手交易平台",
+      role: "後端負責人",
+      highlights: ["設計使用者、商品、訂單和訊息模組。"],
     },
   ],
   skills: [],
   awards: ["CET-6"],
-  selfReview: "工程基础扎实，习惯用数据复盘问题。",
+  selfReview: "工程基礎紮實，習慣用資料回顧問題。",
 };
 
 describe("resume content adapter", () => {
@@ -72,13 +72,13 @@ describe("resume content adapter", () => {
     const jadeResume = contentToJadeResume(baseResume);
 
     expect(jadeResume.sections.map((section) => [section.type, section.title])).toEqual([
-      ["personal_info", "个人信息"],
+      ["personal_info", "個人資訊"],
       ["education", "教育背景"],
-      ["work_experience", "工作经历"],
-      ["internship_experience", "实习经历"],
-      ["projects", "项目经历"],
-      ["certifications", "资格证书"],
-      ["self_evaluation", "自我评价"],
+      ["work_experience", "工作經歷"],
+      ["internship_experience", "實習經歷"],
+      ["projects", "專案經歷"],
+      ["certifications", "資格證書"],
+      ["self_evaluation", "自我評價"],
     ]);
   });
 
@@ -88,10 +88,10 @@ describe("resume content adapter", () => {
 
     expect(content.internships).toHaveLength(1);
     expect(content.internships[0]).toMatchObject({
-      company: "网易",
-      role: "后端开发实习生",
+      company: "網易",
+      role: "後端開發實習生",
     });
-    expect(content.selfReview).toBe("工程基础扎实，习惯用数据复盘问题。");
+    expect(content.selfReview).toBe("工程基礎紮實，習慣用資料回顧問題。");
   });
 
   it("keeps editor-only personal fields after saving and reopening", () => {
@@ -101,7 +101,7 @@ describe("resume content adapter", () => {
       ...(personalInfo!.content as PersonalInfoContent),
       age: "22",
       gender: "男",
-      politicalStatus: "共青团员",
+      politicalStatus: "共青團員",
       wechat: "linzeyu",
       avatar: "data:image/jpeg;base64,avatar",
     };
@@ -112,7 +112,7 @@ describe("resume content adapter", () => {
     expect(reopenedPersonalInfo).toMatchObject({
       age: "22",
       gender: "男",
-      politicalStatus: "共青团员",
+      politicalStatus: "共青團員",
       wechat: "linzeyu",
       avatar: "data:image/jpeg;base64,avatar",
     });
@@ -153,7 +153,7 @@ describe("resume content adapter", () => {
   it("keeps personal summary separate from self evaluation", () => {
     const reopened = contentToJadeResume({
       ...baseResume,
-      profile: { ...baseResume.profile, summary: "专注后端开发。" },
+      profile: { ...baseResume.profile, summary: "專注後端開發。" },
       selfReview: "",
     });
     const summary = reopened.sections.find((section) => section.type === "summary")?.content as
@@ -163,7 +163,7 @@ describe("resume content adapter", () => {
       | { text: string }
       | undefined;
 
-    expect(summary?.text).toBe("专注后端开发。");
+    expect(summary?.text).toBe("專注後端開發。");
     expect(selfEvaluation?.text).toBe("");
 
     const edited = contentToJadeResume(baseResume);
@@ -174,14 +174,14 @@ describe("resume content adapter", () => {
         ...selfEvaluationSection,
         id: "summary",
         type: "summary",
-        title: "个人简介",
-        content: { text: "新增的个人简介。" },
+        title: "個人簡介",
+        content: { text: "新增的個人簡介。" },
       },
     ];
 
     const reopenedEditor = contentToJadeResume(jadeResumeToContent(edited));
     expect(reopenedEditor.sections.find((section) => section.type === "summary")?.content).toEqual({
-      text: "新增的个人简介。",
+      text: "新增的個人簡介。",
     });
     expect(reopenedEditor.sections.some((section) => section.type === "self_evaluation")).toBe(false);
   });
@@ -193,7 +193,7 @@ describe("resume content adapter", () => {
       experiences: [
         {
           ...savedContent.experiences[0],
-          highlights: ["围绕 JD 强化后的经历表述。"],
+          highlights: ["圍繞 JD 強化後的經歷表述。"],
         },
       ],
     };
@@ -201,7 +201,7 @@ describe("resume content adapter", () => {
     const reopened = contentToJadeResume(optimizedContent);
     const work = reopened.sections.find((section) => section.type === "work_experience")?.content as WorkExperienceContent;
 
-    expect(work.items[0].highlights).toEqual(["围绕 JD 强化后的经历表述。"]);
+    expect(work.items[0].highlights).toEqual(["圍繞 JD 強化後的經歷表述。"]);
   });
 
   it("recovers decimal text already damaged by the legacy list-prefix cleanup", () => {
@@ -323,18 +323,18 @@ describe("resume content adapter", () => {
   it("applies newer custom-section content over a stale editor snapshot", () => {
     const savedContent = jadeResumeToContent(contentToJadeResume({
       ...baseResume,
-      customSections: [{ title: "主要优势", content: "熟悉 Python。" }],
+      customSections: [{ title: "主要優勢", content: "熟悉 Python。" }],
     }));
-    savedContent.customSections = [{ title: "主要优势", content: "熟悉 Python，并具备 AI 项目落地经验。" }];
+    savedContent.customSections = [{ title: "主要優勢", content: "熟悉 Python，並具備 AI 專案落地經驗。" }];
 
     const reopened = contentToJadeResume(savedContent);
     const custom = reopened.sections.find((section) => section.type === "custom");
 
     expect(jadeResumeToContent(reopened).customSections).toEqual([
-      { title: "主要优势", content: "熟悉 Python，并具备 AI 项目落地经验。" },
+      { title: "主要優勢", content: "熟悉 Python，並具備 AI 專案落地經驗。" },
     ]);
     expect(custom?.content).toMatchObject({
-      items: [expect.objectContaining({ description: "熟悉 Python，并具备 AI 项目落地经验。" })],
+      items: [expect.objectContaining({ description: "熟悉 Python，並具備 AI 專案落地經驗。" })],
     });
   });
 

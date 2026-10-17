@@ -51,7 +51,7 @@ describe("clearSampleData", () => {
         id: "user-recreated-application",
         jobId: sampleApplication.jobId,
         status: "APPLIED",
-        notes: "用户重新创建的投递卡片",
+        notes: "使用者重新建立的投遞卡片",
       },
     });
 
@@ -69,14 +69,14 @@ describe("clearSampleData", () => {
 
   it("preserves user-created artifacts that reuse a sample job without an application", async () => {
     const sampleJob = await database.job.findFirstOrThrow();
-    const resume = await database.resume.create({ data: { name: "用户简历" } });
+    const resume = await database.resume.create({ data: { name: "使用者履歷" } });
     const version = await database.resumeVersion.create({
       data: {
         id: "user-tailored-version",
         resumeId: resume.id,
         jobId: sampleJob.id,
-        name: "用户定制简历",
-        summary: "用户生成的岗位定制版本",
+        name: "使用者客製履歷",
+        summary: "使用者生成的職缺客製版本",
         content: {},
       },
     });

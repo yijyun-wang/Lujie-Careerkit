@@ -81,7 +81,7 @@ export function validateAiSettingsInput(input: AiSettingsInput) {
   const baseUrl = parsed.aiBaseUrl || provider.baseUrl;
 
   if (!isValidUrl(baseUrl)) {
-    throw new Error("Base URL 格式不正确。");
+    throw new Error("Base URL 格式不正確。");
   }
 
   return {

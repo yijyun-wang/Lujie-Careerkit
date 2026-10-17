@@ -66,7 +66,7 @@ export function PagedResumePreview({ resume, zoom, smartOnePage }: PagedResumePr
       <div className="flex flex-col items-center gap-7">
         {pagination.smartOnePageOverflow && (
           <div className="max-w-[520px] rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-center text-xs leading-5 text-amber-800">
-            当前内容超过智能一页的可读范围，已保持分页预览。请删减或精简文字后再使用智能一页。
+            目前內容超過智慧一頁的可讀範圍，已保持分頁預覽。請刪減或精簡文字後再使用智慧一頁。
           </div>
         )}
         {pagination.pageSlices.map((pageSlice, pageIndex) => (
@@ -117,10 +117,10 @@ export function PagedResumePreview({ resume, zoom, smartOnePage }: PagedResumePr
 
             <div className="flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] text-zinc-500 shadow-sm ring-1 ring-zinc-200">
               <span>
-                第 {pageIndex + 1} / {pagination.pageCount} 页
+                第 {pageIndex + 1} / {pagination.pageCount} 頁
               </span>
               {pagination.smartOnePageApplied && pagination.fitScale < 1 && (
-                <span>智能一页 {Math.round(pagination.fitScale * 100)}%</span>
+                <span>智慧一頁 {Math.round(pagination.fitScale * 100)}%</span>
               )}
             </div>
           </div>

@@ -1,7 +1,7 @@
 import type { ThemeConfig } from "@/types/resume";
 import { normalizeResumeTheme } from "./resume-theme";
 
-const FALLBACK_FONT = "Microsoft YaHei";
+const FALLBACK_FONT = "Microsoft JhengHei";
 
 const FONT_SIZE_PX: Record<string, { body: number; h1: number; h2: number; h3: number }> = {
   small: { body: 12, h1: 22, h2: 15, h3: 13 },

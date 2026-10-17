@@ -4,8 +4,8 @@ import { preserveConfirmedJobLabel } from "./repository";
 
 describe("job identity", () => {
   it("fills placeholders once and preserves confirmed or manually corrected names", () => {
-    expect(preserveConfirmedJobLabel("待填写公司", "字节跳动")).toBe("字节跳动");
-    expect(preserveConfirmedJobLabel("字节跳动", "抖音AI")).toBe("字节跳动");
-    expect(preserveConfirmedJobLabel("AI 产品实习生", "其他岗位")).toBe("AI 产品实习生");
+    expect(preserveConfirmedJobLabel("待填寫公司", "字節跳動")).toBe("字節跳動");
+    expect(preserveConfirmedJobLabel("字節跳動", "抖音AI")).toBe("字節跳動");
+    expect(preserveConfirmedJobLabel("AI 產品實習生", "其他職缺")).toBe("AI 產品實習生");
   });
 });

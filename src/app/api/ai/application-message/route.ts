@@ -13,7 +13,7 @@ const schema = z.object({
   jd: z.string().trim().min(1).max(50_000),
   resume: resumeContentInputSchema,
   extraContext: z.string().trim().max(2_000).optional().default(""),
-  locale: z.enum(["zh-CN", "en"]).optional().default("zh-CN"),
+  locale: z.enum(["zh-TW", "en"]).optional().default("zh-TW"),
 });
 
 export function GET() {
@@ -37,6 +37,6 @@ export async function POST(request: Request) {
       message: result.message,
     });
   } catch {
-    return Response.json({ message: "求职信生成失败，请稍后重试。" }, { status: 500 });
+    return Response.json({ message: "求職信生成失敗，請稍後重試。" }, { status: 500 });
   }
 }

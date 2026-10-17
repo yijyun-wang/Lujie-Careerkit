@@ -11,10 +11,11 @@ import type { ResumeSection, PersonalInfoContent } from '@/types/resume';
 
 const personalSelectOptions = {
   gender: ['男', '女', '其他'],
-  politicalStatus: ['群众', '共青团员', '中共党员', '中共预备党员', '民主党派', '其他'],
-  ethnicity: ['汉族', '蒙古族', '回族', '藏族', '维吾尔族', '壮族', '满族', '其他'],
+  // Keys kept for data compatibility: politicalStatus = 兵役狀況, ethnicity = 國籍.
+  politicalStatus: ['役畢', '免役', '替代役畢', '服役中', '未役', '不適用'],
+  ethnicity: ['台灣', '日本', '美國', '香港', '馬來西亞', '其他'],
   maritalStatus: ['未婚', '已婚', '其他'],
-  educationLevel: ['专科', '本科', '硕士', '博士', '其他'],
+  educationLevel: ['專科', '學士', '碩士', '博士', '其他'],
 };
 
 function toOptions(options: string[]) {
@@ -65,7 +66,7 @@ export function PersonalInfoSection({ section, onUpdate }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { currentResume, updateThemeConfig } = useResumeStore();
   const avatarStyle = currentResume?.themeConfig?.avatarStyle || 'oneInch';
-  const avatarButtonLabel = content.avatar ? '更换头像' : '上传头像';
+  const avatarButtonLabel = content.avatar ? '更換頭像' : '上傳頭像';
 
   const updateAvatarStyle = (style: 'circle' | 'oneInch') => {
     if (!currentResume) return;
@@ -92,7 +93,7 @@ export function PersonalInfoSection({ section, onUpdate }: Props) {
           className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-dashed border-zinc-300 bg-zinc-50 transition-colors hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:border-zinc-500 dark:hover:bg-zinc-700"
         >
           {content.avatar ? (
-            <img src={content.avatar} alt="头像" className="h-full w-full object-cover" />
+            <img src={content.avatar} alt="頭像" className="h-full w-full object-cover" />
           ) : (
             <Camera className="h-6 w-6 text-zinc-400" />
           )}
@@ -101,8 +102,8 @@ export function PersonalInfoSection({ section, onUpdate }: Props) {
           {/* Segmented shape toggle */}
           <div className="inline-flex rounded-lg bg-zinc-100 p-0.5 dark:bg-zinc-800">
             {([
-              { value: 'circle' as const, icon: Circle, label: '圆形头像' },
-              { value: 'oneInch' as const, icon: RectangleVertical, label: '一寸照头像' },
+              { value: 'circle' as const, icon: Circle, label: '圓形頭像' },
+              { value: 'oneInch' as const, icon: RectangleVertical, label: '大頭照' },
             ]).map(({ value, icon: Icon, label }) => (
               <button
                 key={value}
@@ -125,8 +126,8 @@ export function PersonalInfoSection({ section, onUpdate }: Props) {
             <button
               type="button"
               onClick={() => onUpdate({ avatar: '' })}
-              aria-label="移除头像"
-              title="移除头像"
+              aria-label="移除頭像"
+              title="移除頭像"
               className="inline-flex w-fit cursor-pointer items-center gap-1 rounded-md px-2 py-0.5 text-[11px] text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
             >
               <X className="h-3 w-3" />

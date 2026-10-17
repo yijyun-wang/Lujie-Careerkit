@@ -12,14 +12,14 @@ const namedResume: ResumeContent = {
     links: ["github.com/alexchen"],
   },
   profile: {
-    title: "数据分析方向学生",
+    title: "資料分析方向學生",
     summary: "",
   },
   education: [
     {
-      school: "上海交通大学",
-      degree: "本科",
-      major: "信息管理",
+      school: "上海交通大學",
+      degree: "學士",
+      major: "資訊管理",
       start: "2023",
       end: "2027",
       highlights: ["GPA 3.8/4.0"],
@@ -28,23 +28,23 @@ const namedResume: ResumeContent = {
   experiences: [],
   internships: [
     {
-      company: "校园创新中心",
-      role: "产品运营助理",
+      company: "校園創新中心",
+      role: "產品營運助理",
       start: "2025-03",
       end: "2025-06",
-      highlights: ["整理用户反馈并输出复盘报告。"],
+      highlights: ["整理使用者反饋並輸出回顧報告。"],
     },
   ],
   projects: [
     {
-      name: "课程项目数据看板",
-      role: "数据分析负责人",
-      highlights: ["使用 SQL 处理数据并支持 A/B 测试复盘。"],
+      name: "課程專案資料看板",
+      role: "資料分析負責人",
+      highlights: ["使用 SQL 處理資料並支援 A/B 測試回顧。"],
     },
   ],
-  skills: ["用户研究", "活动复盘", "SQL", "A/B 测试"],
+  skills: ["使用者研究", "活動回顧", "SQL", "A/B 測試"],
   awards: [],
-  selfReview: "关注数据分析和用户增长。",
+  selfReview: "關注資料分析和使用者增長。",
 };
 
 describe("buildTailoredResumeVersion", () => {
@@ -54,29 +54,29 @@ describe("buildTailoredResumeVersion", () => {
 
     const version = buildTailoredResumeVersion({
       masterResume: master,
-      job: { id: "job-1", company: "腾讯", title: "产品运营实习生" },
+      job: { id: "job-1", company: "騰訊", title: "產品營運實習生" },
       analysis: {
-        company: "腾讯",
-        title: "产品运营实习生",
+        company: "騰訊",
+        title: "產品營運實習生",
         deadline: "2026-06-18",
-        requirements: ["数据分析", "用户研究", "活动复盘"],
-        keywords: ["SQL", "用户研究", "A/B 测试"],
-        bonusPoints: ["有校园社群经验"],
+        requirements: ["資料分析", "使用者研究", "活動回顧"],
+        keywords: ["SQL", "使用者研究", "A/B 測試"],
+        bonusPoints: ["有校園社群經驗"],
         risks: [],
-        suggestions: ["把课程项目里的数据分析经历前置。"],
+        suggestions: ["把課程專案裡的資料分析經歷前置。"],
       },
     });
 
     expect(JSON.stringify(master)).toBe(before);
-    expect(version.name).toBe("JD匹配优化-Alex Chen-产品运营实习生");
+    expect(version.name).toBe("JD比對優化-Alex Chen-產品營運實習生");
     expect(version.summary).toContain("SQL");
     expect(version.content.skills[0]).toBe("SQL");
     expect(version.content.projects[0].highlights).toEqual(master.projects[0].highlights);
   });
 
   it("names optimized resumes from the resume owner and JD title", () => {
-    expect(buildOptimizedResumeVersionName(namedResume, "数据分析实习生")).toBe(
-      "JD匹配优化-Alex Chen-数据分析实习生",
+    expect(buildOptimizedResumeVersionName(namedResume, "資料分析實習生")).toBe(
+      "JD比對優化-Alex Chen-資料分析實習生",
     );
 
     expect(
@@ -84,10 +84,10 @@ describe("buildTailoredResumeVersion", () => {
         {
           ...namedResume,
           basics: { ...namedResume.basics, name: "" },
-          editor: { ...namedResume.editor, displayName: "王梓涵的简历" },
+          editor: { ...namedResume.editor, displayName: "王梓涵的履歷" },
         },
-        "大模型算法工程师",
+        "大型語言模型演算法工程師",
       ),
-    ).toBe("JD匹配优化-王梓涵-大模型算法工程师");
+    ).toBe("JD比對優化-王梓涵-大型語言模型演算法工程師");
   });
 });

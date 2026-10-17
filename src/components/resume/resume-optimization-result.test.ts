@@ -8,15 +8,15 @@ import {
 import type { ResumeContent } from "@/lib/types";
 
 const baseResume: ResumeContent = {
-  basics: { name: "陈同学", email: "", phone: "", city: "", links: [] },
-  profile: { title: "AI 产品经理", summary: "关注 AI 产品。" },
+  basics: { name: "陳同學", email: "", phone: "", city: "", links: [] },
+  profile: { title: "AI 產品經理", summary: "關注 AI 產品。" },
   education: [],
   experiences: [],
   internships: [],
   projects: [],
-  skills: ["AI 产品"],
+  skills: ["AI 產品"],
   awards: [],
-  customSections: [{ title: "主要优势与技能认证", content: "AIGC 全栈创作者。" }],
+  customSections: [{ title: "主要優勢與技能認證", content: "AIGC 全端創作者。" }],
   selfReview: "",
 };
 
@@ -24,53 +24,53 @@ describe("resume optimization result helpers", () => {
   it("keeps personal summary and self-review labels distinct", () => {
     const personalSummary = {
       ...baseResume,
-      profile: { ...baseResume.profile, summary: "突出 AI 产品规划经验。" },
+      profile: { ...baseResume.profile, summary: "突出 AI 產品規劃經驗。" },
     };
     const selfReview = {
       ...baseResume,
-      selfReview: "关注真实业务中的产品落地。",
+      selfReview: "關注真實業務中的產品落地。",
     };
 
-    expect(buildResumeDiffSections(baseResume, personalSummary)[0]?.title).toBe("个人简介");
-    expect(buildResumeDiffSections(baseResume, selfReview)[0]?.title).toBe("自我评价");
+    expect(buildResumeDiffSections(baseResume, personalSummary)[0]?.title).toBe("個人簡介");
+    expect(buildResumeDiffSections(baseResume, selfReview)[0]?.title).toBe("自我評價");
   });
 
   it("reports custom section changes in diff and summary", () => {
     const optimized: ResumeContent = {
       ...baseResume,
-      customSections: [{ title: "主要优势与技能认证", content: "具备 AIGC 全链路创作经验。" }],
+      customSections: [{ title: "主要優勢與技能認證", content: "具備 AIGC 全鏈路創作經驗。" }],
     };
 
     expect(buildResumeDiffSections(baseResume, optimized)).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           key: "customSections",
-          title: "自定义模块",
-          previewTitles: ["主要优势与技能认证"],
+          title: "自訂模組",
+          previewTitles: ["主要優勢與技能認證"],
         }),
       ]),
     );
     expect(buildOptimizationSummary(baseResume, optimized, { mode: "general" })).toContainEqual({
-      label: "调整范围",
-      value: "自定义模块",
+      label: "調整範圍",
+      value: "自訂模組",
     });
     expect(buildOptimizationDescription(baseResume, optimized, { mode: "general" })).toContain(
-      "本次主要调整了自定义模块",
+      "本次主要調整了自訂模組",
     );
   });
 
   it("ignores whitespace-only custom section differences", () => {
     const optimized: ResumeContent = {
       ...baseResume,
-      customSections: [{ title: "主要优势与技能认证", content: "  AIGC   全栈创作者。\n" }],
+      customSections: [{ title: "主要優勢與技能認證", content: "  AIGC   全端創作者。\n" }],
     };
 
     expect(buildResumeDiffSections(baseResume, optimized)).not.toEqual(
       expect.arrayContaining([expect.objectContaining({ key: "customSections" })]),
     );
     expect(buildOptimizationSummary(baseResume, optimized, { mode: "general" })).toContainEqual({
-      label: "调整范围",
-      value: "保留原结构，仅调整表达重点。",
+      label: "調整範圍",
+      value: "保留原結構，僅調整表達重點。",
     });
   });
 
@@ -78,36 +78,36 @@ describe("resume optimization result helpers", () => {
     const meta = {
       company: "",
       title: "",
-      keywords: ["AI 产品"],
-      summary: "已精简自定义模块与自我评价。",
-      changes: ["自我评价", "自定义模块"],
-      versionName: "AI优化-陈同学",
+      keywords: ["AI 產品"],
+      summary: "已精簡自訂模組與自我評價。",
+      changes: ["自我評價", "自訂模組"],
+      versionName: "AI優化-陳同學",
     };
 
     expect(buildOptimizationDescription(baseResume, baseResume, { mode: "general", meta })).toBe(
-      "已完成 AI 优化检查，本次未发现明显结构变化。右侧简历没有明显高亮模块，可以进入编辑器继续复核。",
+      "已完成 AI 優化檢查，本次未發現明顯結構變化。右側履歷沒有明顯高亮模組，可以進入編輯器繼續複核。",
     );
   });
 
   it("prefers AI-provided summary metadata for result copy", () => {
     const optimized: ResumeContent = {
       ...baseResume,
-      profile: { ...baseResume.profile, summary: "突出 AI 产品规划与落地经验。" },
+      profile: { ...baseResume.profile, summary: "突出 AI 產品規劃與落地經驗。" },
     };
     const meta = {
-      company: "腾讯",
-      title: "产品经理实习生",
-      keywords: ["AI 产品", "用户研究"],
-      summary: "已围绕腾讯产品经理实习生岗位强化 AI 产品规划、用户研究和项目落地证据。",
-      changes: ["自我评价", "项目经历"],
-      versionName: "JD匹配优化-陈同学-腾讯产品经理实习生",
+      company: "騰訊",
+      title: "產品經理實習生",
+      keywords: ["AI 產品", "使用者研究"],
+      summary: "已圍繞騰訊產品經理實習生職缺強化 AI 產品規劃、使用者研究和專案落地證據。",
+      changes: ["自我評價", "專案經歷"],
+      versionName: "JD比對優化-陳同學-騰訊產品經理實習生",
     };
 
     expect(buildOptimizationDescription(baseResume, optimized, { mode: "jd", meta })).toContain(meta.summary);
     expect(buildOptimizationSummary(baseResume, optimized, { mode: "jd", meta })).toEqual(
       expect.arrayContaining([
-        { label: "岗位关键词", value: "AI 产品、用户研究" },
-        { label: "调整范围", value: "自我评价、项目经历" },
+        { label: "職缺關鍵字", value: "AI 產品、使用者研究" },
+        { label: "調整範圍", value: "自我評價、專案經歷" },
       ]),
     );
   });
@@ -115,20 +115,20 @@ describe("resume optimization result helpers", () => {
   it("keeps general AI optimization copy away from JD wording and internal field names", () => {
     const optimized: ResumeContent = {
       ...baseResume,
-      profile: { ...baseResume.profile, summary: "聚焦 AI 产品规划与核心能力。" },
-      customSections: [{ title: "主要优势与技能认证", content: "具备 AIGC 全链路创作与落地经验。" }],
+      profile: { ...baseResume.profile, summary: "聚焦 AI 產品規劃與核心能力。" },
+      customSections: [{ title: "主要優勢與技能認證", content: "具備 AIGC 全鏈路創作與落地經驗。" }],
     };
     const meta = {
       company: "",
       title: "",
-      keywords: ["AI Agent开发", "知识图谱", "大模型应用"],
-      summary: "profile.summary增加技术栈与核心能力定位、projects.highlights采用动作方法结果结构、customSections拆分为技术栈模块。",
+      keywords: ["AI Agent開發", "知識圖譜", "大型語言模型應用"],
+      summary: "profile.summary增加技術棧與核心能力定位、projects.highlights採用動作方法結果結構、customSections拆分為技術棧模組。",
       changes: [
-        "profile.summary增加技术栈与核心能力定位",
-        "projects.highlights采用动作+方法+结果的三段式结构",
-        "customSections拆分为技术栈与知识产权双模块",
+        "profile.summary增加技術棧與核心能力定位",
+        "projects.highlights採用動作+方法+結果的三段式結構",
+        "customSections拆分為技術棧與智慧財產權雙模組",
       ],
-      versionName: "AI优化-陈同学-核心能力",
+      versionName: "AI優化-陳同學-核心能力",
     };
 
     const summaryItems = buildOptimizationSummary(baseResume, optimized, { mode: "general", meta });
@@ -136,11 +136,11 @@ describe("resume optimization result helpers", () => {
 
     expect(summaryItems).toEqual(
       expect.arrayContaining([
-        { label: "能力关键词", value: "AI Agent开发、知识图谱、大模型应用" },
-        { label: "调整范围", value: "个人简介、自定义模块" },
+        { label: "能力關鍵字", value: "AI Agent開發、知識圖譜、大型語言模型應用" },
+        { label: "調整範圍", value: "個人簡介、自訂模組" },
       ]),
     );
-    expect(JSON.stringify(summaryItems)).not.toContain("岗位关键词");
+    expect(JSON.stringify(summaryItems)).not.toContain("職缺關鍵字");
     expect(JSON.stringify(summaryItems)).not.toContain("profile.summary");
     expect(JSON.stringify(summaryItems)).not.toContain("projects.highlights");
     expect(JSON.stringify(summaryItems)).not.toContain("customSections");

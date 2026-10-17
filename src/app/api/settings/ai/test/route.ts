@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       try {
         input = JSON.parse(rawBody);
       } catch {
-        return Response.json({ message: "AI 设置测试参数格式不正确。" }, { status: 400 });
+        return Response.json({ message: "AI 設定測試引數格式不正確。" }, { status: 400 });
       }
 
       await updateAiSettings(input as AiSettingsInput);
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     return Response.json(
-      { message: error instanceof Error ? error.message : "AI 连接测试失败。" },
+      { message: error instanceof Error ? error.message : "AI 連線測試失敗。" },
       { status: 400 },
     );
   }

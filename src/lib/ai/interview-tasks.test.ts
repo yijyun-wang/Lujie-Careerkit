@@ -10,10 +10,10 @@ describe("interview AI tasks", () => {
   it("builds a balanced eight-question comprehensive fallback", () => {
     const questions = buildInterviewQuestionFallback({
       mode: "comprehensive",
-      company: "腾讯",
-      title: "产品运营实习生",
-      jd: "负责用户研究、活动复盘和 SQL 分析",
-      resume: { projects: [{ name: "校园自习室预约体验优化" }] },
+      company: "騰訊",
+      title: "產品營運實習生",
+      jd: "負責使用者研究、活動回顧和 SQL 分析",
+      resume: { projects: [{ name: "校園自習室預約體驗優化" }] },
     });
 
     expect(questions).toHaveLength(8);
@@ -33,41 +33,41 @@ describe("interview AI tasks", () => {
   it("includes the selected resume and JD in the question prompt", () => {
     const prompt = buildInterviewQuestionPrompt({
       mode: "project",
-      company: "美团",
-      title: "后端开发实习生",
-      jd: "美团｜后端开发实习生\n要求 Java、SQL 和接口设计",
-      resume: { projects: [{ name: "校园二手交易平台" }] },
+      company: "美團",
+      title: "後端開發實習生",
+      jd: "美團｜後端開發實習生\n要求 Java、SQL 和介面設計",
+      resume: { projects: [{ name: "校園二手交易平台" }] },
     });
 
-    expect(prompt).toContain("美团");
-    expect(prompt).toContain("Java、SQL 和接口设计");
-    expect(prompt).toContain("校园二手交易平台");
+    expect(prompt).toContain("美團");
+    expect(prompt).toContain("Java、SQL 和介面設計");
+    expect(prompt).toContain("校園二手交易平台");
     expect(prompt).toContain("6 道");
-    expect(prompt).toContain("完整岗位名称");
-    expect(prompt).toContain("括号内限定词");
+    expect(prompt).toContain("完整職缺名稱");
+    expect(prompt).toContain("括號內限定詞");
   });
 
   it("removes contact details and editor settings from interview prompts", () => {
     const prompt = buildInterviewQuestionPrompt({
       mode: "project",
-      company: "美团",
-      title: "后端开发实习生",
-      jd: "要求 Java、SQL 和接口设计",
+      company: "美團",
+      title: "後端開發實習生",
+      jd: "要求 Java、SQL 和介面設計",
       resume: {
         editor: { template: "campus" },
         basics: {
-          name: "陈同学",
+          name: "陳同學",
           email: "private@example.com",
           phone: "13800000000",
           city: "上海",
           links: ["https://example.com/private"],
         },
-        profile: { title: "后端开发", summary: "关注服务端开发" },
-        projects: [{ name: "校园二手交易平台", role: "负责人", highlights: ["完成接口设计"] }],
+        profile: { title: "後端開發", summary: "關注服務端開發" },
+        projects: [{ name: "校園二手交易平台", role: "負責人", highlights: ["完成介面設計"] }],
       },
     });
 
-    expect(prompt).toContain("校园二手交易平台");
+    expect(prompt).toContain("校園二手交易平台");
     expect(prompt).toContain("上海");
     expect(prompt).not.toContain("private@example.com");
     expect(prompt).not.toContain("13800000000");
@@ -78,20 +78,20 @@ describe("interview AI tasks", () => {
   it("builds the final report prompt from answered questions and marks skipped ones", () => {
     const prompt = buildInterviewReportPrompt({
       context: {
-        company: "腾讯",
-        title: "产品运营实习生",
-        jd: "负责用户研究与数据分析",
-        resumeName: "腾讯产品运营定制版",
-        resume: { basics: { name: "陈同学" } },
+        company: "騰訊",
+        title: "產品營運實習生",
+        jd: "負責使用者研究與資料分析",
+        resumeName: "騰訊產品營運客製版",
+        resume: { basics: { name: "陳同學" } },
       },
       questions: [
-        { id: "q-1", category: "project", prompt: "介绍项目贡献", focus: "个人贡献", order: 0 },
-        { id: "q-2", category: "behavioral", prompt: "介绍一次冲突", focus: "STAR", order: 1 },
+        { id: "q-1", category: "project", prompt: "介紹專案貢獻", focus: "個人貢獻", order: 0 },
+        { id: "q-2", category: "behavioral", prompt: "介紹一次衝突", focus: "STAR", order: 1 },
       ],
       answers: {
         "q-1": {
           questionId: "q-1",
-          content: "我负责用户访谈和数据分析。",
+          content: "我負責使用者訪談和資料分析。",
           skipped: false,
           updatedAt: "2026-06-22T10:00:00.000Z",
         },
@@ -104,8 +104,8 @@ describe("interview AI tasks", () => {
       },
     });
 
-    expect(prompt).toContain("我负责用户访谈和数据分析");
-    expect(prompt).toContain("未回答 / 跳过");
-    expect(prompt).toContain("事实证据");
+    expect(prompt).toContain("我負責使用者訪談和資料分析");
+    expect(prompt).toContain("未回答 / 跳過");
+    expect(prompt).toContain("事實證據");
   });
 });
