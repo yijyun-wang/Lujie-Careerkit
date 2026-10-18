@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { normalizeResumeMonth } from "./resume-date";
 import { normalizeResumeTheme, type ResumeThemeInput } from "./resume-theme";
 import type { JsonValue, ResumeContent, SerializedResumeSection } from "./types";
 
@@ -193,8 +194,8 @@ export function normalizeResumeContent(content: ResumeContent, fallbackName = "æ
       school: clean(item.school),
       degree: clean(item.degree),
       major: clean(item.major),
-      start: clean(item.start),
-      end: clean(item.end),
+      start: normalizeResumeMonth(clean(item.start)),
+      end: normalizeResumeMonth(clean(item.end)),
       highlights: cleanList(item.highlights),
     })).filter((item) => item.school || item.major || item.highlights.length),
     experiences: normalizeWorkList(content.experiences),
@@ -291,8 +292,8 @@ function normalizeWorkList(items: ResumeContent["experiences"]) {
     company: clean(item.company),
     role: clean(item.role),
     logo: logo(item.logo),
-    start: clean(item.start),
-    end: clean(item.end),
+    start: normalizeResumeMonth(clean(item.start)),
+    end: normalizeResumeMonth(clean(item.end)),
     highlights: cleanList(item.highlights),
   })).filter((item) => item.company || item.role || item.highlights.length);
 }

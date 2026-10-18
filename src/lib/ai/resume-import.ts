@@ -91,6 +91,7 @@ function buildResumeImportPrompt(fileName: string) {
     "- education：教育背景。school/degree/major/start/end/highlights 必須存在。",
     "- experiences：正式工作經歷。company/role/start/end/highlights 必須存在。",
     "- internships：實習經歷。company/role/start/end/highlights 必須存在。",
+    "- start/end 日期一律寫成 YYYY-MM（例如 2004/9 寫成 2004-09），只有年份時寫 YYYY；仍在職或在學時 end 填「至今」。",
     "- projects：專案經歷。name/role/highlights 必須存在。highlights 必須保留原履歷 bullet 後面的正文和原順序，不要合併、刪減、潤色或重新排序。",
     "- skills：僅放“技能/專業技能/技術棧”等明確技能欄中的短關鍵字陣列；不要把“主要優勢與技能認證”“個人優勢”“作品說明”等使用者自訂標題整段拆進 skills。",
     "- awards：證書、獎項、榮譽陣列。",

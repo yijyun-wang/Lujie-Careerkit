@@ -149,6 +149,7 @@
     "pages": {
       "resumeOptimizationTitle": "AI履歷優化",
       "resumeOptimizationSubtitle": "根據目前履歷優化表達清晰度、資訊密度和成果呈現，生成可繼續編輯的專屬版本。",
+      "matchTitle": "根據該職缺的說明（Job Description）對履歷做優化",
       "matchSubtitle": "根據目標 JD 重新梳理履歷重點，強化真實經歷中的比對證據，生成可繼續編輯的專屬版本。",
       "pipelineSubtitle": "記錄投遞管道、目前階段、面試輪次和追蹤日期，把每個職缺從投遞到 Offer 的進展集中管理。",
       "interviewSubtitle": "結合所選履歷與目標職缺生成模擬問題，完成逐題練習後獲得結構化回饋與回顧建議。",

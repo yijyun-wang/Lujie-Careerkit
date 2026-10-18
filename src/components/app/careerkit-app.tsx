@@ -500,7 +500,7 @@ export function CareerKitApp({
   const pageTitle = isResumeOptimizationResult
     ? t("pages.resumeOptimizationTitle")
     : active === "match"
-      ? t("nav.match")
+      ? t("pages.matchTitle")
       : t(`nav.${navItems.find((item) => item.key === active)?.labelKey ?? "dashboard"}`);
   const pageSubtitle =
     isResumeOptimizationResult

@@ -149,6 +149,7 @@
     "pages": {
       "resumeOptimizationTitle": "AI Resume Optimization",
       "resumeOptimizationSubtitle": "Improve clarity, density, and result presentation based on the current resume, then keep editing the generated version.",
+      "matchTitle": "Optimize your resume for the job description",
       "matchSubtitle": "Reframe resume emphasis around the target JD, strengthen evidence from real experience, and generate an editable tailored version.",
       "pipelineSubtitle": "Track sources, stages, interview rounds, and follow-up dates so every application stays manageable from submission to offer.",
       "interviewSubtitle": "Generate mock questions from the selected resume and target role, practice answer by answer, and receive structured review notes.",

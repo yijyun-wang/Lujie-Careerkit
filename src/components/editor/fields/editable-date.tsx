@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { parseResumeMonth } from '@/lib/resume-date';
 
 interface EditableDateProps {
   label: string;
@@ -18,10 +19,10 @@ export function EditableDate({ label, value, onChange }: EditableDateProps) {
   const t = useTranslations('editor.fields');
   const [open, setOpen] = useState(false);
 
+  // Imported resumes may hold "2024/9", "2024年9月" or "至今" instead of "YYYY-MM".
   const [selectedYear, selectedMonth] = useMemo(() => {
-    if (!value) return ['', ''];
-    const parts = value.split('-');
-    return [parts[0] || '', parts[1] || ''];
+    const parsed = value ? parseResumeMonth(value) : null;
+    return parsed ? [parsed.year, parsed.month] : ['', ''];
   }, [value]);
 
   const [browseYear, setBrowseYear] = useState(() => {
@@ -29,9 +30,9 @@ export function EditableDate({ label, value, onChange }: EditableDateProps) {
   });
 
   const displayText = useMemo(() => {
-    if (!selectedYear || !selectedMonth) return '';
+    if (!selectedYear || !selectedMonth) return value.trim();
     return t('dateDisplay', { year: selectedYear, month: t(`months.${selectedMonth}` as any) });
-  }, [selectedYear, selectedMonth, t]);
+  }, [value, selectedYear, selectedMonth, t]);
 
   const handleMonthClick = (month: string) => {
     onChange(`${browseYear}-${month}`);
