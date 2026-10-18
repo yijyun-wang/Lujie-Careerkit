@@ -2,7 +2,7 @@ import { z } from "zod";
 import { describe, expect, it } from "vitest";
 
 import { getEffectiveAiSettings, type StoredAiSettings } from "./settings";
-import { parseAiJsonResponse, runAiObjectTask, type AiObjectExecutor } from "./tasks";
+import { parseAiJsonResponse, runAiObjectTask, toProviderJsonSchema, type AiObjectExecutor } from "./tasks";
 
 const testSchema = z.object({
   value: z.string(),
@@ -121,3 +121,13 @@ function baseSettings(): StoredAiSettings {
     aiLastTestStatus: "untested",
   };
 }
+
+describe("toProviderJsonSchema", () => {
+  it("drops keywords Gemini rejects and keeps the rest", () => {
+    const schema = toProviderJsonSchema(
+      z.toJSONSchema(z.object({ items: z.array(z.string().min(2)).min(1).max(3) })),
+    );
+    expect(JSON.stringify(schema)).not.toMatch(/"\$schema"|"maxItems"/);
+    expect(schema.properties?.items).toMatchObject({ type: "array", minItems: 1, items: { minLength: 2 } });
+  });
+});

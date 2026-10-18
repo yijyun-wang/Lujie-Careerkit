@@ -1,7 +1,7 @@
-import { generateText, type LanguageModel } from "ai";
+import { generateText, jsonSchema, Output, type JSONSchema7, type LanguageModel } from "ai";
 import { z } from "zod";
 
-import { createAiModel, getAiTemperature } from "./client";
+import { createAiModel, getAiTemperature, supportsJsonSchemaOutput } from "./client";
 import { normalizeAiError } from "./errors";
 import type { EffectiveAiSettings } from "./settings";
 
@@ -26,6 +26,7 @@ export type AiObjectExecutor = <TSchema extends z.ZodType>(input: {
   system: string;
   prompt: string;
   temperature?: number;
+  structuredOutput?: boolean;
 }) => Promise<{ object: z.infer<TSchema> }>;
 
 const connectionTestSchema = z.object({
@@ -53,6 +54,7 @@ export async function runAiObjectTask<TSchema extends z.ZodType>(
       system: input.system,
       prompt: input.prompt,
       temperature: getAiTemperature(input.settings),
+      structuredOutput: supportsJsonSchemaOutput(input.settings.providerId),
     });
 
     return {
@@ -88,16 +90,40 @@ async function defaultGenerateObject<TSchema extends z.ZodType>(input: {
   system: string;
   prompt: string;
   temperature?: number;
+  structuredOutput?: boolean;
 }) {
-  const schemaDescription = JSON.stringify(z.toJSONSchema(input.schema));
+  const schemaJson = z.toJSONSchema(input.schema);
+  const schemaDescription = JSON.stringify(schemaJson);
   const result = await generateText({
     model: input.model,
+    // Free-form JSON from long prompts occasionally drops a closing brace; a provider-enforced
+    // schema prevents that. The full Zod schema still validates the result below.
+    ...(input.structuredOutput
+      ? { output: Output.object({ schema: jsonSchema(toProviderJsonSchema(schemaJson)) }) }
+      : {}),
     system: `${input.system}\n必須僅返回一個 JSON 物件，不要使用 Markdown 程式碼塊。`,
     prompt: `JSON Schema：\n${schemaDescription}\n\n任務：\n${input.prompt}`,
     temperature: input.temperature,
   });
 
   return { object: input.schema.parse(parseAiJsonResponse(result.text)) };
+}
+
+// Gemini rejects "$schema" and "maxItems" in response_format schemas.
+const UNSUPPORTED_SCHEMA_KEYS = new Set(["$schema", "maxItems"]);
+
+export function toProviderJsonSchema(schema: object): JSONSchema7 {
+  return stripSchemaKeys(schema) as JSONSchema7;
+}
+
+function stripSchemaKeys(node: unknown): unknown {
+  if (Array.isArray(node)) return node.map(stripSchemaKeys);
+  if (!node || typeof node !== "object") return node;
+  return Object.fromEntries(
+    Object.entries(node)
+      .filter(([key]) => !UNSUPPORTED_SCHEMA_KEYS.has(key))
+      .map(([key, value]) => [key, stripSchemaKeys(value)]),
+  );
 }
 
 export function parseAiJsonResponse(text: string): unknown {

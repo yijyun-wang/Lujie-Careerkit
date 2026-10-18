@@ -11,6 +11,7 @@ export function createAiModel(config: EffectiveAiSettings) {
     name: config.providerId,
     apiKey: config.apiKey || undefined,
     baseURL: config.baseUrl,
+    supportsStructuredOutputs: supportsJsonSchemaOutput(config.providerId),
   });
 
   return provider(config.model);
@@ -21,4 +22,9 @@ export function getAiTemperature(config: EffectiveAiSettings) {
   return config.providerId === "openai" && /^gpt-[56](?:\.|-|$)/.test(config.model)
     ? undefined
     : config.temperature;
+}
+
+/** Providers whose API enforces a JSON Schema during decoding (response_format: json_schema). */
+export function supportsJsonSchemaOutput(providerId: string) {
+  return providerId === "gemini";
 }
