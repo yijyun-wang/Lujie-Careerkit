@@ -11,6 +11,14 @@ export type NormalizedAiError = {
 };
 
 export function normalizeAiError(error: unknown): NormalizedAiError {
+  // Schema validation failures carry no keyword the checks below recognize.
+  if (error instanceof Error && error.name === "ZodError") {
+    return {
+      code: "invalid_json",
+      message: "模型返回格式不符合要求，請重試或切換模型。",
+    };
+  }
+
   const text = safeErrorText(error);
   const lower = text.toLowerCase();
 

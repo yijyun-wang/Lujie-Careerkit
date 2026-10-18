@@ -1,7 +1,8 @@
-import { generateText, type LanguageModel, type ModelMessage } from "ai";
+import { generateText, jsonSchema, Output, type LanguageModel, type ModelMessage } from "ai";
+import { z } from "zod";
 
-import { createAiModel, getAiTemperature } from "./client";
-import { parseAiJsonResponse, runAiObjectTask, type AiObjectExecutor, type AiTaskResult } from "./tasks";
+import { createAiModel, getAiTemperature, supportsJsonSchemaOutput } from "./client";
+import { parseAiJsonResponse, runAiObjectTask, toProviderJsonSchema, type AiObjectExecutor, type AiTaskResult } from "./tasks";
 import type { EffectiveAiSettings } from "./settings";
 import { coerceResumeContent, normalizeResumeContent, resumeContentFromText, resumeContentSchema } from "../resume-content";
 import type { ResumeContent } from "../types";
@@ -11,6 +12,7 @@ export type ResumeFileGenerator = (input: {
   system: string;
   messages: ModelMessage[];
   temperature?: number;
+  structuredOutput?: boolean;
 }) => Promise<{ text: string }>;
 
 const RESUME_IMPORT_SYSTEM =
@@ -39,14 +41,21 @@ export async function parseResumeFileWithAi(
     system: RESUME_IMPORT_SYSTEM,
     messages: [{ role: "user", content: [{ type: "text", text: buildResumeImportPrompt(input.file.name) }, filePart] }],
     temperature: getAiTemperature(input.settings),
+    structuredOutput: supportsJsonSchemaOutput(input.settings.providerId),
   });
   if (!result.text.trim()) throw new Error("模型沒有回傳內容，請確認所選模型支援圖片或 PDF 輸入。");
   const baseName = input.file.name.replace(/\.[^.]+$/, "");
   return normalizeResumeContent(coerceResumeContent(parseAiJsonResponse(result.text), baseName), baseName);
 }
 
-async function defaultGenerate(input: Parameters<ResumeFileGenerator>[0]) {
-  const result = await generateText(input);
+async function defaultGenerate({ structuredOutput, ...input }: Parameters<ResumeFileGenerator>[0]) {
+  const result = await generateText({
+    ...input,
+    // Same provider-enforced schema as runAiObjectTask; coerceResumeContent still tolerates gaps.
+    ...(structuredOutput
+      ? { output: Output.object({ schema: jsonSchema(toProviderJsonSchema(z.toJSONSchema(resumeContentSchema))) }) }
+      : {}),
+  });
   return { text: result.text };
 }
 

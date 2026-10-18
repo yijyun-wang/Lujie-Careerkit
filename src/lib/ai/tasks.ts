@@ -106,7 +106,24 @@ async function defaultGenerateObject<TSchema extends z.ZodType>(input: {
     temperature: input.temperature,
   });
 
-  return { object: input.schema.parse(parseAiJsonResponse(result.text)) };
+  return { object: input.schema.parse(clampToSchemaLimits(parseAiJsonResponse(result.text), schemaJson)) };
+}
+
+/** Drops array items beyond the schema's maxItems so one extra entry doesn't fail the whole task. */
+export function clampToSchemaLimits(value: unknown, schema: unknown): unknown {
+  if (!schema || typeof schema !== "object") return value;
+  const node = schema as { maxItems?: number; items?: unknown; properties?: Record<string, unknown> };
+  if (Array.isArray(value)) {
+    const items = value.map((item) => clampToSchemaLimits(item, node.items));
+    return typeof node.maxItems === "number" ? items.slice(0, node.maxItems) : items;
+  }
+  if (value && typeof value === "object" && node.properties) {
+    const properties = node.properties;
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, clampToSchemaLimits(item, properties[key])]),
+    );
+  }
+  return value;
 }
 
 // Gemini rejects "$schema" and "maxItems" in response_format schemas.

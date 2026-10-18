@@ -1,8 +1,15 @@
 import { describe, expect, it } from "vitest";
+import { z } from "zod";
 
 import { normalizeAiError } from "./errors";
 
 describe("AI error normalization", () => {
+  it("treats schema validation failures as format errors", () => {
+    const result = z.object({ items: z.array(z.string()).max(1) }).safeParse({ items: ["a", "b"] });
+    expect(result.success).toBe(false);
+    expect(normalizeAiError(result.error).code).toBe("invalid_json");
+  });
+
   it("explains missing API keys", () => {
     expect(normalizeAiError(new Error("Missing API key")).message).toContain("API Key");
   });

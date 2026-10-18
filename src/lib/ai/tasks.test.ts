@@ -2,7 +2,7 @@ import { z } from "zod";
 import { describe, expect, it } from "vitest";
 
 import { getEffectiveAiSettings, type StoredAiSettings } from "./settings";
-import { parseAiJsonResponse, runAiObjectTask, toProviderJsonSchema, type AiObjectExecutor } from "./tasks";
+import { clampToSchemaLimits, parseAiJsonResponse, runAiObjectTask, toProviderJsonSchema, type AiObjectExecutor } from "./tasks";
 
 const testSchema = z.object({
   value: z.string(),
@@ -129,5 +129,20 @@ describe("toProviderJsonSchema", () => {
     );
     expect(JSON.stringify(schema)).not.toMatch(/"\$schema"|"maxItems"/);
     expect(schema.properties?.items).toMatchObject({ type: "array", minItems: 1, items: { minLength: 2 } });
+  });
+});
+
+describe("clampToSchemaLimits", () => {
+  it("trims nested arrays to maxItems and leaves other values alone", () => {
+    const schema = z.object({
+      tags: z.array(z.string()).max(2),
+      groups: z.array(z.object({ items: z.array(z.number()).max(1) })),
+      name: z.string(),
+    });
+    const clamped = clampToSchemaLimits(
+      { tags: ["a", "b", "c"], groups: [{ items: [1, 2] }], name: "x" },
+      z.toJSONSchema(schema),
+    );
+    expect(schema.parse(clamped)).toEqual({ tags: ["a", "b"], groups: [{ items: [1] }], name: "x" });
   });
 });
